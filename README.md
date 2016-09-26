@@ -45,6 +45,7 @@ This seed repo serves as an Angular 2 starter for anyone looking to get up and r
 * Material Design with [angular/material2](https://github.com/angular/material2)
 
 ### Quick start
+**Docs : http://devdocs.io/**
 **Make sure you have Node version >= 5.0 and NPM >= 3**
 > Clone/Download the repo then edit `app.ts` inside [`/src/app/app.ts`](/src/app/app.ts)
 
@@ -68,7 +69,7 @@ npm run server:dev:hmr
 # if you're in China use cnpm
 # https://github.com/cnpm/cnpm
 
-# Docs : http://devdocs.io/
+
 
 ```
 go to [http://0.0.0.0:3000](http://0.0.0.0:3000) or [http://localhost:3000](http://localhost:3000) in your browser
