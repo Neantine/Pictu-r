@@ -67,6 +67,9 @@ npm run server:dev:hmr
 
 # if you're in China use cnpm
 # https://github.com/cnpm/cnpm
+
+# Docs : http://devdocs.io/
+
 ```
 go to [http://0.0.0.0:3000](http://0.0.0.0:3000) or [http://localhost:3000](http://localhost:3000) in your browser
 
