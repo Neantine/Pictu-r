@@ -40,7 +40,7 @@ npm install
 # start the server
 npm start
 
-# use Hot Module Replacement
+# use Hot Module Replacement --
 npm run server:dev:hmr
 
 # if you're in China use cnpm
