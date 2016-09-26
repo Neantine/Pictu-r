@@ -18,8 +18,10 @@
 
 ### Quick start
 
-**Docs : http://devdocs.io/**
 **********************************************************************************************************
+
+**Docs : http://devdocs.io/**
+
 **********************************************************************************************************
 **Make sure you have Node version >= 5.0 and NPM >= 3**
 > Clone/Download the repo then edit `app.ts` inside [`/src/app/app.ts`](/src/app/app.ts)
