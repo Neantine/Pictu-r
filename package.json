@@ -27,7 +27,9 @@
     "github-deploy:dev": "webpack --config config/webpack.github-deploy.js --progress --profile --github-dev",
     "github-deploy:prod": "webpack --config config/webpack.github-deploy.js --progress --profile --github-prod",
     "github-deploy": "npm run github-deploy:dev",
+    "heroku": "npm run server:prod -- -p $PORT",
     "lint": "npm run tslint \"src/**/*.ts\"",
+    "postinstall": "npm run build:prod",
     "postversion": "git push && git push --tags",
     "prebuild:dev": "npm run clean:dist",
     "prebuild:prod": "npm run clean:dist",
@@ -135,7 +137,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/angularclass/angular2-webpack-starter.git"
+    "url": "git+https://github.com/angularclass/angular2-webpack-starter.git"
   },
   "bugs": {
     "url": "https://github.com/angularclass/angular2-webpack-starter/issues"
@@ -143,5 +145,6 @@
   "engines": {
     "node": ">= 4.2.1",
     "npm": ">= 3"
-  }
+  },
+  "main": "karma.conf.js"
 }
