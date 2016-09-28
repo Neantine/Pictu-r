@@ -3,6 +3,8 @@ var express = require('express'),
   mongoose = require('mongoose'),
   Article = mongoose.model('Article');
 
+var serverstorage = require('./filesystem-server-storage');
+
 module.exports = function (app) {
   app.use('/home', router);
 };
@@ -15,4 +17,16 @@ router.get('/', function (req, res, next) {
       articles: articles
     });
   });
+});
+
+
+router.post('/nicePic', function (req, res, next) {
+
+  var picTitle = req.body.picTitle;
+
+  serverstorage.saveFile(picTitle);
+
+  res.send(200, picTitle + " is stored");
+
+
 });

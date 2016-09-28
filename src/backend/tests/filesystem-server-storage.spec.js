@@ -22,23 +22,26 @@ describe('picturAPI', function() {
 
 
   describe('POST /user/:123/:nicePic', function() {
+
     it('should save the file named nicePic and return unique file ID', function (done) {
+
+      console.log('running tests');
+      var picToSend = { picTitle: 'nicePic'};
+
       supertest(app)
         .post('/nicePic')
-        .field('picTitle', 'nicePic')
-        .attach('pic', './image.jpg')
-        // .type('png')
-        // .type('json')
-        //.send({ picTitle: 'nicePic'})
-        .end(function(err, res){
+        .send(picToSend)
+        .expect(200)
+        .expect("nicePic is stored")
+        // .end(function(err, res){
+        //
+        //   console.log(req);
+        //   var uniqueID = serverStorage.saveFile(request.fils);
+        //   console.log(uniqueID);
+        //
+        // });
 
-          console.log(req);
-          var uniqueID = serverStorage.saveFile(request.fils);
-          console.log(uniqueID);
-
-        });
-
-      //.end(done);
+      .end(done);
 
     });
   })
