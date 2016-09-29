@@ -10,3 +10,14 @@ module.exports = function (app) {
 router.get('/images', function (req, res, next) {
   res.send('NOT IMPLEMENTED YET!');
 });
+
+router.post('/nicePic', function (req, res, next) {
+
+  var picTitle = req.body.picTitle;
+
+  serverstorage.saveFile(picTitle);
+
+  res.send(200, picTitle + " is stored");
+
+
+});
