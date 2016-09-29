@@ -10,7 +10,7 @@ describe('FileSystemServerStorage', () => {
 
   describe('POST /user/:123/:nicePic', function() {
 
-    it('should save the file named nicePic and return unique file ID', function (done) {
+    xit('should save the file named nicePic and return unique file ID', function (done) {
 
       console.log('running tests');
       var picToSend = { picTitle: 'nicePic'};
