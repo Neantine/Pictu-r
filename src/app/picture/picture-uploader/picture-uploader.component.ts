@@ -9,6 +9,8 @@ import {PictureStore} from "../picture-store";
   template: require('./picture-uploader.component.html')
 })
 
+
+
 export class PictureUploaderComponent {
 
   static PROVIDERS = [PictureStore];
@@ -18,27 +20,26 @@ export class PictureUploaderComponent {
 
 
   // TypeScript public modifiers
-  constructor(private pictureStore: PictureStore) {}
+  constructor(private pictureStore: PictureStore) {
+  }
 
   ngOnInit() {
     console.log('hello `PictureUploaderComponent` component');
-    // this.title.getData().subscribe(data => this.data = data);
   }
 
   drag(event) {
+    console.log("1111111111111111111");
+
+    if(event == undefined){
+      return;
+    }
+
     this.stopEvent(event);
 
     console.log("target",event.target.files[0]);
 
-    //this._resetPictureTitle();
-
-    //TODO maybe encode in base 64
-    // this.pictureTmp.fileToUpload = this.pictureStore.pictureDataBase64(event.target.files[0]);
-
-    //TODO add FileReader for stream data and preview the picture to send
-   // this._handleFileSelect(event.target.files[0]);
-
-    //TODO call method _canIupload to set up some style and e label
+   this._handleFileSelect(event.target.files[0]);
+    console.error("je suis la");
   }
 
   /**
@@ -59,8 +60,8 @@ export class PictureUploaderComponent {
   uploadPicture(picture : Picture){
     if (this._canIuploadThisPicture(picture)){
       this.pictureStore.uploadPicture(picture)
-        .subscribe(
-          hero  => {
+        .then(
+          picture  => {
             //TODO a reset is really necessary?????
             this._resetPictureTmp();
           },
@@ -86,7 +87,7 @@ export class PictureUploaderComponent {
   private _resetPictureTmp(){
     //TODO add verification on picture to avoid inutil reset
     this._resetPictureTitle();
-    this.pictureTmp.fileToUpload={};
+    this.pictureTmp.fileData={};
   }
 
   private  _resetPictureTitle(){
@@ -94,18 +95,16 @@ export class PictureUploaderComponent {
   }
 
   private _handleFileSelect(file){
-    //Vérification du type image
+    console.log('_handleFileSelect');
+
     // Only process image files.
     if (!file.type.match('image.*')) {
       console.log("this is not a picture")
       return;
     }
-
-    //creation de notre reader
-    var reader = new FileReader();
-
-
+    this.pictureTmp.fileData = this.pictureStore.pictureDataBase64(file);
   }
+
 
 
   private _canIuploadThisPicture(picture ){

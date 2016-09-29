@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 
 import {Picture} from "../picture/picture";
-import { Observable }     from 'rxjs/Observable';
+
 
 import { Headers, RequestOptions } from '@angular/http';
 
@@ -19,44 +19,48 @@ export class PictureStore {
   private _picturesList: Picture[] =[];
 
 
-  constructor (private http: Http) {}
+  constructor (private http: Http) {
+    console.log('hello `PictureStore` class');
+  }
 
-
-
-   uploadPicture(picture: Picture): Observable<Picture> {
+  uploadPicture(picture: Picture): Promise<Picture> {
     console.log("on upload le picture", picture);
     let body = JSON.stringify(picture);
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
+
     return this.http.post(this.picturesUrl, body, options)
-      .map(this.extractData)
-      .catch(this.handleError);
+      .toPromise()
+      .then(this._extractData)
+      .catch(this._handleError);
   }
 
-
- /* getHeroes (): Observable<Hero[]> {
+ /* getHeroes (): Promise<Hero[]> {
     return this.http.get(this.heroesUrl)
-      .map(this.extractData)
+      .toPromise()
+      .then(this.extractData)
       .catch(this.handleError);
   }*/
 
-  private handleError (error: any) {
+  private _handleError (error: any) {
     // In a real world app, we might use a remote logging infrastructure
     // We'd also dig deeper into the error to get a better message
     let errMsg = (error.message) ? error.message :
       error.status ? `${error.status} - ${error.statusText}` : 'Server error';
     console.error(errMsg); // log to console instead
-    return Observable.throw(errMsg);
+    return Promise.reject(errMsg);
   }
 
 
-  private extractData(res: Response) {
+  private _extractData(res: Response) {
     let body = res.json();
     return body.data || { };
   }
 
 
   pictureDataBase64(filePicture){
+    console.log('pictureDataBase64')
+
     let fileReader = new FileReader();
     if (! filePicture) {
       return;
