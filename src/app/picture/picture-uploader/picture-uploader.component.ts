@@ -27,13 +27,13 @@ export class PictureUploaderComponent {
 
   drag(event) {
     this.stopEvent(event);
-    //console.log(event);
-    console.log("event",event);
+
     console.log("target",event.target.files[0]);
 
-    this._resetPictureTitle();
+    //this._resetPictureTitle();
 
-    this.pictureTmp.fileToUpload=event.target.files[0];
+    //TODO maybe encode in base 64
+    this.pictureTmp.fileToUpload = this.pictureStore.pictureDataBase64(event.target.files[0]);
 
     //TODO add FileReader for stream data and preview the picture to send
    // this._handleFileSelect(event.target.files[0]);

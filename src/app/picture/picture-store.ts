@@ -23,7 +23,7 @@ export class PictureStore {
 
 
 
-  uploadPicture(picture: Picture): Observable<Picture> {
+   uploadPicture(picture: Picture): Observable<Picture> {
     console.log("on upload le picture", picture);
     let body = JSON.stringify(picture);
     let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -55,5 +55,19 @@ export class PictureStore {
     return body.data || { };
   }
 
+
+  pictureDataBase64(filePicture ){
+    let fileReader = new FileReader();
+    if (! filePicture) {
+      return;
+    }
+    fileReader.readAsDataURL(filePicture);
+    fileReader.addEventListener("load", function () {
+      console.log('result64 : ',fileReader.result );
+     return fileReader.result;
+    }, false);
+  }
+
 }
+
 
