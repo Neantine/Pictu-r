@@ -34,20 +34,16 @@ describe('Home', () => {
     ]
   }));
 
-  xit('should have default data', inject([ Home ], (home: Home) => {
-    //expect(home.localState).toEqual({ value: '' });
-  }));
+  it('should have default data', inject([], () => {
 
-  xit('should have a title', inject([ Home ], (home: Home) => {
-    expect(!!home.title).toEqual(true);
-  }));
+    fixture = TestBed.createComponent(BannerComponent);
 
-  xit('should log ngOnInit', inject([ Home ], (home: Home) => {
-    spyOn(console, 'log');
-    expect(console.log).not.toHaveBeenCalled();
+    comp = fixture.componentInstance; // BannerComponent test instance
 
-    home.ngOnInit();
-    expect(console.log).toHaveBeenCalled();
+    // query for the title <h1> by CSS element selector
+    de = fixture.debugElement.query(By.css('h1'));
+    el = de.nativeElement;
+
   }));
 
 });

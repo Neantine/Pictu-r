@@ -7,7 +7,11 @@ import { Observable }     from 'rxjs/Observable';
 import { Headers, RequestOptions } from '@angular/http';
 
 @Injectable()
-export class PictureStore{
+export class PictureStore {
+
+  static PROVIDERS = [
+    PictureStore
+  ];
 
   private picturesUrl = '/users';  // URL to web API
 
