@@ -10,7 +10,7 @@ import { HttpModule, JsonpModule } from '@angular/http';
 @NgModule({})
 export class CommonModule {
 
-  static forRoot() {
+  static modules() {
     return [
       BrowserModule,
       CommonModule,

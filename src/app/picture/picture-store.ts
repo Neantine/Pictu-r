@@ -56,7 +56,7 @@ export class PictureStore {
   }
 
 
-  pictureDataBase64(filePicture ){
+  pictureDataBase64(filePicture){
     let fileReader = new FileReader();
     if (! filePicture) {
       return;

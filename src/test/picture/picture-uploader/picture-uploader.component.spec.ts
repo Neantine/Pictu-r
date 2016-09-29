@@ -8,7 +8,7 @@ import {
   TestBed
 } from '@angular/core/testing';
 import {PictureUploaderComponent} from "../../../app/picture/picture-uploader/picture-uploader.component";
-import {PictureModule} from "../../../app/picture/picutre.module";
+import {PictureModule} from "../../../app/picture/picture.module";
 
 
 describe('PictureUploader', () => {

@@ -1,6 +1,5 @@
 import { NgModule, ApplicationRef } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -8,12 +7,8 @@ import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularcla
 import { ENV_PROVIDERS } from './environment';
 import { ROUTES } from './app.routes';
 import { App } from './app.component';
-import {PictureUploaderComponent} from "./picture/picture-uploader/picture-uploader.component";
 import {CommonModule} from "./common.module";
-
-const APP_PROVIDERS = [
-  ...PictureUploaderComponent.PROVIDERS
-];
+import {PictureModule} from "./picture/picture.module";
 
 /**
  * `AppModule` is the main entry point into Angular2's bootstraping process
@@ -24,12 +19,12 @@ const APP_PROVIDERS = [
     App
   ],
   imports: [
-    CommonModule.forRoot(),
+    CommonModule.modules(),
+    PictureModule,
     RouterModule.forRoot(ROUTES, { useHash: true })
   ],
   providers: [
-    ENV_PROVIDERS,
-    APP_PROVIDERS
+    ENV_PROVIDERS
   ]
 })
 export class AppModule {

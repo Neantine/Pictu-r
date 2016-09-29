@@ -3,12 +3,6 @@
  */
 import { Component, ViewEncapsulation } from '@angular/core';
 
-// Add the RxJS Observable operators we need in this app.
-import './rxjs-operator';
-
-
-import { AppState } from './app.service';
-
 /*
  * App Component
  * Top Level Component
@@ -16,9 +10,6 @@ import { AppState } from './app.service';
 @Component({
   selector: 'app',
   encapsulation: ViewEncapsulation.None,
-  styleUrls: [
-    './app.style.css'
-  ],
   template: `
     <main>
       <router-outlet></router-outlet>

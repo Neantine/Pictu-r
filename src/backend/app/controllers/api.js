@@ -8,5 +8,5 @@ module.exports = function (app) {
 };
 
 router.get('/images', function (req, res, next) {
-  res.send(404);
+  res.send('NOT IMPLEMENTED YET!');
 });

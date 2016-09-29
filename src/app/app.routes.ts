@@ -1,11 +1,8 @@
-import { Routes, RouterModule } from '@angular/router';
-import { Home } from './home';
-import { About } from './about';
-import { NoContent } from './no-content';
+import { Routes } from '@angular/router';
 
-import { DataResolver } from './app.resolver';
+import { PictureUploaderComponent } from "./picture/picture-uploader/picture-uploader.component";
 
 
 export const ROUTES: Routes = [
-  { path: '', component: Home }
+  { path: '', component: PictureUploaderComponent }
 ];

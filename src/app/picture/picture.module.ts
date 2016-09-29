@@ -12,7 +12,7 @@ import {PictureStore} from "./picture-store";
     PictureUploaderComponent
   ],
   imports: [
-    CommonModule.forRoot()
+    CommonModule.modules()
   ],
   providers: [
     PictureStore.PROVIDERS

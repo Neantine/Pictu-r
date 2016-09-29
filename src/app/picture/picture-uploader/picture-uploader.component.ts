@@ -21,7 +21,7 @@ export class PictureUploaderComponent {
   constructor(private pictureStore: PictureStore) {}
 
   ngOnInit() {
-    console.log('hello `Home` component');
+    console.log('hello `PictureUploaderComponent` component');
     // this.title.getData().subscribe(data => this.data = data);
   }
 
@@ -33,7 +33,7 @@ export class PictureUploaderComponent {
     //this._resetPictureTitle();
 
     //TODO maybe encode in base 64
-    this.pictureTmp.fileToUpload = this.pictureStore.pictureDataBase64(event.target.files[0]);
+    // this.pictureTmp.fileToUpload = this.pictureStore.pictureDataBase64(event.target.files[0]);
 
     //TODO add FileReader for stream data and preview the picture to send
    // this._handleFileSelect(event.target.files[0]);
