@@ -66,6 +66,7 @@ export class PictureStore {
       return;
     }
     fileReader.readAsDataURL(filePicture);
+
     fileReader.addEventListener("load", function () {
       console.log('result64 : ',fileReader.result );
      return fileReader.result;
