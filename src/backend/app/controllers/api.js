@@ -8,16 +8,25 @@ module.exports = function (app) {
 };
 
 router.get('/images', function (req, res, next) {
-  res.send('NOT IMPLEMENTED YET!');
+  res.send('GET IMAGES NOT IMPLEMENTED YET!');
+});
+
+router.get('/nicePic', function (req, res, next) {
+  res.send('GET PICTURE NOT IMPLEMENTED YET!');
 });
 
 router.post('/nicePic', function (req, res, next) {
 
-  var picTitle = req.body.picTitle;
+  console.log("BODY REQUEST: ",req.body);   //Le parametre du formulaire est dans le body
 
-  serverStorage.saveFile(picTitle);
+  res.send('POST PICTURE NOT IMPLEMENTED YET!');
 
-  res.send(200, picTitle + " is stored");
+  // var title = req.body.title;
+  // var fileData = req.body.fileData;
+  //
+  // serverStorage.saveFile(title, fileData);
+  //
+  // res.send(200, title + " is stored");
 
 
 });

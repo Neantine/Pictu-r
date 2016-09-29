@@ -6,27 +6,54 @@ const config = require('../config/config');
 
 describe('FileSystemServerStorage', () => {
 
-  describe('POST /user/:123/:nicePic', function() {
+  describe('POST api/v1/nicePic', function() {
 
     xit('should save the file named nicePic and return unique file ID', function (done) {
 
       console.log('running tests');
-      var picToSend = { picTitle: 'nicePic'};
+      var picToSend = [{title: 'nicePic', fileData: {}}];
+
+      // console.log("app: ", app);
+      // console.log("supertest: ", supertest(app));
 
       supertest(app)
-        .post('/api/v1/nicePic')
+        .post('/nicePic')
+        .set('Content-Type', 'application/json')
         .send(picToSend)
         .expect(200)
         .expect("nicePic is stored")
-        .end(function(err, res){
+        .end(function (err, res) {
 
-          //console.log("test ended ", res);
+          console.log("test ended ", err);
 
+          if (err) return done(err);
+
+          return done(err, res);
         });
 
-
-
     });
+  })
+
+
+    describe('GET /nicePic', function() {
+
+      xit('should get the file named nicePic from file system', function (done) {
+
+        console.log('running tests');
+
+        supertest(app)
+          .get('/nicePic')
+          .expect(200)
+          .end(function(err, res){
+
+            console.log("test ended ", err);
+
+            if (err) return done(err);
+
+            return done(err, res);
+          });
+
+      });
   })
 
 
