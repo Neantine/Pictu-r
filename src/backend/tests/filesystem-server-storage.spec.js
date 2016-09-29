@@ -1,12 +1,10 @@
 const express = require('express');
-const request = require('superagent');
 const supertest = require('supertest');
 
 const app = require('../app');
 const config = require('../config/config');
 
 describe('FileSystemServerStorage', () => {
-
 
   describe('POST /user/:123/:nicePic', function() {
 
@@ -16,19 +14,17 @@ describe('FileSystemServerStorage', () => {
       var picToSend = { picTitle: 'nicePic'};
 
       supertest(app)
-        .post('/nicePic')
+        .post('/api/v1/nicePic')
         .send(picToSend)
         .expect(200)
         .expect("nicePic is stored")
-        // .end(function(err, res){
-        //
-        //   console.log(req);
-        //   var uniqueID = serverStorage.saveFile(request.fils);
-        //   console.log(uniqueID);
-        //
-        // });
+        .end(function(err, res){
 
-        .end(done);
+          //console.log("test ended ", res);
+
+        });
+
+
 
     });
   })
