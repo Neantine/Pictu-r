@@ -15,12 +15,12 @@ router.get('/images', function (req, res, next) {
   res.status(404).send('GET ALL PICTURES NOT IMPLEMENTED YET!');
 });
 
-router.get('/nicePic', function (req, res, next) {
+router.get('/images/:imageId', function (req, res, next) {
   res.status(200).send('GET PICTURE NOT IMPLEMENTED YET!');
 
 });
 
-router.post('/nicePic', function (req, res, next) {
+router.post('/images/:nicePic', function (req, res, next) {
 
    var title = req.query.title;
    var fileData = req.query.fileData;
@@ -30,6 +30,7 @@ router.post('/nicePic', function (req, res, next) {
   let serverStorage = new ServerStorage();
 
    var uniqueID = serverStorage.saveFile(title, fileData);
+
    res.status(201).send('PICTURE STORED WITH ID ');//, uniqueID);
 
   //res.status(200).send('PICTURE STORED WITH ID ');//,  uniqueID);
