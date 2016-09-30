@@ -1,4 +1,5 @@
 const fs = require('fs');
+var shortid = require('shortid');
 
 class ServerStorage {
 
@@ -7,20 +8,23 @@ class ServerStorage {
 
   saveFile(title, fileData) {
 
-    console.log('Saving file into file system... ');
-    console.log('title: ',title);
-    console.log('fileData: ', fileData);
+    // console.log('Saving file into file system... ');
+    // console.log('title: ',title);
+    // console.log('fileData: ', fileData);
 
-    fs.writeFile(title, fileData, (err) => {
+    let uniqueID = shortid.generate();
+    //console.log('uniqueID ', uniqueID);
+    let uniqueFileName = title+''+uniqueID;
+
+    fs.writeFile('src/backend/tests/fixtures/'+uniqueFileName, fileData, (err) => {
       if (err)
       {
-        console.log("Saving file error ", err);
-          return err;
+         return err;
       }
 
     })
 
-    return 10122012;
+    return uniqueFileName;
 
   }
 

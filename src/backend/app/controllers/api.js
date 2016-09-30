@@ -22,26 +22,14 @@ router.get('/images/:imageId', function (req, res, next) {
 
 router.post('/images/:nicePic', function (req, res, next) {
 
-   var title = req.query.title;
-   var fileData = req.query.fileData;
-   //console.log("QUERY: ", title, fileData);
-   //var fileData = req.query.fileData;
-   //console.log(saveFile);
-  let serverStorage = new ServerStorage();
+   let title = req.query.title;
+   let fileData = req.query.fileData;
 
-   var uniqueID = serverStorage.saveFile(title, fileData);
+   let serverStorage = new ServerStorage();
+
+   let uniqueFileName = serverStorage.saveFile(title, fileData);
 
    res.status(201).send('PICTURE STORED WITH ID ');//, uniqueID);
-
-  //res.status(200).send('PICTURE STORED WITH ID ');//,  uniqueID);
-  //res.send('POST PICTURE NOT IMPLEMENTED YET!', req);
-
-  // var title = req.body.title;
-  // var fileData = req.body.fileData;
-  //
-  // serverStorage.saveFile(title, fileData);
-  //
-  // res.send(200, title + " is stored");
 
 
 });

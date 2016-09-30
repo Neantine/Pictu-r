@@ -10,28 +10,27 @@ const ServerStorage = require('../app/lib/filesystem-server-storage');
 
 describe('ServerStorage', () => {
 
-  describe('POST api/v1/nicePic', function() {
 
-    it('should save the file named nicePic and return unique file ID', function (done) {
+  describe('function savefile from post api/v1/nicePic', function() {
 
-      console.log('running tests');
-
-      var img = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0"
-        + "NAAAAKElEQVQ4jWNgYGD4Twzu6FhFFGYYNXDUwGFpIAk2E4dHDRw1cDgaCAASFOffhEIO"
-        + "3gAAAABJRU5ErkJggg==";
-
-      var data = img.replace(/^data:image\/\w+;base64,/, "");
-      var buf = new Buffer(data, 'base64');
-
-      console.log("data ", data);
-      console.log("buf ", buf);
+    it('should save the file in the filesystem', function (done) {
 
       let serverStorage = new ServerStorage();
 
-      let uniqueID = serverStorage.saveFile('nicePic', buf);
-      console.log(uniqueID);
+      let img = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0"
+        + "NAAAAKElEQVQ4jWNgYGD4Twzu6FhFFGYYNXDUwGFpIAk2E4dHDRw1cDgaCAASFOffhEIO"
+        + "3gAAAABJRU5ErkJggg==";
 
-      expect(uniqueID).toEqual(10122012);
+      let data = img.replace(/^data:image\/\w+;base64,/, "");
+      let buf = new Buffer(data, 'base64');
+
+      let uniqueFileName = serverStorage.saveFile('nicePic', buf);
+
+      fs.readFile('src/backend/tests/fixtures/'+uniqueFileName, 'base64', (err, data) =>
+      {
+        return done(err, data);
+      });
+
 
 
       return done();
