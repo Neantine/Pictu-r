@@ -64,7 +64,7 @@ describe('PictureUploader', () => {
   }));
 
 
-  it('should set the  fileData of pictureTmp after input file change', inject([], () => {
+  xit('should set the  fileData of pictureTmp after input file change', inject([], () => {
     let file = {
       name: 'test.jpg',
       size: 1234,
