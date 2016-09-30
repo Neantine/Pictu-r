@@ -6,7 +6,7 @@ export class Picture {
   title: string;
   fileData: Object;
 
-  constructor({title="", fileData=null}: {title?:string, fileData?: Object}) {
+  constructor({title="", fileData=null}: {title?:string, fileData?: Blob}) {
     this.title = title;
     this.fileData = fileData;
   }

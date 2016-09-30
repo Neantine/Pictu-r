@@ -13,21 +13,18 @@ export class PictureStore {
     PictureStore
   ];
 
-  private picturesUrl = '/users';  // URL to web API
+  private picturesUrl = '/api/v1/users/1/pictures';  // URL to web API
 
-
-  private _picturesList: Picture[] =[];
-
-
-  constructor (private http: Http) {
+  constructor(private http: Http) {
     console.log('hello `PictureStore` class');
   }
 
   uploadPicture(picture: Picture): Promise<Picture> {
     console.log("on upload le picture", picture);
+
     let body = JSON.stringify(picture);
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
+    let headers = new Headers({'Content-Type': 'application/json'});
+    let options = new RequestOptions({headers: headers});
 
     return this.http.post(this.picturesUrl, body, options)
       .toPromise()
@@ -35,14 +32,51 @@ export class PictureStore {
       .catch(this._handleError);
   }
 
- /* getHeroes (): Promise<Hero[]> {
-    return this.http.get(this.heroesUrl)
+  pictureList(): Promise<Picture[]> {
+    return this.http.get(this.picturesUrl)
       .toPromise()
-      .then(this.extractData)
-      .catch(this.handleError);
-  }*/
+      .then(this._extractData)
+      .catch(this._handleError);
+  }
 
-  private _handleError (error: any) {
+
+  private _extractData(res: Response) {
+
+    let body = res.json();
+    let pictureReceived =  {id: body.id, title: body.title, url: body.url};
+    return pictureReceived || {};
+  }
+
+  /**
+   *
+   * @param file
+   * @param cb
+   */
+  handleFileSelect(file,cb) {
+    console.log('_handleFileSelect');
+
+    if (!file) {
+      cb(null);
+    }
+
+    // Only process image files.
+    if (!file.type.match('image.*')) {
+      console.log("this is not a picture")
+      cb(null);
+    }
+
+    let fileReader = new FileReader();
+
+    fileReader.readAsDataURL(file);
+
+    fileReader.addEventListener("load", function () {
+        console.log('result64 : ', fileReader.result);
+        cb( fileReader.result);
+      },  false);
+  }
+
+
+  private _handleError(error: any) {
     // In a real world app, we might use a remote logging infrastructure
     // We'd also dig deeper into the error to get a better message
     let errMsg = (error.message) ? error.message :
@@ -52,27 +86,5 @@ export class PictureStore {
   }
 
 
-  private _extractData(res: Response) {
-    let body = res.json();
-    return body.data || { };
-  }
-
-
-  pictureDataBase64(filePicture){
-    console.log('pictureDataBase64')
-
-    let fileReader = new FileReader();
-    if (! filePicture) {
-      return;
-    }
-    fileReader.readAsDataURL(filePicture);
-
-    fileReader.addEventListener("load", function () {
-      console.log('result64 : ',fileReader.result );
-     return fileReader.result;
-    }, false);
-  }
-
 }
-
 

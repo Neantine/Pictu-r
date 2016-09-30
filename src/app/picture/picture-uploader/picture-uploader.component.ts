@@ -20,27 +20,27 @@ export class PictureUploaderComponent {
 
 
   // TypeScript public modifiers
-  constructor(private pictureStore: PictureStore) {
-  }
+  constructor(private pictureStore: PictureStore) {  }
 
   ngOnInit() {
     console.log('hello `PictureUploaderComponent` component');
   }
 
   drag(event) {
-    console.log("1111111111111111111");
 
     if(event == undefined){
       return;
     }
-
     this.stopEvent(event);
 
-    console.log("target",event.target.files[0]);
-
-   this._handleFileSelect(event.target.files[0]);
-    console.error("je suis la");
+    this.pictureStore.handleFileSelect(event.target.files[0],(file64)=>{
+      if(!file64){
+        return;
+      }
+      this.pictureTmp.fileData = (file64);
+    });
   }
+
 
   /**
    * allow the drop event
@@ -52,58 +52,36 @@ export class PictureUploaderComponent {
   }
 
 
-  resetPicture(){
-    console.log("on reset le picture");
-    this._resetPictureTmp();
-  }
 
-  uploadPicture(picture : Picture){
+  private _uploadPicture(picture : Picture){
     if (this._canIuploadThisPicture(picture)){
       this.pictureStore.uploadPicture(picture)
         .then(
           picture  => {
-            //TODO a reset is really necessary?????
-            this._resetPictureTmp();
+             console.log(picture);
           },
           error =>  {
             this.errorMessage = <any>error
           });
-
     }
     else{
       //TODO
     }
-
-/* Angular style
-
-    this.pictureStore.sendPicture(picture)
-      .subscribe(
-        picture  => {console.log("ok")},
-        error =>  {this.errorMessage = <any>error });
-*/
-
   }
 
-  private _resetPictureTmp(){
-    //TODO add verification on picture to avoid inutil reset
+
+/*  private _resetPictureTmp(){
     this._resetPictureTitle();
-    this.pictureTmp.fileData={};
+    this.pictureTmp.fileData=null;
+    //TODO trigger fake event for the input file
+    let inputElement = document.querySelector('input[name="file"]');
+
+    inputElement.dispatchEvent(new Event('change'));
   }
 
   private  _resetPictureTitle(){
     this.pictureTmp.title="";
-  }
-
-  private _handleFileSelect(file){
-    console.log('_handleFileSelect');
-
-    // Only process image files.
-    if (!file.type.match('image.*')) {
-      console.log("this is not a picture")
-      return;
-    }
-    this.pictureTmp.fileData = this.pictureStore.pictureDataBase64(file);
-  }
+  }*/
 
 
 
