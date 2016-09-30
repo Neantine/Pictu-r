@@ -18,7 +18,6 @@ export class PictureUploaderComponent {
   pictureTmp  : Picture = new Picture({});
   errorMessage: string;
 
-
   // TypeScript public modifiers
   constructor(private pictureStore: PictureStore) {  }
 
@@ -27,34 +26,23 @@ export class PictureUploaderComponent {
   }
 
   drag(event) {
-
     if(event == undefined){
       return;
     }
-    this.stopEvent(event);
-
-    this.pictureStore.handleFileSelect(event.target.files[0],(file64)=>{
+    this.pictureStore.handleFileSelect(event.target.files[0]).then((file64)=>{
       if(!file64){
         return;
       }
       this.pictureTmp.fileData = (file64);
+      //TODO display preview picture before upload
     });
   }
 
 
-  /**
-   * allow the drop event
-   * @param event
-   */
-  stopEvent(event) {
-    event.preventDefault();
-    event.stopPropagation();
-  }
+  uploadPicture(picture : Picture){
+    console.log(picture);
+   // if (this._canIuploadThisPicture(picture)){return;}
 
-
-
-  private _uploadPicture(picture : Picture){
-    if (this._canIuploadThisPicture(picture)){
       this.pictureStore.uploadPicture(picture)
         .then(
           picture  => {
@@ -63,10 +51,7 @@ export class PictureUploaderComponent {
           error =>  {
             this.errorMessage = <any>error
           });
-    }
-    else{
-      //TODO
-    }
+
   }
 
 
@@ -85,7 +70,7 @@ export class PictureUploaderComponent {
 
 
 
-  private _canIuploadThisPicture(picture ){
+/*  private _canIuploadThisPicture(picture ){
     console.log(picture.fileToUpload);
     if(picture.fileToUpload==null){
       //no picture files to upload
@@ -99,7 +84,6 @@ export class PictureUploaderComponent {
       return false;
     }
   return true;
-
-  }
+  }*/
 
 }

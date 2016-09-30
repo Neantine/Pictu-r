@@ -6,21 +6,16 @@
 import {
   async,
   inject,
-  TestBed
+  TestBed, tick, fakeAsync
 } from '@angular/core/testing';
 import {PictureUploaderComponent} from "../../../app/picture/picture-uploader/picture-uploader.component";
 import {PictureModule} from "../../../app/picture/picture.module";
 import {PictureStore} from "../../../app/picture/picture-store";
+import {Picture} from "../../../app/picture/picture";
 
 
-describe('PictureUploader', () => {
+describe('PictureUploaderComponent', () => {
 
-  beforeEach(() => {
-    this.FileReaderProtypeBackup = FileReader.prototype;
-  });
-  afterEach(() => {
-    FileReader.prototype = this.FileReaderPrototypeBackup;
-  });
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -30,6 +25,7 @@ describe('PictureUploader', () => {
     }).compileComponents();
 
   }));
+
 
   it('should display an input of type file, an input of type text and a button upload', inject([], () => {
     let fixture = TestBed.createComponent(PictureUploaderComponent);
@@ -46,9 +42,7 @@ describe('PictureUploader', () => {
     let pictureUploaderComponent = fixture.componentInstance;
     let element = fixture.debugElement.nativeElement;
 
-    let inputText=element.querySelector('input[type="text"]');
-
-
+    let inputText = element.querySelector('input[type="text"]');
 
     inputText.value = "my pic";
 
@@ -57,40 +51,74 @@ describe('PictureUploader', () => {
 
     let pictureToUpload = pictureUploaderComponent.pictureTmp;
 
-    pictureToUpload.title=inputText.value;
+    pictureToUpload.title = inputText.value;
 
-    console.log('picture',pictureToUpload);
+    console.log('picture', pictureToUpload);
     expect(pictureToUpload.title).toEqual("my pic");
   }));
 
 
-  xit('should set the  fileData of pictureTmp after input file change', inject([], () => {
-    let file = {
-      name: 'test.jpg',
-      size: 1234,
-      type: 'image/jpeg'
-    };
-
+  it('should trigger drag input change', inject([], () => {
     let fixture = TestBed.createComponent(PictureUploaderComponent);
-    let pictureUploaderComponent = fixture.componentInstance;
-    let element = fixture.debugElement.nativeElement;
+    let inputElement = fixture.debugElement.nativeElement.querySelector('input[type="file"]');
+    spyOn(fixture.componentInstance, 'drag');
 
-    let inputFile=element.querySelector('input[type="file"]');
-
-    fixture.detectChanges();
-
-    FileReader.prototype.readAsDataURL = jasmine.createSpy('readAsDataURL').and.callFake(function () {
-      this.onload('data:image/png;base64,IMAGE_DATA');
-    });
-
-    inputFile.files = [file];
-
-    inputFile.dispatchEvent(new Event('change'));
-
-    let pictureToUpload = pictureUploaderComponent.pictureTmp;
-    console.log('picture',pictureToUpload);
-
-    expect(pictureToUpload.fileData).toEqual(FileReader.prototype.readAsDataURL);
+    inputElement.dispatchEvent(new Event('change'));
+    expect((<jasmine.Spy>fixture.componentInstance.drag).calls.count()).toEqual(1);
   }));
+
+
+  it('should set the  fileData of pictureTmp after input file change and verify argument on upload button click', fakeAsync(inject(
+    [PictureStore],
+    (pictureStore) => {
+
+      let event;
+      let file = {
+        name: 'IMAGE_TITLE.jpg',
+        size: 1234,
+        type: 'image/jpeg'
+      };
+
+      let fixture = TestBed.createComponent(PictureUploaderComponent);
+      let pictureUploaderComponent = fixture.componentInstance;
+      let element = fixture.debugElement.nativeElement;
+
+      let inputFile = element.querySelector('input[type="file"]');
+      let formElement = element.querySelector('form');
+
+      let pictureToUpload = pictureUploaderComponent.pictureTmp;
+
+
+      /* Mock PictureStore. */
+      spyOn(pictureStore, 'handleFileSelect').and.returnValue(Promise.resolve('data:image/jpg;base64,IMAGE_DATA'));
+
+      event = {
+        target: {
+          files: [file]
+        }
+      };
+
+      pictureUploaderComponent.drag(event);
+
+      tick();
+
+      /* Mock PictureStore. */
+      spyOn(pictureStore, 'uploadPicture').and.returnValue(Promise.resolve({id: '1', title: 'test', url: '/my_pic'}));
+
+      pictureUploaderComponent.uploadPicture(pictureUploaderComponent.pictureTmp);
+  //    formElement.submit();
+
+      tick();
+
+      expect((<jasmine.Spy>pictureStore.uploadPicture).calls.count()).toEqual(1);
+      expect((<jasmine.Spy>pictureStore.uploadPicture).calls.argsFor(0)).toEqual(
+        [
+          new Picture({
+            title: '',
+            fileData: 'data:image/jpg;base64,IMAGE_DATA'
+          })
+        ]);
+
+    })));
 
 })
