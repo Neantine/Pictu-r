@@ -1,16 +1,16 @@
-const jasmine = require('jasmine-node');
-const request = require('supertest');
-
-
-var express = require('express');
-var config = require('../../config/config');
-
-var app = express();
-
 const fs = require('fs');
 
+class ServerStorage {
 
-function saveFile()
-{
+  constructor() {
+  }
 
-}
+  saveFile(title, fileData) {
+    console.log('Saving file into file system... ', title, ' ', fileData);
+    return 10122012;
+  }
+
+};
+
+
+module.exports = ServerStorage;
