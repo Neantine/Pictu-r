@@ -52,27 +52,26 @@ export class PictureStore {
    * @param file
    * @param cb
    */
-  handleFileSelect(file,cb) {
-    console.log('_handleFileSelect');
-
+  handleFileSelect(file) {
+    //console.log('_handleFileSelect');
     if (!file) {
-      cb(null);
+      return Promise.reject(null);
     }
 
     // Only process image files.
     if (!file.type.match('image.*')) {
-      console.log("this is not a picture")
-      cb(null);
+      return Promise.reject(null);
     }
 
     let fileReader = new FileReader();
 
     fileReader.readAsDataURL(file);
 
-    fileReader.addEventListener("load", function () {
-        console.log('result64 : ', fileReader.result);
-        cb( fileReader.result);
+    return new Promise((resolve, reject) => {
+      fileReader.addEventListener('load', () => {
+        resolve(fileReader.result);
       },  false);
+    });
   }
 
 

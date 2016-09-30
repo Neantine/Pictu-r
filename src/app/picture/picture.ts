@@ -4,9 +4,9 @@
 
 export class Picture {
   title: string;
-  fileData: Object;
+  fileData: string;
 
-  constructor({title="", fileData=null}: {title?:string, fileData?: Blob}) {
+  constructor({title="", fileData=null}: {title?:string, fileData?: string}) {
     this.title = title;
     this.fileData = fileData;
   }
@@ -14,4 +14,5 @@ export class Picture {
   isEqual(picture: Picture) {
     return this === picture;
   }
+
 }
