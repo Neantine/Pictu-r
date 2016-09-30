@@ -1,10 +1,11 @@
 <h1>Formulaire d'upload de fichier</h1>
-  <form >
-<div class="dropzone shad" (submit)="uploadPicture(pictureTmp)">
+  <form (submit)="uploadPicture(pictureTmp)">
+<div class="dropzone shad" >
   <input
     id="uploadbutton"
     class="uploadbutton"
-    type="file" (change)="drag($event)">
+    type="file"
+    (change)="drag($event)">
 </div>
     <br>
     <div >

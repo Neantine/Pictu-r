@@ -1,8 +1,3 @@
-/*
- ICI ON DOIT MOQUER LE PICTURE_STORE
- */
-
-
 import {
   async,
   inject,
@@ -15,7 +10,6 @@ import {Picture} from "../../../app/picture/picture";
 
 
 describe('PictureUploaderComponent', () => {
-
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -40,6 +34,7 @@ describe('PictureUploaderComponent', () => {
   it('should set the  pictureTmp.title="my pic" after input text change', inject([], () => {
     let fixture = TestBed.createComponent(PictureUploaderComponent);
     let pictureUploaderComponent = fixture.componentInstance;
+
     let element = fixture.debugElement.nativeElement;
 
     let inputText = element.querySelector('input[type="text"]');

@@ -28,6 +28,7 @@ export class PictureStore {
 
     return this.http.post(this.picturesUrl, body, options)
       .toPromise()
+      .then(this._checkStatus)
       .then(this._extractData)
       .catch(this._handleError);
   }
@@ -35,13 +36,19 @@ export class PictureStore {
   pictureList(): Promise<Picture[]> {
     return this.http.get(this.picturesUrl)
       .toPromise()
+      .then((response) => this._checkStatus(response))
       .then(this._extractData)
       .catch(this._handleError);
   }
 
+  private _checkStatus(response: Response) {
+    if (response.status < 200 || response.status >= 300) {
+      throw new Error('TODO');
+    }
+    return response;
+  }
 
   private _extractData(res: Response) {
-
     let body = res.json();
     let pictureReceived =  {id: body.id, title: body.title, url: body.url};
     return pictureReceived || {};

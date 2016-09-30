@@ -40,8 +40,7 @@ export class PictureUploaderComponent {
 
 
   uploadPicture(picture : Picture){
-    console.log(picture);
-   // if (this._canIuploadThisPicture(picture)){return;}
+    // if (this._canIuploadThisPicture(picture)){return;}
 
       this.pictureStore.uploadPicture(picture)
         .then(
