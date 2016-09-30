@@ -6,7 +6,7 @@ class ServerStorage {
   constructor() {
   }
 
-  saveFile(title, fileData) {
+  saveFile(title, fileData, callback) {
 
     // console.log('Saving file into file system... ');
     // console.log('title: ',title);
@@ -16,15 +16,22 @@ class ServerStorage {
     //console.log('uniqueID ', uniqueID);
     let uniqueFileName = title+''+uniqueID;
 
-    fs.writeFile('src/backend/tests/fixtures/'+uniqueFileName, fileData, (err) => {
+    let err = null;
+    let res = null;
+
+    fs.writeFile('src/backend/tests/fixtures/'+uniqueFileName, fileData, (err, res) => {
       if (err)
       {
          return err;
       }
 
+      res = uniqueFileName;
+
     })
 
-    return uniqueFileName;
+
+
+    return callback(err, res);
 
   }
 
