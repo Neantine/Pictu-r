@@ -27,12 +27,12 @@ describe('ServerStorage', () => {
       serverStorage.saveFile('nicePic', buf, (err, res) => {
 
           expect(err).toBeNull;
-          expect(res).toBeString;
+          expect(res).toBeNonEmptyString;
 
           fs.readFile('src/backend/tests/fixtures/'+res, 'base64', (err, data) =>
           {
             expect(err).toBeNull;
-            //expect(data).not.to.be.null;
+            expect(data).toBeNonEmptyObject;
             return done(err, data);
           });
       });

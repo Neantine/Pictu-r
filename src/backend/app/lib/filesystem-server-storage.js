@@ -30,7 +30,6 @@ class ServerStorage {
     })
 
 
-
     return callback(err, res);
 
   }
