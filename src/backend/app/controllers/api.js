@@ -1,25 +1,39 @@
 var express = require('express');
 var router = express.Router();
 
-const serverStorage = require('../lib/filesystem-server-storage');
+var bodyParser = require('body-parser');
+
+
+const ServerStorage = require('../lib/filesystem-server-storage');
 
 module.exports = function (app) {
   app.use('/api/v1', router);
+  app.use(bodyParser.json());
 };
 
 router.get('/images', function (req, res, next) {
-  res.send('GET IMAGES NOT IMPLEMENTED YET!');
+  res.status(404).send('GET ALL PICTURES NOT IMPLEMENTED YET!');
 });
 
 router.get('/nicePic', function (req, res, next) {
-  res.send('GET PICTURE NOT IMPLEMENTED YET!');
+  res.status(200).send('GET PICTURE NOT IMPLEMENTED YET!');
+
 });
 
 router.post('/nicePic', function (req, res, next) {
 
-  console.log("BODY REQUEST: ",req.body);   //Le parametre du formulaire est dans le body
+   var title = req.query.title;
+   var fileData = req.query.fileData;
+   //console.log("QUERY: ", title, fileData);
+   //var fileData = req.query.fileData;
+   //console.log(saveFile);
+  let serverStorage = new ServerStorage();
 
-  res.send('POST PICTURE NOT IMPLEMENTED YET!');
+   var uniqueID = serverStorage.saveFile(title, fileData);
+   res.status(201).send('PICTURE STORED WITH ID ');//, uniqueID);
+
+  //res.status(200).send('PICTURE STORED WITH ID ');//,  uniqueID);
+  //res.send('POST PICTURE NOT IMPLEMENTED YET!', req);
 
   // var title = req.body.title;
   // var fileData = req.body.fileData;

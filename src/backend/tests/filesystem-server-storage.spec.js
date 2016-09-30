@@ -11,17 +11,14 @@ describe('FileSystemServerStorage', () => {
     xit('should save the file named nicePic and return unique file ID', function (done) {
 
       console.log('running tests');
-      var picToSend = [{title: 'nicePic', fileData: {}}];
-
-      // console.log("app: ", app);
-      // console.log("supertest: ", supertest(app));
+      var picToSend = [{'title': 'nicePic', 'fileData': {}}];
 
       supertest(app)
         .post('/nicePic')
-        .set('Content-Type', 'application/json')
+        .set('Content-Type', 'text/html')
+        .set('Accept', 'application/json')
         .send(picToSend)
-        .expect(200)
-        .expect("nicePic is stored")
+        .expect(201)
         .end(function (err, res) {
 
           console.log("test ended ", err);
