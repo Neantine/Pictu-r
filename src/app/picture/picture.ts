@@ -4,11 +4,11 @@
 
 export class Picture {
   title: string;
-  fileToUpload: Object;
+  fileData: Object;
 
-  constructor({title="", fileToUpload=null}: {title?:string, fileToUpload?: Object}) {
+  constructor({title="", fileData=null}: {title?:string, fileData?: Blob}) {
     this.title = title;
-    this.fileToUpload = fileToUpload;
+    this.fileData = fileData;
   }
 
   isEqual(picture: Picture) {

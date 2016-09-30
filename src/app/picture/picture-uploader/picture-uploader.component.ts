@@ -9,6 +9,8 @@ import {PictureStore} from "../picture-store";
   template: require('./picture-uploader.component.html')
 })
 
+
+
 export class PictureUploaderComponent {
 
   static PROVIDERS = [PictureStore];
@@ -18,28 +20,27 @@ export class PictureUploaderComponent {
 
 
   // TypeScript public modifiers
-  constructor(private pictureStore: PictureStore) {}
+  constructor(private pictureStore: PictureStore) {  }
 
   ngOnInit() {
     console.log('hello `PictureUploaderComponent` component');
-    // this.title.getData().subscribe(data => this.data = data);
   }
 
   drag(event) {
+
+    if(event == undefined){
+      return;
+    }
     this.stopEvent(event);
 
-    console.log("target",event.target.files[0]);
-
-    //this._resetPictureTitle();
-
-    //TODO maybe encode in base 64
-    // this.pictureTmp.fileToUpload = this.pictureStore.pictureDataBase64(event.target.files[0]);
-
-    //TODO add FileReader for stream data and preview the picture to send
-   // this._handleFileSelect(event.target.files[0]);
-
-    //TODO call method _canIupload to set up some style and e label
+    this.pictureStore.handleFileSelect(event.target.files[0],(file64)=>{
+      if(!file64){
+        return;
+      }
+      this.pictureTmp.fileData = (file64);
+    });
   }
+
 
   /**
    * allow the drop event
@@ -51,61 +52,37 @@ export class PictureUploaderComponent {
   }
 
 
-  resetPicture(){
-    console.log("on reset le picture");
-    this._resetPictureTmp();
-  }
 
-  uploadPicture(picture : Picture){
+  private _uploadPicture(picture : Picture){
     if (this._canIuploadThisPicture(picture)){
       this.pictureStore.uploadPicture(picture)
-        .subscribe(
-          hero  => {
-            //TODO a reset is really necessary?????
-            this._resetPictureTmp();
+        .then(
+          picture  => {
+             console.log(picture);
           },
           error =>  {
             this.errorMessage = <any>error
           });
-
     }
     else{
       //TODO
     }
-
-/* Angular style
-
-    this.pictureStore.sendPicture(picture)
-      .subscribe(
-        picture  => {console.log("ok")},
-        error =>  {this.errorMessage = <any>error });
-*/
-
   }
 
-  private _resetPictureTmp(){
-    //TODO add verification on picture to avoid inutil reset
+
+/*  private _resetPictureTmp(){
     this._resetPictureTitle();
-    this.pictureTmp.fileToUpload={};
+    this.pictureTmp.fileData=null;
+    //TODO trigger fake event for the input file
+    let inputElement = document.querySelector('input[name="file"]');
+
+    inputElement.dispatchEvent(new Event('change'));
   }
 
   private  _resetPictureTitle(){
     this.pictureTmp.title="";
-  }
+  }*/
 
-  private _handleFileSelect(file){
-    //Vérification du type image
-    // Only process image files.
-    if (!file.type.match('image.*')) {
-      console.log("this is not a picture")
-      return;
-    }
-
-    //creation de notre reader
-    var reader = new FileReader();
-
-
-  }
 
 
   private _canIuploadThisPicture(picture ){
