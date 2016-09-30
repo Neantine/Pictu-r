@@ -24,13 +24,18 @@ describe('ServerStorage', () => {
       let data = img.replace(/^data:image\/\w+;base64,/, "");
       let buf = new Buffer(data, 'base64');
 
-      let uniqueFileName = serverStorage.saveFile('nicePic', buf);
+      serverStorage.saveFile('nicePic', buf, (err, res) => {
 
-      fs.readFile('src/backend/tests/fixtures/'+uniqueFileName, 'base64', (err, data) =>
-      {
-        return done(err, data);
+          expect(err).toBeNull;
+          expect(res).toBeString;
+
+          fs.readFile('src/backend/tests/fixtures/'+res, 'base64', (err, data) =>
+          {
+            expect(err).toBeNull;
+            //expect(data).not.to.be.null;
+            return done(err, data);
+          });
       });
-
 
 
       return done();
