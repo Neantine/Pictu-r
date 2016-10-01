@@ -16,21 +16,15 @@ describe('ServerStorage', () => {
 
       it('should save the file in the filesystem', function (done) {
 
-        let serverStorage = new ServerStorage();
-
-        let img = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0"
+        //TMP: test with a base64 canvas encoded file get from body request
+        let bodyReqPictureData = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0"
           + "NAAAAKElEQVQ4jWNgYGD4Twzu6FhFFGYYNXDUwGFpIAk2E4dHDRw1cDgaCAASFOffhEIO"
           + "3gAAAABJRU5ErkJggg==";
 
-        let data = img.replace(/^data:image\/\w+;base64,/, "");
-        let buf = new Buffer(data, 'base64');
-
-        let uniqueFileName = serverStorage.savePicture('nicePic', buf);
-
-        console.log(uniqueFileName);
+        let serverStorage = new ServerStorage();
+        let uniqueFileName = serverStorage.savePicture('nicePic', bodyReqPictureData);
 
         expect(uniqueFileName).toBeNonEmptyString;
-
 
         return done();
 
