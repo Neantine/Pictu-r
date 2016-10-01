@@ -2,25 +2,27 @@
 const fs = require('fs');
 var shortid = require('shortid');
 
+
 class ServerStorage {
 
   constructor() {
+    this.picturesPath = "./stored-pictures/";
   }
 
-  savePicture(title, fileData) {
 
-    // console.log('Saving file into file system... ');
-    // console.log('title: ',title);
-    // console.log('fileData: ', fileData);
+  savePicture(title, bodyReqPictureData) {
+
+
+    //Create base64 decoded buffer
+    let picData = bodyReqPictureData.replace(/^data:image\/\w+;base64,/, "");
+    let decodedPicData = new Buffer(picData, 'base64');
+
 
     let uniqueID = shortid.generate();
-    //console.log('uniqueID ', uniqueID);
     let uniqueFileName = title+''+uniqueID;
-   // console.log('uniqueFileName ', uniqueFileName);
-    let err = null;
-    let res = null;
 
-    fs.writeFile('src/backend/tests/fixtures/'+uniqueFileName, fileData, (err) => {
+
+    fs.writeFile(this.picturesPath+uniqueFileName, decodedPicData, (err) => {
       if (err)
       {
         uniqueFileName = null;
@@ -38,7 +40,7 @@ class ServerStorage {
 
     let data = null;
 
-    fs.readFile('src/backend/tests/fixtures/'+uniqueFileName, (err, data) => {
+    fs.readFile(this.picturesPath+uniqueFileName, (err, data) => {
       if (err)
       {
         return err;
