@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-
-import {Picture} from "../picture/picture";
-
-
+import { Picture } from '../picture/picture';
 import { Headers, RequestOptions } from '@angular/http';
 
 @Injectable()
@@ -13,14 +10,16 @@ export class PictureStore {
     PictureStore
   ];
 
-  private picturesUrl = '/api/v1/users/1/pictures';  // URL to web API
+  // URL to web API
+
+  private picturesUrl = '/api/v1/users/1/pictures';
 
   constructor(private http: Http) {
     console.log('hello `PictureStore` class');
   }
 
   uploadPicture(picture: Picture): Promise<Picture> {
-    console.log("on upload le picture", picture);
+    console.log('Upload : ', picture);
 
     let body = JSON.stringify(picture);
     let headers = new Headers({'Content-Type': 'application/json'});
@@ -50,15 +49,19 @@ export class PictureStore {
   /**
    *
    * @param file
-   * @param cb
+   *
    */
+
   handleFileSelect(file) {
-    //console.log('_handleFileSelect');
+
+    // console.log('_handleFileSelect');
+
     if (!file) {
       return Promise.reject(null);
     }
 
     // Only process image files.
+
     if (!file.type.match('image.*')) {
       return Promise.reject(null);
     }

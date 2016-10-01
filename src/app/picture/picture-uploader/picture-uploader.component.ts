@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 
-import {Picture} from "../picture";
-import {PictureStore} from "../picture-store";
+import { Picture } from '../picture';
+import { PictureStore } from '../picture-store';
 
 @Component({
   selector: 'pr-picture-uploader',
-  styles: [ require('./picture-uploader.component.css') ],
+  styles  : [ require('./picture-uploader.component.css') ],
   template: require('./picture-uploader.component.html')
 })
 
@@ -14,8 +14,7 @@ import {PictureStore} from "../picture-store";
 export class PictureUploaderComponent {
 
   static PROVIDERS = [PictureStore];
-
-  pictureTmp  : Picture = new Picture({});
+  pictureTmp: Picture = new Picture({});
   errorMessage: string;
 
   // TypeScript public modifiers
@@ -26,39 +25,41 @@ export class PictureUploaderComponent {
   }
 
   drag(event) {
-    if(event == undefined){
+    if(event === undefined) {
       return;
     }
-    this.pictureStore.handleFileSelect(event.target.files[0]).then((file64)=>{
-      if(!file64){
+    this.pictureStore.handleFileSelect( event.target.files[0] ).then( (file64) => {
+      if( !file64 ) {
         return;
       }
       this.pictureTmp.fileData = (file64);
-      //TODO display preview picture before upload
+      // TODO display preview picture before upload
     });
   }
 
 
-  uploadPicture(picture : Picture){
+  uploadPicture(picture : Picture ){
+
     console.log(picture);
-   // if (this._canIuploadThisPicture(picture)){return;}
+
+    // if(this._canIuploadThisPicture(picture)){return;}
 
       this.pictureStore.uploadPicture(picture)
         .then(
-          picture  => {
+          picture => {
              console.log(picture);
-          },
-          error =>  {
+            },
+          error => {
             this.errorMessage = <any>error
           });
+    }
 
-  }
 
-
-/*  private _resetPictureTmp(){
+  /*
+    private _resetPictureTmp(){
     this._resetPictureTitle();
     this.pictureTmp.fileData=null;
-    //TODO trigger fake event for the input file
+    // TODO trigger fake event for the input file
     let inputElement = document.querySelector('input[name="file"]');
 
     inputElement.dispatchEvent(new Event('change'));
@@ -70,7 +71,7 @@ export class PictureUploaderComponent {
 
 
 
-/*  private _canIuploadThisPicture(picture ){
+  /*  private _canIuploadThisPicture(picture ){
     console.log(picture.fileToUpload);
     if(picture.fileToUpload==null){
       //no picture files to upload
@@ -84,6 +85,7 @@ export class PictureUploaderComponent {
       return false;
     }
   return true;
-  }*/
+  }
+  */
 
 }
