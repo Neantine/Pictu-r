@@ -1,3 +1,4 @@
+"use strict";
 const fs = require('fs');
 var shortid = require('shortid');
 
@@ -6,7 +7,7 @@ class ServerStorage {
   constructor() {
   }
 
-  saveFile(title, fileData, callback) {
+  savePicture(title, fileData) {
 
     // console.log('Saving file into file system... ');
     // console.log('title: ',title);
@@ -15,23 +16,39 @@ class ServerStorage {
     let uniqueID = shortid.generate();
     //console.log('uniqueID ', uniqueID);
     let uniqueFileName = title+''+uniqueID;
-
+   // console.log('uniqueFileName ', uniqueFileName);
     let err = null;
     let res = null;
 
-    fs.writeFile('src/backend/tests/fixtures/'+uniqueFileName, fileData, (err, res) => {
+    fs.writeFile('src/backend/tests/fixtures/'+uniqueFileName, fileData, (err) => {
       if (err)
       {
-         return err;
+        uniqueFileName = null;
+        return err;
       }
-
-      res = uniqueFileName;
 
     })
 
+    return uniqueFileName;
 
-    return callback(err, res);
+  }
 
+
+  getPicture(uniqueFileName) {
+
+    let data = null;
+
+    fs.readFile('src/backend/tests/fixtures/'+uniqueFileName, (err, data) => {
+      if (err)
+      {
+        return err;
+      }
+      data= data;
+      return data;
+
+    })
+
+    return data;
   }
 
 };
