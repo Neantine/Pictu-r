@@ -22,7 +22,7 @@ describe('ServerStorage', () => {
           + "3gAAAABJRU5ErkJggg==";
 
         let serverStorage = new ServerStorage();
-        let uniqueFileName = serverStorage.savePicture('nicePic', bodyReqPictureData);
+        let uniqueFileName = serverStorage.savePicture('testimage', bodyReqPictureData);
 
         expect(uniqueFileName).toBeNonEmptyString;
 
@@ -39,7 +39,7 @@ describe('ServerStorage', () => {
 
       let serverStorage = new ServerStorage();
 
-      let data = serverStorage.getPicture('nicePicHJ9JUV6T');
+      let data = serverStorage.getPicture('testimage');
 
       expect(data).toBeNonEmptyObject;
 
