@@ -1,13 +1,17 @@
 <h1>Pictur Gallery</h1>
+<!--
 <section class="pictur-gallery-section">
+-->
 
-   <div *ngfor="pictureList()"  class="pictur-gallery"  >
+   <div *ngFor="let pictur of picturList.pictures"  class="pictur-gallery"  >
 
-       <a href="" class="gallery__item">
-           <img class="gallery__item__pictur" src="pictur.url" >
-           <p class="gallery__item__title" >pictur.title</p>
-
-       </a>
+     <!--  <a href="" class="gallery__item">-->
+           <img class="gallery__item__pictur" [src]="pictur.url" alt="pictur.title">
+         <!--  <p class="gallery__item__title" >{pictur.title}</p>-->
+    <!--   </a>-->
 
    </div>
-</section>
+
+ <!-- <img *ngfor="let pictur of picturList"  class="gallery__item__pictur" [src]="pictur.url" >-->
+
+<!--</section>-->

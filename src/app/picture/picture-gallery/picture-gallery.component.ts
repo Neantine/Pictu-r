@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import { Picture } from '../picture';
 import { PictureStore } from '../picture-store';
+
 
 @Component({
     selector: 'pr-picture-gallery',
@@ -11,33 +11,41 @@ import { PictureStore } from '../picture-store';
 
 
 
-export class PictureGalleryComponent {
+export class PictureGalleryComponent implements OnInit{
 
     static PROVIDERS = [PictureStore];
 
 
+    picturList;
+
     // TypeScript public modifiers
-    constructor(private pictureStore: PictureStore) {  }
+    constructor(private pictureStore: PictureStore) {
+   // constructor(private pictureStore: PictureStore, private route: ActivatedRoute) {
+
+      /*this.route.params.subscribe(params => {
+        this.pictureList();
+        //  this.pictureList(params['userId']);
+      });*/
+    }
 
     ngOnInit() {
         console.log('hello `PictureGalleryComponent` component');
     }
 
     pictureList() {
-        this.pictureStore.pictureList()
+
+      this.pictureStore.pictureList()
             .then(
                 picture  => {
                    // TODO ???
+                  this.picturList = picture;
                 },
                 error =>  {
-                   // TODO handle error
+                  // TODO handle error
+                  console.log('picturc',error);
+
                 });
-
-
     }
-
-
-
 
 
 }

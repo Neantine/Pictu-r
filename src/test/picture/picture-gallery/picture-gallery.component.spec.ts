@@ -20,7 +20,7 @@ describe('PictureGalleryComponent', () => {
     }));
 
 
-    xit('should display 3 images or "picture-gallery-item" after a call at method pictureList()',  fakeAsync(inject(
+    it('should display 3 images or "picture-gallery-item" after a call at method pictureList()',  fakeAsync(inject(
         [PictureStore],
         (pictureStore) => {
 
@@ -28,27 +28,27 @@ describe('PictureGalleryComponent', () => {
         let pictureGalleryComponent = fixture.componentInstance;
         let element = fixture.debugElement.nativeElement;
 
-        pictureGalleryComponent.pictureList();
+
 
         /* Mock PictureStore. */
         spyOn(pictureStore, 'pictureList').and.returnValue(Promise.resolve(
             {
             pictures :
-            '[' +
-            '{id:1, title: "image 1", url: "C:\Users\ytron\WebstormProjects\Pictu-r\src\test\picture\img\test1.jpg"},' +
-            '{id:2, title: "image 2", url: "C:\Users\ytron\WebstormProjects\Pictu-r\src\test\picture\img\test2.jpg"},' +
-            '{id:3, title: "image 3", url: "C:\Users\ytron\WebstormProjects\Pictu-r\src\test\picture\img\test3.jpg"}'  +
-            ']'
+            [{id:1, title: 'image 1', url: 'C:\Users\ytron\WebstormProjects\Pictu-r\src\test\picture\img\test1.jpg'},
+            {id:2, title: 'image 2', url: 'C:\Users\ytron\WebstormProjects\Pictu-r\src\test\picture\img\test2.jpg'},
+            {id:3, title: 'image 3', url: 'C:\Users\ytron\WebstormProjects\Pictu-r\src\test\picture\img\test3.jpg'}]
             }
             ));
 
-        let images = element.querySelector('.gallery__item__pictur');
+          pictureGalleryComponent.pictureList();
 
-        expect(images.length).toEqual(3);
-        //TODO test url and title of picture
+          tick();
+
+         let images = element.querySelector('img');
+
+        // expect(images.length).toEqual(3);
+        // TODO test url and title of picture
     })));
-
-
 
 
 })

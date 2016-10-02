@@ -3,10 +3,10 @@ import {
   inject,
   TestBed, tick, fakeAsync
 } from '@angular/core/testing';
-import {PictureUploaderComponent} from "../../../app/picture/picture-uploader/picture-uploader.component";
-import {PictureModule} from "../../../app/picture/picture.module";
-import {PictureStore} from "../../../app/picture/picture-store";
-import {Picture} from "../../../app/picture/picture";
+import { PictureUploaderComponent } from '../../../app/picture/picture-uploader/picture-uploader.component';
+import { PictureModule } from '../../../app/picture/picture.module';
+import { PictureStore } from '../../../app/picture/picture-store';
+import { Picture } from '../../../app/picture/picture';
 
 
 describe('PictureUploaderComponent', () => {
@@ -39,7 +39,7 @@ describe('PictureUploaderComponent', () => {
 
     let inputText = element.querySelector('input[type="text"]');
 
-    inputText.value = "my pic";
+    inputText.value = 'my pic';
 
     // let evt = document.createEvent('Event');
     // evt.initEvent('input', true, false);
@@ -49,7 +49,7 @@ describe('PictureUploaderComponent', () => {
     pictureToUpload.title = inputText.value;
 
 
-    expect(pictureToUpload.title).toEqual("my pic");
+    expect(pictureToUpload.title).toEqual('my pic');
   }));
 
 
@@ -101,7 +101,7 @@ describe('PictureUploaderComponent', () => {
       spyOn(pictureStore, 'uploadPicture').and.returnValue(Promise.resolve({id: '1', title: 'test', url: '/my_pic'}));
 
       pictureUploaderComponent.uploadPicture(pictureUploaderComponent.pictureTmp);
-  //    formElement.submit();
+      // formElement.submit();
 
       tick();
 
