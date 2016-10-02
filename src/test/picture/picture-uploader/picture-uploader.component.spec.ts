@@ -27,7 +27,7 @@ describe('PictureUploaderComponent', () => {
     let element = fixture.debugElement.nativeElement;
     expect(element.querySelector('input[type="file"]')).toBeTruthy();
     expect(element.querySelector('input[type="text"]')).toBeTruthy();
-    expect(element.getElementsByClassName('myUpload')).toBeTruthy();
+    expect(element.querySelector('.myUpload')).toBeTruthy();
   }));
 
 
@@ -48,7 +48,7 @@ describe('PictureUploaderComponent', () => {
 
     pictureToUpload.title = inputText.value;
 
-    console.log('picture', pictureToUpload);
+
     expect(pictureToUpload.title).toEqual("my pic");
   }));
 
@@ -115,5 +115,74 @@ describe('PictureUploaderComponent', () => {
         ]);
 
     })));
+
+
+
+    it('should not affect fileData to picturTmp if file is null on drag(event)', fakeAsync(inject(
+        [PictureStore],
+        (pictureStore) => {
+
+            let event;
+            let file = null;
+
+            let fixture = TestBed.createComponent(PictureUploaderComponent);
+            let pictureUploaderComponent = fixture.componentInstance;
+            let element = fixture.debugElement.nativeElement;
+
+            let inputFile = element.querySelector('input[type="file"]');
+            let formElement = element.querySelector('form');
+
+            let pictureToUpload = pictureUploaderComponent.pictureTmp;
+
+
+            /* Mock PictureStore. */
+            spyOn(pictureStore, 'handleFileSelect').and.returnValue(Promise.resolve(null));
+
+            event = {
+                target: {
+                    files: [file]
+                }
+            };
+
+            pictureUploaderComponent.drag(event);
+
+            tick();
+
+            expect((<jasmine.Spy>pictureStore.handleFileSelect).calls.count()).toEqual(1);
+            expect(pictureToUpload.fileData).toBeNull();
+
+        })));
+
+    it('should not call method "handleFileSelect" if event is null', fakeAsync(inject(
+        [PictureStore],
+        (pictureStore) => {
+
+            let event =null;
+            let file = null;
+
+            let fixture = TestBed.createComponent(PictureUploaderComponent);
+            let pictureUploaderComponent = fixture.componentInstance;
+            let element = fixture.debugElement.nativeElement;
+
+
+
+
+            /* Mock PictureStore. */
+            spyOn(pictureStore, 'handleFileSelect').and.returnValue(Promise.resolve(null));
+
+         /*   event = {
+                target: {
+                    files: [file]
+                }
+            };*/
+
+            pictureUploaderComponent.drag(event);
+
+            tick();
+
+            expect((<jasmine.Spy>pictureStore.handleFileSelect).calls.count()).toEqual(0);
+
+
+        })));
 
 })
