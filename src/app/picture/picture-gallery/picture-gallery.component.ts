@@ -41,9 +41,11 @@ export class PictureGalleryComponent implements OnInit{
               (pictures)  => {
                      this.picturList = pictures.picturesListe;
                 },
-              (error) =>  {
-                this.errorMessage = <any>error
-                });
+             ).catch(error => {
+                  console.log("ici ",error);
+                  this.errorMessage = <any>error
+                 // TODO getsion display de l'error
+      });
     }
 
 

@@ -67,7 +67,6 @@ export class PictureStore {
           id : body.pictures[i].id,
           title : body.pictures[i].title,
           url : body.pictures[i].url
-
         }
       )
 

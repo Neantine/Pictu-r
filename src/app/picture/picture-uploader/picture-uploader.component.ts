@@ -43,13 +43,13 @@ export class PictureUploaderComponent {
     // if (this._canIuploadThisPicture(picture)){return;}
 
       this.pictureStore.uploadPicture(picture)
-        .then(
-          picture  => {
-             console.log(picture);
-          },
-          error =>  {
-            this.errorMessage = <any>error
-          });
+        .then( picture  => {
+             console.log('tout marche bien navette : ' ,picture);
+          }
+         ).catch(error => {
+                this.errorMessage = <any>error
+            // TODO getsion display de l'error
+      });
 
   }
 
