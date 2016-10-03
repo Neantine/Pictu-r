@@ -6,5 +6,5 @@ import { PictureGalleryComponent } from "./picture/picture-gallery/picture-galle
 
 export const ROUTES: Routes = [
   { path: '', component: PictureUploaderComponent },
-  { path: '/pictur', component: PictureGalleryComponent },
+  { path: 'pictures', component: PictureGalleryComponent },
 ];

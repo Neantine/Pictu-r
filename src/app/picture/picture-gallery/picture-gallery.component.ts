@@ -5,7 +5,7 @@ import { PictureStore } from '../picture-store';
 
 @Component({
     selector: 'pr-picture-gallery',
-    styles: [ require('./picture-gallery.component.css') ],
+   /* styles: [ require('./picture-gallery.component.css') ],*/
     template: require('./picture-gallery.component.html')
 })
 
@@ -14,9 +14,6 @@ import { PictureStore } from '../picture-store';
 export class PictureGalleryComponent implements OnInit{
 
     static PROVIDERS = [PictureStore];
-
-
-
 
     // TypeScript public modifiers
     constructor(private pictureStore: PictureStore) {
@@ -34,16 +31,27 @@ export class PictureGalleryComponent implements OnInit{
 
     pictureList() {
 
-      this.pictureStore.pictureList()
+      return  {
+        user:1,
+        pictures :
+          [
+            {id:1, title: 'image 1', url: 'C:/Users/ytron/WebstormProjects/Pictu-r/src/test/picture/img/test1.jpg'},
+            {id:2, title: 'image 2', url: 'C:/Users/ytron/WebstormProjects/Pictu-r/src/test/picture/img/test2.jpg'},
+            {id:3, title: 'image 3', url: 'C:/Users/ytron/WebstormProjects/Pictu-r/src/test/picture/img/test3.jpg'}]
+      }
+    ;
+     /* this.pictureStore.pictureList()
             .then(
-                picture  => {
+                pictures  => {
+                  console.log('picturc',pictures);
+                  return pictures;
                    // TODO ???
                 },
                 error =>  {
                   // TODO handle error
                   console.log('picturc',error);
 
-                });
+                });*/
     }
 
 

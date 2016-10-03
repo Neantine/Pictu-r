@@ -29,14 +29,14 @@ describe('PictureGalleryComponent', () => {
         let element = fixture.debugElement.nativeElement;
 
 
-
         /* Mock PictureStore. */
         spyOn(pictureStore, 'pictureList').and.returnValue(Promise.resolve(
             {
-            pictures :
-            [{id:1, title: 'image 1', url: 'C:\Users\ytron\WebstormProjects\Pictu-r\src\test\picture\img\test1.jpg'},
-            {id:2, title: 'image 2', url: 'C:\Users\ytron\WebstormProjects\Pictu-r\src\test\picture\img\test2.jpg'},
-            {id:3, title: 'image 3', url: 'C:\Users\ytron\WebstormProjects\Pictu-r\src\test\picture\img\test3.jpg'}]
+              user:1,
+             pictures :
+            [{id:1, title: 'image 1', url: 'C:/Users/ytron/WebstormProjects/Pictu-r/src/test/picture/img/test1.jpg'},
+            {id:2, title: 'image 2', url: 'C:/Users/ytron/WebstormProjects/Pictu-r/src/test/picture/img/test2.jpg'},
+            {id:3, title: 'image 3', url: 'C:/Users/ytron/WebstormProjects/Pictu-r/src/test/picture/img/test3.jpg'}]
             }
             ));
 
@@ -45,8 +45,9 @@ describe('PictureGalleryComponent', () => {
           tick();
 
          let images = element.querySelector('img');
+        console.log('mes images',images);
 
-        // expect(images.length).toEqual(3);
+         expect(images.length).toEqual(3);
         // TODO test url and title of picture
     })));
 
