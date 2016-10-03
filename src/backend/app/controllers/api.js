@@ -23,20 +23,31 @@ router.get('user/:userId/pictures', function (req, res, next) {
 
 router.post('user/:userId/pictures/', function (req, res, next) {
 
-   let bodyReqTitle = req.query.title;
-   let bodyReqPictureData = req.query.fileData;
+  console.log("getFileName ");
+  getFileName(req);
 
-   let serverStorage = new ServerStorage();
+  let bodyReqTitle = req.query.title;
+  let bodyReqPictureData = req.query.fileData;
 
-    serverStorage.savePicture(bodyReqTitle, bodyReqPictureData).then( (generatedFileName) => {
-      console.log("Picture saved with generatedFileName: ",generatedFileName);
-      console.log("Adding file to database");
-      PictureDbService.addPicture(generatedFileName, bodyReqTitle, 'storage-type-server');
-   }).catch( (err) => {
-     return err;
-   })
+  let serverStorage = new ServerStorage();
+  let response = null;
 
-   res.status(201).send('PICTURE STORED WITH ID ');//, uniqueID);
+  serverStorage.savePicture(bodyReqTitle, bodyReqPictureData).then(
+    (generatedFileName, generatedFileURL) => {
+      console.log("Picture saved with generatedFileName: ", generatedFileName);
+      console.log("Picture saved with generatedFileName: ", generatedFileURL);
+
+      response = {id: generatedFileName, url: generatedFileURL, title: bodyReqTitle};
+
+      PictureDbService.addPicture(generatedFileName, bodyReqTitle, 'storage-type-server').then(() => {
+        res.status(201).send(response);
+      });
 
 
-});
+    }).catch(err => {
+    console.log("save picture error: ", err);
+    res.status(400).send(response);  //TODO get error status from db service & server storage
+    return err;
+  })
+
+})

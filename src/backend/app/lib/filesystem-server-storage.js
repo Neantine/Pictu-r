@@ -1,6 +1,7 @@
 const fs = require('fs');
 var shortid = require('shortid');
 const path = require("path");
+const url = require('url');
 
 class ServerStorage {
 
@@ -19,17 +20,19 @@ class ServerStorage {
       let decodedPicData = new Buffer(picData, 'base64');
 
       let uniqueID = shortid.generate();
-      let generatedFileName = bodyReqTitle+''+uniqueID;
+      let generatedFileName = bodyReqTitle+''+uniqueID+".jpg";
 
-      fs.writeFile(this.picturesPath + '/' + generatedFileName, decodedPicData, (err) => {
+      fs.writeFile(this.picturesPath + '/' + generatedFileName, decodedPicData, 'base64', (err) => {
 
         if (err) {
           generatedFileName = null;
-          reject(console.log("write error: ", err));
+          console.log("write error: ", err);
+          reject(err);
         }
         else
         {
-          resolve(generatedFileName);
+          let localpath = path.join(process.cwd(), this.picturesPath);
+          resolve(generatedFileName, localpath+"/"+generatedFileName);
         }
 
       })
@@ -55,6 +58,7 @@ class ServerStorage {
   }
 
 };
+
 
 
 module.exports = ServerStorage;
