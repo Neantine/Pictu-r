@@ -1,12 +1,12 @@
 const express = require('express');
 const supertest = require('supertest');
 
-const app = require('../app');
-const config = require('../config/config');
+const app = require('../../app');
+const config = require('../../config/config');
 var path = require('path');
 
 const fs = require('fs');
-const ServerStorage = require('../app/lib/filesystem-server-storage');
+const ServerStorage = require('../../app/lib/filesystem-server-storage');
 
 describe('ServerStorage', () => {
 
