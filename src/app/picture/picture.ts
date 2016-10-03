@@ -11,8 +11,8 @@ export class Picture {
     this.fileData = fileData;
   }
 
-  isEqual ( picture: Picture ) {
+/*  isEqual ( picture: Picture ) {
     return this === picture;
-  }
+  }*/
 
 }

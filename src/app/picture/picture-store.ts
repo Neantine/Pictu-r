@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 
 import {Picture} from "../picture/picture";
+import {PictureDisplay} from "../picture/picture-display";
 
 
 import { Headers, RequestOptions } from '@angular/http';
@@ -33,7 +34,7 @@ export class PictureStore {
       .catch(this._handleError);
   }
 
-  pictureList(): Promise<Picture[]> {
+  pictureList(): Promise<{user:number, picturesListe:[PictureDisplay]}> {
     return this.http.get(this.picturesUrl)
       .toPromise()
       .then(this._checkStatus)
@@ -55,14 +56,24 @@ export class PictureStore {
   }
 
   private _extractPictures(res: Response) {
-  console.log('_extractPictures');
+
     let body = res.json();
 
-    let picturesReceived =  {
-      user : body.user,
-      pictures : body.pictures
-    };
-    return picturesReceived || {};
+    let _pictureDisplayArray = [PictureDisplay];
+
+    for(let i=0; i<body.pictures.length;i++){
+      _pictureDisplayArray.push(
+        new PictureDisplay (
+        {
+          title : body.pictures[i].title,
+          url : body.pictures[i].url,
+          id : body.pictures[i].id,
+        }
+        )
+      )
+    }
+    let picturesToDisplay =  {  user : body.user,  picturesListe :_pictureDisplayArray  };
+    return picturesToDisplay || {};
 
   }
 
