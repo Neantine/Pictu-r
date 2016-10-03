@@ -18,7 +18,7 @@ describe("Database Picture", function () {
    */
 
 
-  it("can be saved a picture", function (done) {
+  xit("can be saved a picture", function (done) {
 
     pictureDbService.addPicture({
       pictureId: '123',
@@ -32,7 +32,7 @@ describe("Database Picture", function () {
   });
 
 
-  it("can be saved another picture", function (done) {
+  xit("can be saved another picture", function (done) {
 
     pictureDbService.addPicture({
       pictureId: '456',
@@ -44,7 +44,7 @@ describe("Database Picture", function () {
       });
   });
 
-  it("can be listed", function (done) {
+  xit("can be listed", function (done) {
     pictureDbService.findAllPicture(function (err, pictures) { })
       .then((err, pictures) => {
         expect(err).to.not.exist;
