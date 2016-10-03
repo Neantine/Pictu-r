@@ -6,12 +6,12 @@ export class Picture {
   title: string;
   fileData: string;
 
-  constructor({title="", fileData=null}: {title?:string, fileData?: string}) {
+  constructor( { title = '', fileData = null } : { title? : string, fileData? : string } ) {
     this.title = title;
     this.fileData = fileData;
   }
 
-  isEqual(picture: Picture) {
+  isEqual ( picture: Picture ) {
     return this === picture;
   }
 
