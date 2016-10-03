@@ -21,7 +21,7 @@ describe('PictureGalleryComponent', () => {
     }));
 
 
-    it('should display 3 images or "picture-gallery-item" after a call at method pictureList()',  fakeAsync(inject(
+    it('should display 3 images after a call at method pictureList()',  fakeAsync(inject(
         [PictureStore],
         (pictureStore) => {
 

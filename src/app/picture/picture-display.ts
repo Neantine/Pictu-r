@@ -4,8 +4,8 @@
 
 export class PictureDisplay {
 
-  title: string;
   id: number;
+  title: string;
   url : string;
 
   constructor( { title = '', url = '', id=-1 } :  {id: number ,title? : string, url : string } ) {

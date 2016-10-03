@@ -59,17 +59,20 @@ export class PictureStore {
 
     let body = res.json();
 
-    let _pictureDisplayArray = [PictureDisplay];
+    let _pictureDisplayArray = [];
 
     for(let i=0; i<body.pictures.length;i++){
-      _pictureDisplayArray.push(
-        new PictureDisplay (
+      let pic = new PictureDisplay(
         {
-          title : body.pictures[i].title,
-          url : body.pictures[i].url,
           id : body.pictures[i].id,
+          title : body.pictures[i].title,
+          url : body.pictures[i].url
+
         }
-        )
+      )
+
+      _pictureDisplayArray.push(
+        pic
       )
     }
     let picturesToDisplay =  {  user : body.user,  picturesListe :_pictureDisplayArray  };
