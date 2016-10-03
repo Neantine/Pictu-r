@@ -1,38 +1,66 @@
+"use strict";
 const fs = require('fs');
 var shortid = require('shortid');
+const path = require("path");
 
 class ServerStorage {
 
   constructor() {
+    this.picturesPath = "./stored-pictures";
+    console.log('picture path:', this.picturesPath);
   }
 
-  saveFile(title, fileData, callback) {
 
-    // console.log('Saving file into file system... ');
-    // console.log('title: ',title);
-    // console.log('fileData: ', fileData);
+  savePicture(title, bodyReqPictureData) {
+
+
+    //Create base64 decoded buffer
+    let picData = bodyReqPictureData.replace(/^data:image\/\w+;base64,/, "");
+    let decodedPicData = new Buffer(picData, 'base64');
+
+
 
     let uniqueID = shortid.generate();
-    //console.log('uniqueID ', uniqueID);
-    let uniqueFileName = title+''+uniqueID;
+    let uniqueFileName = 'testimage'; //title+''+uniqueID;
 
-    let err = null;
-    let res = null;
 
-    fs.writeFile('src/backend/tests/fixtures/'+uniqueFileName, fileData, (err, res) => {
+    fs.open(this.picturesPath, 'w', (err) =>
+    {
+      console.log("fs.open, ", err);
+      return err;
+
+      fs.writeFile(this.picturesPath + '/' + uniqueFileName, decodedPicData, (err) => {
+        if (err) {
+          console.log("write error: ", err);
+          uniqueFileName = null;
+          return err;
+        }
+
+      })
+      console.log("savePicture uniqueFileName: ", uniqueFileName);
+      return uniqueFileName;
+    })
+
+  }
+
+
+  getPicture(uniqueFileName) {
+
+    let data = null;
+    console.log('get picture ', this.picturesPath+'/'+uniqueFileName);
+    fs.readFile(this.picturesPath+'/'+uniqueFileName, (err, data) => {
       if (err)
       {
-         return err;
+        console.log('getPicture error:', err);
+        return err;
       }
-
-      res = uniqueFileName;
+      data= data;
+      console.log("getPicture:", data);
+      return data;
 
     })
 
-
-
-    return callback(err, res);
-
+    return data;
   }
 
 };
