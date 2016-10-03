@@ -16,7 +16,7 @@ export class PictureGalleryComponent implements OnInit{
     static PROVIDERS = [PictureStore];
 
 
-    picturList;
+
 
     // TypeScript public modifiers
     constructor(private pictureStore: PictureStore) {
@@ -38,7 +38,6 @@ export class PictureGalleryComponent implements OnInit{
             .then(
                 picture  => {
                    // TODO ???
-                  this.picturList = picture;
                 },
                 error =>  {
                   // TODO handle error

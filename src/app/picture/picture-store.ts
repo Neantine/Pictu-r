@@ -36,8 +36,8 @@ export class PictureStore {
   pictureList(): Promise<Picture[]> {
     return this.http.get(this.picturesUrl)
       .toPromise()
-      .then((response) => this._checkStatus(response))
-      .then(this._extractPicture)
+      .then(this._checkStatus)
+      .then(this._extractPictures)
       .catch(this._handleError);
   }
 
@@ -54,10 +54,16 @@ export class PictureStore {
     return pictureReceived || {};
   }
 
-  private _extractPicture(res: Response) {
+  private _extractPictures(res: Response) {
+  console.log('_extractPictures');
     let body = res.json();
-    let picturesReceived =  {pictures : body.pictures};
+
+    let picturesReceived =  {
+      user : body.user,
+      pictures : body.pictures
+    };
     return picturesReceived || {};
+
   }
 
   /**
