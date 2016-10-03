@@ -10,7 +10,7 @@ const ServerStorage = require('../../app/lib/filesystem-server-storage');
 
 describe('ServerStorage', () => {
 
-  describe('function savePicture (called when post api/v1/images/nicePic is received)', function() {
+  describe('function savePicture (called when post api/v1/user/1/image/ is received)', function() {
 
       it('should save the file in the filesystem', function (done) {
 
@@ -18,36 +18,40 @@ describe('ServerStorage', () => {
         let bodyReqPictureData = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0"
           + "NAAAAKElEQVQ4jWNgYGD4Twzu6FhFFGYYNXDUwGFpIAk2E4dHDRw1cDgaCAASFOffhEIO"
           + "3gAAAABJRU5ErkJggg==";
+        let bodyReqTitle = 'test-image';
 
-        let generatedFileName = null;
         let serverStorage = new ServerStorage();
-        serverStorage.initFs().then(() => {
-          generatedFileName = serverStorage.saveFile(fileData).then( ()=> {
 
-          });
+        serverStorage.savePicture(bodyReqTitle, bodyReqPictureData).then( (generatedFileName)=> {
+          console.log("Picture saved with generatedFileName: ", generatedFileName);
+          expect(generatedFileName).toBeNonEmptyString;
+          return done();
+
         }).catch( (err) => {
-          return err;
+          console.log(err);
+          return done(err);
         })
-
-
-        expect(generatedFileName).toBeNonEmptyString;
-
-        return done();
-
       });
   })
 
 
 
-  describe('function getPicture (called when get api/v1/images/nicePic is received)', function() {
+  describe('function getPicture (called when get api/v1/user/1/images/1 is received)', function() {
 
-    it('should get the file from the filesystem', function (done) {
+    xit('should get the file from the filesystem', function (done) {
 
       let serverStorage = new ServerStorage();
+      serverStorage.getPicture('testimage').then( (data) => {
 
-      let data = serverStorage.getPicture('testimage');
+        expect(data).toBeNonEmptyObject;
+        return(done);
 
-      expect(data).toBeNonEmptyObject;
+      }).catch( (err) => {
+        console.log(err);
+        return done(err);
+      }) ;
+
+
 
       return done();
     });

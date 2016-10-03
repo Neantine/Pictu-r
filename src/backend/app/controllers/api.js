@@ -29,6 +29,8 @@ router.post('user/:userId/pictures/', function (req, res, next) {
    let serverStorage = new ServerStorage();
    serverStorage.initFs().then( () => {
       serverStorage.saveFile(fileData).then( (generatedFileName) => {
+        console.log("Picture saved with generatedFileName: ",generatedFileName);
+        console.log("Adding file to database");
         PictureDbService.addPicture(generatedFileName, title, 'storage-type-server');
      })
 
