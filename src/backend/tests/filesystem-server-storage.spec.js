@@ -22,7 +22,9 @@ describe('ServerStorage', () => {
         let generatedFileName = null;
         let serverStorage = new ServerStorage();
         serverStorage.initFs().then(() => {
-          generatedFileName = serverStorage.saveFile(fileData);
+          generatedFileName = serverStorage.saveFile(fileData).then( ()=> {
+
+          });
         }).catch( (err) => {
           return err;
         })

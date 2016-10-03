@@ -19,7 +19,6 @@ class ServerStorage {
         else {
           resolve(console.log("fs.open OK"));
         }
-
       })
     })
   }
@@ -28,45 +27,45 @@ class ServerStorage {
 
   savePicture(title, bodyReqPictureData) {
 
-    //Create base64 decoded buffer
-    let picData = bodyReqPictureData.replace(/^data:image\/\w+;base64,/, "");
-    let decodedPicData = new Buffer(picData, 'base64');
+    return new Promise(function (resolve, reject) {
 
-    let uniqueID = shortid.generate();
-    let generatedFileName = 'testimage'; //title+''+uniqueID;
+      //Create base64 decoded buffer
+      let picData = bodyReqPictureData.replace(/^data:image\/\w+;base64,/, "");
+      let decodedPicData = new Buffer(picData, 'base64');
 
+      let uniqueID = shortid.generate();
+      let generatedFileName = 'testimage'; //title+''+uniqueID;
 
       fs.writeFile(this.picturesPath + '/' + generatedFileName, decodedPicData, (err) => {
         if (err) {
-          console.log("write error: ", err);
           generatedFileName = null;
-          return err;
+          reject(console.log("write error: ", err));
         }
-        console.log("savePicture uniqueFileName: ", generatedFileName);
-        return generatedFileName;
+        else
+        {
+          resolve(console.log("savePicture uniqueFileName: ", generatedFileName), generatedFileName);
+        }
 
       })
-
+    })
   }
 
 
   getPicture(fileName) {
 
-    let data = null;
-    console.log('get picture ', this.picturesPath+'/'+fileName);
-    fs.readFile(this.picturesPath+'/'+fileName, (err, data) => {
-      if (err)
-      {
-        console.log('getPicture error:', err);
-        return err;
-      }
-      data= data;
-      console.log("getPicture:", data);
-      return data;
-
+    return new Promise(function (resolve, reject) {
+      let data = null;
+      console.log('get picture ', this.picturesPath + '/' + fileName);
+      fs.readFile(this.picturesPath + '/' + fileName, (err, data) => {
+        if (err) {
+          reject(console.log('getPicture error:', err))
+        }
+        else {
+          data = data;
+          resolve(console.log("getPicture:", data), data)
+        }
+      })
     })
-
-    return data;
   }
 
 };
