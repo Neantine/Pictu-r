@@ -10,7 +10,7 @@ const ServerStorage = require('../../app/lib/filesystem-server-storage');
 
 describe('ServerStorage', () => {
 
-  describe('function savePicture (called when post api/v1/user/1/image/ is received)', function() {
+  describe('function savePicture (called when post api/v1/user/1/pictures/ is received)', function() {
 
       it('should save the file in the filesystem', function (done) {
 
@@ -36,12 +36,12 @@ describe('ServerStorage', () => {
 
 
 
-  describe('function getPicture (called when get api/v1/user/1/images/1 is received)', function() {
+  describe('function getPicture (called when get api/v1/user/1/pictures/1 is received)', function() {
 
-    xit('should get the file from the filesystem', function (done) {
+    it('should get the file from the filesystem', function (done) {
 
       let serverStorage = new ServerStorage();
-      serverStorage.getPicture('testimage').then( (data) => {
+      serverStorage.getPicture('test-imageB1UnVakA').then( (data) => {
 
         expect(data).toBeNonEmptyObject;
         return(done);

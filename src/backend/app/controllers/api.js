@@ -23,17 +23,15 @@ router.get('user/:userId/pictures', function (req, res, next) {
 
 router.post('user/:userId/pictures/', function (req, res, next) {
 
-   let title = req.query.title;
-   let fileData = req.query.fileData;
+   let bodyReqTitle = req.query.title;
+   let bodyReqPictureData = req.query.fileData;
 
    let serverStorage = new ServerStorage();
-   serverStorage.initFs().then( () => {
-      serverStorage.saveFile(fileData).then( (generatedFileName) => {
-        console.log("Picture saved with generatedFileName: ",generatedFileName);
-        console.log("Adding file to database");
-        PictureDbService.addPicture(generatedFileName, title, 'storage-type-server');
-     })
 
+    serverStorage.savePicture(bodyReqTitle, bodyReqPictureData).then( (generatedFileName) => {
+      console.log("Picture saved with generatedFileName: ",generatedFileName);
+      console.log("Adding file to database");
+      PictureDbService.addPicture(generatedFileName, bodyReqTitle, 'storage-type-server');
    }).catch( (err) => {
      return err;
    })
