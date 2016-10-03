@@ -10,7 +10,7 @@ class ServerStorage {
   }
 
 
-  savePicture(title, bodyReqPictureData) {
+  savePicture(bodyReqTitle, bodyReqPictureData) {
 
     return new Promise( (resolve, reject) => {
 
@@ -19,7 +19,7 @@ class ServerStorage {
       let decodedPicData = new Buffer(picData, 'base64');
 
       let uniqueID = shortid.generate();
-      let generatedFileName = title+''+uniqueID;
+      let generatedFileName = bodyReqTitle+''+uniqueID;
 
       fs.writeFile(this.picturesPath + '/' + generatedFileName, decodedPicData, (err) => {
 
@@ -41,14 +41,14 @@ class ServerStorage {
 
     return new Promise( (resolve, reject) => {
       let data = null;
-      console.log('get picture ', this.picturesPath + '/' + fileName);
+      //console.log('get picture ', this.picturesPath + '/' + fileName);
       fs.readFile(this.picturesPath + '/' + fileName, (err, data) => {
         if (err) {
           reject(console.log('getPicture error:', err))
         }
         else {
           data = data;
-          resolve(console.log("getPicture:", data), data)
+          resolve(data)
         }
       })
     })
