@@ -1,7 +1,7 @@
 var express = require('express'),
   router = express.Router(),
   mongoose = require('mongoose'),
-  Article = mongoose.model('Article');
+  Picture = mongoose.model('Picture');
 
 module.exports = function (app) {
   app.use('/api/v1', router);

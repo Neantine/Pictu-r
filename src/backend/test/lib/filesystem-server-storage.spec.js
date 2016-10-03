@@ -1,3 +1,4 @@
+/*
 const express = require('express');
 const request = require('superagent');
 const supertest = require('supertest');
@@ -32,10 +33,10 @@ describe('FileSystemServerStorage', () => {
   //   it('should return SOMETHING', function(done) {
   //
   //     request(server)
-  //       .post('/user/1234/album/1/picture')/* TODO : faire le test d'envoi de fichier */
-  //       .expect(200) /* <--- A virer */
-  //       /* TODO : vérifier la présence de l'image dans la base */
-  //       /* TODO : vérifier la présence de l'image dans le filesystem */
+  //       .post('/user/1234/album/1/picture')/!* TODO : faire le test d'envoi de fichier *!/
+  //       .expect(200) /!* <--- A virer *!/
+  //       /!* TODO : vérifier la présence de l'image dans la base *!/
+  //       /!* TODO : vérifier la présence de l'image dans le filesystem *!/
   //       .end(done);
   //
   //   });
@@ -43,3 +44,4 @@ describe('FileSystemServerStorage', () => {
 
 
 });
+*/
