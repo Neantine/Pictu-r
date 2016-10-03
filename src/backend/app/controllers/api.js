@@ -1,12 +1,11 @@
-"use strict";
-
 var express = require('express');
 var router = express.Router();
 
 var bodyParser = require('body-parser');
 
-
 const ServerStorage = require('../lib/filesystem-server-storage');
+//const PDbService = require('../lib/database-picture-storage');
+//const PictureDbService = new PDbService();
 
 module.exports = function (app) {
   app.use('/api/v1', router);
@@ -28,8 +27,15 @@ router.post('user/:userId/pictures/', function (req, res, next) {
    let fileData = req.query.fileData;
 
    let serverStorage = new ServerStorage();
+   let generatedFileName = null;
+   serverStorage.initFs().then( () => {
+     generatedFileName = serverStorage.saveFile(fileData).then( () => {
+       //PictureDbService.addPicture(generatedFileName, title, 'storage-type-server');
+     })
 
-   let uniqueFileName = serverStorage.saveFile(fileData);
+   }).catch( (err) => {
+     return err;
+   })
 
    res.status(201).send('PICTURE STORED WITH ID ');//, uniqueID);
 

@@ -1,4 +1,3 @@
-"use strict";
 const fs = require('fs');
 var shortid = require('shortid');
 const path = require("path");
@@ -10,45 +9,52 @@ class ServerStorage {
     console.log('picture path:', this.picturesPath);
   }
 
+  initFs()
+  {
+    return new Promise(function (resolve, reject) {
+      fs.open(this.picturesPath, 'w', (err) => {
+        if (err) {
+          reject(console.log("fs.open, ", err));
+        }
+        else {
+          resolve(console.log("fs.open OK"));
+        }
+
+      })
+    })
+  }
+
+
 
   savePicture(title, bodyReqPictureData) {
-
 
     //Create base64 decoded buffer
     let picData = bodyReqPictureData.replace(/^data:image\/\w+;base64,/, "");
     let decodedPicData = new Buffer(picData, 'base64');
 
-
-
     let uniqueID = shortid.generate();
-    let uniqueFileName = 'testimage'; //title+''+uniqueID;
+    let generatedFileName = 'testimage'; //title+''+uniqueID;
 
 
-    fs.open(this.picturesPath, 'w', (err) =>
-    {
-      console.log("fs.open, ", err);
-      return err;
-
-      fs.writeFile(this.picturesPath + '/' + uniqueFileName, decodedPicData, (err) => {
+      fs.writeFile(this.picturesPath + '/' + generatedFileName, decodedPicData, (err) => {
         if (err) {
           console.log("write error: ", err);
-          uniqueFileName = null;
+          generatedFileName = null;
           return err;
         }
+        console.log("savePicture uniqueFileName: ", generatedFileName);
+        return generatedFileName;
 
       })
-      console.log("savePicture uniqueFileName: ", uniqueFileName);
-      return uniqueFileName;
-    })
 
   }
 
 
-  getPicture(uniqueFileName) {
+  getPicture(fileName) {
 
     let data = null;
-    console.log('get picture ', this.picturesPath+'/'+uniqueFileName);
-    fs.readFile(this.picturesPath+'/'+uniqueFileName, (err, data) => {
+    console.log('get picture ', this.picturesPath+'/'+fileName);
+    fs.readFile(this.picturesPath+'/'+fileName, (err, data) => {
       if (err)
       {
         console.log('getPicture error:', err);

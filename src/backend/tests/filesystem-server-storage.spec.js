@@ -1,5 +1,3 @@
-"use strict";
-
 const express = require('express');
 const supertest = require('supertest');
 
@@ -21,10 +19,16 @@ describe('ServerStorage', () => {
           + "NAAAAKElEQVQ4jWNgYGD4Twzu6FhFFGYYNXDUwGFpIAk2E4dHDRw1cDgaCAASFOffhEIO"
           + "3gAAAABJRU5ErkJggg==";
 
+        let generatedFileName = null;
         let serverStorage = new ServerStorage();
-        let uniqueFileName = serverStorage.savePicture('testimage', bodyReqPictureData);
+        serverStorage.initFs().then(() => {
+          generatedFileName = serverStorage.saveFile(fileData);
+        }).catch( (err) => {
+          return err;
+        })
 
-        expect(uniqueFileName).toBeNonEmptyString;
+
+        expect(generatedFileName).toBeNonEmptyString;
 
         return done();
 
