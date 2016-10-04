@@ -56,7 +56,7 @@ class ServerStorage {
     })
   }
 
-  getUrlFromStorageType({_id:_id, userId:userId, pictureId:pictureId, pictureTitle:pictureTitle, pictureUrl:pictureUrl, pictureFileStore:pictureFileStore})
+  getUrlFromStorageType({_id:_id, userId:userId, pictureId:pictureId, pictureTitle:pictureTitle, pictureFileStore:pictureFileStore, __v:__v})
   {
     let url = '';
 

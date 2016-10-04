@@ -37,7 +37,7 @@ class PictureDbService {
           reject("Error during the retrieving of all pictures from the database: ", err);
         }
         else {
-          console.log(pictures);
+          console.log("findUsersPictures:", pictures);
           resolve(pictures);
         }
       });
