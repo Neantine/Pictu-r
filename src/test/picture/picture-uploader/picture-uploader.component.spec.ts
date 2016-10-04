@@ -99,7 +99,7 @@ describe('PictureUploaderComponent', () => {
         let file = {
           name: 'IMAGE_TITLE.jpg',
           size: 1234,
-          type: 'image/jpeg'
+          type: 'image/jpg'
         };
 
         let fixture = TestBed.createComponent(PictureUploaderComponent);
@@ -131,7 +131,7 @@ describe('PictureUploaderComponent', () => {
 
         /* Mock PictureStore. */
         spyOn(pictureStore, 'uploadPicture')
-          .and
+        .and
           .returnValue(Promise.resolve({id: '1', title: 'test', url: '/my_pic'}));
 
 
