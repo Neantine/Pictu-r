@@ -1,16 +1,13 @@
-<<<<<<< HEAD
 /*
  ICI ON DOIT MOQUER LE PICTURE_STORE
  */
 
-=======
->>>>>>> picture-front-feature
 import {
   async,
   inject,
   TestBed, tick, fakeAsync
 } from '@angular/core/testing';
-<<<<<<< HEAD
+
 
 import {
   PictureUploaderComponent
@@ -28,12 +25,7 @@ import {
   Picture
 }
   from '../../../app/picture/picture';
-=======
-import { PictureUploaderComponent } from '../../../app/picture/picture-uploader/picture-uploader.component';
-import { PictureModule } from '../../../app/picture/picture.module';
-import { PictureStore } from '../../../app/picture/picture-store';
-import { Picture } from '../../../app/picture/picture';
->>>>>>> picture-front-feature
+
 
 
 describe('PictureUploaderComponent', () => {
@@ -48,7 +40,7 @@ describe('PictureUploaderComponent', () => {
   }));
 
 
-<<<<<<< HEAD
+
   it('should display an input of type file,' +
     ' an input of type text and a button upload',
     inject([], () => {
@@ -59,16 +51,8 @@ describe('PictureUploaderComponent', () => {
       expect(element.querySelector("input[type='text']")).toBeTruthy();
       expect(element.getElementsByClassName('myUpload')).toBeTruthy();
     }));
-=======
-  it('should display an input of type file, an input of type text and a button upload', inject([], () => {
-    let fixture = TestBed.createComponent(PictureUploaderComponent);
-    let pictureUploaderComponent = fixture.componentInstance;
-    let element = fixture.debugElement.nativeElement;
-    expect(element.querySelector('input[type="file"]')).toBeTruthy();
-    expect(element.querySelector('input[type="text"]')).toBeTruthy();
-    expect(element.querySelector('.myUpload')).toBeTruthy();
-  }));
->>>>>>> picture-front-feature
+
+
 
 
   it('should set the  pictureTmp.title="my pic" after input text change', inject([], () => {
@@ -88,11 +72,9 @@ describe('PictureUploaderComponent', () => {
 
     pictureToUpload.title = inputText.value;
 
-<<<<<<< HEAD
-    console.log('picture', pictureToUpload);
-=======
 
->>>>>>> picture-front-feature
+    console.log('picture', pictureToUpload);
+
     expect(pictureToUpload.title).toEqual('my pic');
   }));
 
@@ -117,7 +99,7 @@ describe('PictureUploaderComponent', () => {
         let file = {
           name: 'IMAGE_TITLE.jpg',
           size: 1234,
-          type: 'image/jpeg'
+          type: 'image/jpg'
         };
 
         let fixture = TestBed.createComponent(PictureUploaderComponent);
@@ -146,15 +128,13 @@ describe('PictureUploaderComponent', () => {
 
         tick();
 
-<<<<<<< HEAD
+
         /* Mock PictureStore. */
         spyOn(pictureStore, 'uploadPicture')
-          .and
+        .and
           .returnValue(Promise.resolve({id: '1', title: 'test', url: '/my_pic'}));
-=======
-      pictureUploaderComponent.uploadPicture(pictureUploaderComponent.pictureTmp);
-      // formElement.submit();
->>>>>>> picture-front-feature
+
+
 
         pictureUploaderComponent
           .uploadPicture(pictureUploaderComponent.pictureTmp);
@@ -173,79 +153,51 @@ describe('PictureUploaderComponent', () => {
             )
           ]);
 
-<<<<<<< HEAD
       })
     ));
+
+  it('should not affect fileData to picturTmp if file is null on drag(event)', fakeAsync(inject(
+    [PictureStore],
+    (pictureStore) => {
+
+      let event;
+      let file = null;
+
+      let fixture = TestBed.createComponent(PictureUploaderComponent);
+      let pictureUploaderComponent = fixture.componentInstance;
+      let element = fixture.debugElement.nativeElement;
+
+      let inputFile = element.querySelector('input[type="file"]');
+      let formElement = element.querySelector('form');
+
+      let pictureToUpload = pictureUploaderComponent.pictureTmp;
+
+
+      /* Mock PictureStore. */
+      spyOn(pictureStore, 'handleFileSelect').and.returnValue(Promise.resolve(null));
+
+      event = {
+        target: {
+          files: [file]
+        }
+      };
+
+      pictureUploaderComponent.drag(event);
+
+      tick();
+
+      expect((<jasmine.Spy>pictureStore.handleFileSelect).calls.count()).toEqual(1);
+      expect(pictureToUpload.fileData).toBeNull();
+
+    })));
+
+
+
 });
-=======
-
-
-    it('should not affect fileData to picturTmp if file is null on drag(event)', fakeAsync(inject(
-        [PictureStore],
-        (pictureStore) => {
-
-            let event;
-            let file = null;
-
-            let fixture = TestBed.createComponent(PictureUploaderComponent);
-            let pictureUploaderComponent = fixture.componentInstance;
-            let element = fixture.debugElement.nativeElement;
-
-            let inputFile = element.querySelector('input[type="file"]');
-            let formElement = element.querySelector('form');
-
-            let pictureToUpload = pictureUploaderComponent.pictureTmp;
-
-
-            /* Mock PictureStore. */
-            spyOn(pictureStore, 'handleFileSelect').and.returnValue(Promise.resolve(null));
-
-            event = {
-                target: {
-                    files: [file]
-                }
-            };
-
-            pictureUploaderComponent.drag(event);
-
-            tick();
-
-            expect((<jasmine.Spy>pictureStore.handleFileSelect).calls.count()).toEqual(1);
-            expect(pictureToUpload.fileData).toBeNull();
-
-        })));
-
-    it('should not call method "handleFileSelect" if event is null', fakeAsync(inject(
-        [PictureStore],
-        (pictureStore) => {
-
-            let event =null;
-            let file = null;
-
-            let fixture = TestBed.createComponent(PictureUploaderComponent);
-            let pictureUploaderComponent = fixture.componentInstance;
-            let element = fixture.debugElement.nativeElement;
 
 
 
 
-            /* Mock PictureStore. */
-            spyOn(pictureStore, 'handleFileSelect').and.returnValue(Promise.resolve(null));
-
-         /*   event = {
-                target: {
-                    files: [file]
-                }
-            };*/
-
-            pictureUploaderComponent.drag(event);
-
-            tick();
-
-            expect((<jasmine.Spy>pictureStore.handleFileSelect).calls.count()).toEqual(0);
 
 
-        })));
 
-})
->>>>>>> picture-front-feature
