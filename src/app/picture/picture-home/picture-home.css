@@ -1,5 +1,6 @@
 .Menubar {
-  padding: 12px;
+  padding-top:20px;
+  padding-bottom: 50px;
   background-color: rgba(0, 0, 0, 0.001);
   flex: 1 1 auto;
 }
@@ -10,7 +11,8 @@
 }
 
 .ButtonPos {
-  padding: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
   flex: 1 1 auto;
 }
 
