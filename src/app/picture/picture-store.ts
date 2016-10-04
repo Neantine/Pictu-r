@@ -1,14 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-<<<<<<< HEAD
+
 import { Picture } from '../picture/picture';
-=======
+
 
 import {Picture} from "../picture/picture";
 import {PictureDisplay} from "../picture/picture-display";
 
-
->>>>>>> picture-front-feature
 import { Headers, RequestOptions } from '@angular/http';
 
 @Injectable()
