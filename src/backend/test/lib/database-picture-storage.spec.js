@@ -8,47 +8,55 @@ const PictureDbService = require('../../app/lib/database-picture-storage');
 const pictureDbService = new PictureDbService();
 
 describe("Database Picture", function () {
-
-  /*
+/*
 
    beforeEach(function(done) {
-   Picture({})(done);
+   Picture.remove({},  (err) => {
+       if(err){throw err;}
+       done();
+     });
    console.log("Database is Empty");
    });
-   */
+
+  afterEach(() => {
+  });
+*/
 
 
-  xit("can be saved a picture", function (done) {
+  it("can be saved a picture", function (done) {
 
     pictureDbService.addPicture({
       pictureId: '123',
       pictureTitle: "My nice pic",
       typeFileStore: "local"
-    })
-      .then(() => {
-
-      });
-
+    }, done());
   });
 
 
-  xit("can be saved another picture", function (done) {
+  it("can be saved another picture", function (done) {
 
     pictureDbService.addPicture({
       pictureId: '456',
       pictureTitle: "My other nice pic",
       typeFileStore: "local"
-    })
-      .then(() => {
-
-      });
+    }, done());
   });
 
   xit("can be listed", function (done) {
+    pictureDbService.findAllPicture( (err, pictures) => {
+      expect(err).to.not.exist;
+      expect(pictures).to.have.length(2);
+
+      done();
+    })
+
+  })
+/*
+  it("can be listed", function (done) {
     pictureDbService.findAllPicture(function (err, pictures) { })
       .then((err, pictures) => {
-        // expect(err).to.not.exist;
-        // expect(pictures).to.have.length(2);
+        expect(err).to.not.exist;
+        expect(pictures).to.have.length(2);
       })
-  })
+  })*/
 });
