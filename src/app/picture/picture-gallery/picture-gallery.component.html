@@ -1,9 +1,10 @@
 <h1>Pictu'R Gallery</h1>
 
 
-   <div  class="pictur-gallery"  >
+   <div  class="pictur-gallery" *ngFor="let pictur of picturList" >
 
-           <img  *ngFor="let pictur of picturList" class="gallery__item__pictur" [src]="pictur.url" [alt]="pictur.title">
+           <img   class="gallery__item__pictur" [src]="pictur.url | picturUrlSanitizer" [alt]="pictur.title">
+           <p>{{pictur.title}}</p>
    </div>
 
 

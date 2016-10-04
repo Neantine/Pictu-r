@@ -8,12 +8,14 @@ import {PictureUploaderComponent} from "./picture-uploader/picture-uploader.comp
 import {PictureGalleryComponent} from "./picture-gallery/picture-gallery.component";
 import {CommonModule} from "../common.module";
 import {PictureStore} from "./picture-store";
+import {PicturUrlSanitizerPipe} from "./picture-url-sanitizer";
 
 
 @NgModule({
   declarations: [
     PictureUploaderComponent,
-    PictureGalleryComponent
+    PictureGalleryComponent,
+    PicturUrlSanitizerPipe
   ],
   imports: [
     CommonModule.modules()

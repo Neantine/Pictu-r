@@ -12,8 +12,17 @@ module.exports = function (app) {
   app.use(bodyParser.json());
 };
 
-router.get('user/:userId/pictures', function (req, res, next) {
-  res.status(404).send('GET ALL PICTURES NOT IMPLEMENTED YET!');
+router.get('/users/:userId/pictures', function (req, res, next) {
+
+  let bodyRes =  { user: 1, pictures:
+    [
+      {id : 1, title : 'image 1', url : '\\pictu-r\\src\\backend\\app\\lib\\stored-pictures\\test-imageB1z_R1lC.jpg'},
+      {id : 2, title : 'image 2', url : '\\stored-pictures\test-imageH1-Z9ygA.jpg'},
+      {id : 3, title : 'image 3', url : '\src\backend\app\lib\stored-pictures\test-imagery0cWeeA.jpg'}
+    ]
+  }
+
+  res.status(200).send(bodyRes);
 });
 
 // router.get('user/:userId/picture/:pictureId', function (req, res, next) {
@@ -21,7 +30,7 @@ router.get('user/:userId/pictures', function (req, res, next) {
 //
 // });
 
-router.post('user/:userId/pictures/', function (req, res, next) {
+router.post('users/:userId/pictures/', function (req, res, next) {
 
   console.log("getFileName ");
   getFileName(req);
