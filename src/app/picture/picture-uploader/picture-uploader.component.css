@@ -52,14 +52,14 @@
   border-radius: 3px;
   background-color: rgba(0, 0, 0, 0.001);
   border : dotted 3px black;
-  height:200px;
-  width:750px;
+  height:300px;
+  width:1050px;
 }
 .uploadbutton {
   margin: 0 auto;
   border-radius: 3px;
-  height:200px;
-  width:750px;
+  height:300px;
+  width:1050px;
   position : relative;
 }
 
