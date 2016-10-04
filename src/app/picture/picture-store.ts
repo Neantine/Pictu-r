@@ -3,8 +3,6 @@ import { Http, Response } from '@angular/http';
 
 import { Picture } from '../picture/picture';
 
-
-import {Picture} from "../picture/picture";
 import {PictureDisplay} from "../picture/picture-display";
 
 import { Headers, RequestOptions } from '@angular/http';

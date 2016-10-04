@@ -38,23 +38,7 @@ export class PictureUploaderComponent {
   }
 
 
-<<<<<<< HEAD
-  uploadPicture(picture : Picture ){
 
-    console.log(picture);
-
-    // if(this._canIuploadThisPicture(picture)){return;}
-
-      this.pictureStore.uploadPicture(picture)
-        .then(
-          picture => {
-             console.log(picture);
-            },
-          error => {
-            this.errorMessage = <any>error
-          });
-    }
-=======
   uploadPicture(picture : Picture){
     // if (this._canIuploadThisPicture(picture)){return;}
 
@@ -68,7 +52,7 @@ export class PictureUploaderComponent {
       });
 
   }
->>>>>>> picture-front-feature
+
 
 
   /*
