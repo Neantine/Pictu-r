@@ -1,6 +1,6 @@
 import { NgModule, ApplicationRef } from '@angular/core';
 import { RouterModule } from '@angular/router';
-
+import { MaterialModule } from '@angular/material';
 /*
  * Platform and Environment providers/directives/pipes
  */
@@ -19,6 +19,7 @@ import {PictureModule} from "./picture/picture.module";
     App
   ],
   imports: [
+    MaterialModule.forRoot(),
     CommonModule.modules(),
     PictureModule,
     RouterModule.forRoot(ROUTES, { useHash: true })
