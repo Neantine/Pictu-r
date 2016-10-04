@@ -1,5 +1,5 @@
 const fs = require('fs');
-var shortid = require('shortid');
+let shortid = require('shortid');
 const path = require("path");
 const url = require('url');
 

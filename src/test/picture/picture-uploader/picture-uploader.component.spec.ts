@@ -191,37 +191,7 @@ describe('PictureUploaderComponent', () => {
 
     })));
 
-  it('should not call method "handleFileSelect" if event is null', fakeAsync(inject(
-    [PictureStore],
-    (pictureStore) => {
 
-      let event =null;
-      let file = null;
-
-      let fixture = TestBed.createComponent(PictureUploaderComponent);
-      let pictureUploaderComponent = fixture.componentInstance;
-      let element = fixture.debugElement.nativeElement;
-
-
-
-
-      /* Mock PictureStore. */
-      spyOn(pictureStore, 'handleFileSelect').and.returnValue(Promise.resolve(null));
-
-      /*   event = {
-       target: {
-       files: [file]
-       }
-       };*/
-
-      pictureUploaderComponent.drag(event);
-
-      tick();
-
-      expect((<jasmine.Spy>pictureStore.handleFileSelect).calls.count()).toEqual(0);
-
-
-    })));
 
 });
 
