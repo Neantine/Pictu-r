@@ -5,7 +5,9 @@ let bodyParser = require('body-parser');
 
 const ServerStorage = require('../lib/filesystem-server-storage');
 const PDbService = require('../lib/database-picture-storage');
+
 const pictureDbService = new PDbService();
+const serverStorage = new ServerStorage();
 
 module.exports = function (app) {
   app.use('/api/v1', router);
@@ -35,18 +37,20 @@ router.post('/users/:userId/pictures/', function (req, res, next) {
   let bodyReqTitle = req.body.title;
   let bodyReqPictureData = req.body.fileData;
   console.log(req.body)
-  let serverStorage = new ServerStorage();
+  let url;
   let response = null;
 
   let userId=1;
   serverStorage.savePicture(bodyReqTitle, bodyReqPictureData).then(
       (generatedFileName, generatedFileURL) => {
 
-        response = {id: generatedFileName, url: generatedFileURL, title: bodyReqTitle};
-
+        url=generatedFileURL;
         return pictureDbService.addPicture({userId:userId,pictureId :generatedFileName, pictureTitle: bodyReqTitle, pictureFileStore: 'storage-type-server'});
 
-      }).then(() => {
+      }).then((data) => {
+
+          response = {id: data.pictureId, url: url, title: data.pictureTitle};
+          console.log(res);
           res.status(201).send(response);
         })
         .catch(err => {

@@ -28,7 +28,7 @@
     "github-deploy:prod": "webpack --config config/webpack.github-deploy.js --progress --profile --github-prod",
     "github-deploy": "npm run github-deploy:dev",
     "heroku": "npm run server:prod -- -p $PORT",
-    "jasmine": "jasmine-node src/backend/test/lib --forceexit",
+    "jasmine": "jasmine-node src/backend/test --forceexit",
     "karma": "karma start",
     "lint": "npm run tslint \"src/**/*.ts\"",
     "postinstall": "npm run build:prod",
