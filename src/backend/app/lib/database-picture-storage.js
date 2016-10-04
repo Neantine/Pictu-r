@@ -7,33 +7,48 @@ class PictureDbService {
 
   addPicture({id, title, fileStore}) {
     return new Promise((resolve, reject) => {
-    Picture.create({pictureId: id, pictureTitle: title, pictureFileStore: fileStore}, (err) => {
-      if (err){ reject("Error during the adding of picture in database: ", err);}
-      else{ resolve("The picture "+title+" is add to the database")}
-    })
-  });
+      Picture.create({pictureId: id, pictureTitle: title, pictureFileStore: fileStore}, (err) => {
+        if (err) {
+          reject("Error during the adding of picture in database: ", err);
+        }
+        else {
+          resolve({pictureId: id, pictureTitle: title, pictureFileStore: fileStore})
+        }
+      })
+    });
   };
 
   /*
    Retrieve all the picture from the database
    */
-  findAllPicture(cb) {
-    Picture.find({}, function (err, pictures) {
-      if (err) return cb(err, null);
-      cb(null, pictures);
-    });
-
+  findAllPicture() {
+    return new Promise((resolve, reject) => {
+      Picture.find({}, (err, pictures) => {
+        if (err) {
+          reject("Error during the retrieving of all pictures from the database: ", err);
+        }
+        else {
+          resolve(pictures);
+        }
+      });
+    })
   };
 
   /*
    Retrieve a specific picture by id
    */
-  findPictureById(id, cb) {
-    Picture.findOne({pictureId: id}, function (err, pictures) {
-      if (err) return cb(err, null);
-      cb(null, pictures);
-    });
-  };
+  findPictureById(id) {
+    return new Promise((resolve, reject) => {
+      Picture.findOne({pictureId: id}, (err, pictures) => {
+        if (err) {
+          reject("Error during the retrieving of the picture of Id from the database: ", err);
+        }
+        else {
+          resolve(pictures);
+        }
+      });
+    })
+  }
 }
 
 module.exports = PictureDbService;
