@@ -7,8 +7,9 @@ import { MaterialModule } from '@angular/material';
 import { ENV_PROVIDERS } from './environment';
 import { ROUTES } from './app.routes';
 import { App } from './app.component';
-import {CommonModule} from "./common.module";
-import {PictureModule} from "./picture/picture.module";
+import { CommonModule } from "./common.module";
+import { PictureModule } from "./picture/picture.module";
+import { BrowserModule } from "@angular/platform-browser";
 
 /**
  * `AppModule` is the main entry point into Angular2's bootstraping process
@@ -19,7 +20,8 @@ import {PictureModule} from "./picture/picture.module";
     App
   ],
   imports: [
-    MaterialModule.forRoot(),
+    BrowserModule,
+    MaterialModule,
     CommonModule.modules(),
     PictureModule,
     RouterModule.forRoot(ROUTES, { useHash: true })
