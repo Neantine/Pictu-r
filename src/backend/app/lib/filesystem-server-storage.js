@@ -60,13 +60,13 @@ class ServerStorage {
   {
     let url = '';
 
-    if (storagetype === 'server')
+    if (storagetype === 'storageTypeServer')
     {
       url = 'http://m9.i.pbase.com/o6/53/623853/1/131283669.nHMCHWU8.smileyuplo_vector.jpg';
 
     }
 
-    else if (storagetype === 'remote')
+    else if (storagetype === 'storageTypeCloud')
     {
       url = 'http://megaicons.net/static/img/icons_sizes/404/1405/256/jpg-icon.png';
     }

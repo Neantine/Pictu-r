@@ -58,17 +58,17 @@ router.post('/users/:userId/pictures/', function (req, res, next) {
   console.log(req.body)
   let serverStorage = new ServerStorage();
   let response = null;
-
+  let url;
   let userId=1;
   serverStorage.savePicture(bodyReqTitle, bodyReqPictureData).then(
     (generatedFileName, generatedFileURL) => {
 
+      url=generatedFileURL;
+      return pictureDbService.addPicture({userId:userId, pictureId:generatedFileName, pictureTitle: bodyReqTitle, pictureFileStore: 'storageTypeServer'});
 
-      return pictureDbService.addPicture({userId:userId,pictureId :generatedFileName, pictureTitle: bodyReqTitle, pictureFileStore: 'storage-type-server'});
+    }).then((data) => {
 
-    }).then((res) => {
-
-    response = {id: res.pictureId, url: res.url, title: res.pictureTitle};
+    response = {id: data.pictureId, url: url, title: data.pictureTitle};
     res.status(201).send(response);
   })
     .catch(err => {
