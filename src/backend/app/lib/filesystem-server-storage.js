@@ -56,24 +56,24 @@ class ServerStorage {
     })
   }
 
-  getUrlFromStorageType({id:id, title:title, storagetype:storagetype})
+  getUrlFromStorageType({_id:_id, userId:userId, pictureId:pictureId, pictureTitle:pictureTitle, pictureUrl:pictureUrl, pictureFileStore:pictureFileStore})
   {
     let url = '';
 
-    if (storagetype === 'storageTypeServer')
+    if (pictureFileStore === 'storageTypeServer')
     {
       url = 'http://m9.i.pbase.com/o6/53/623853/1/131283669.nHMCHWU8.smileyuplo_vector.jpg';
 
     }
 
-    else if (storagetype === 'storageTypeCloud')
+    else if (pictureFileStore === 'storageTypeCloud')
     {
       url = 'http://megaicons.net/static/img/icons_sizes/404/1405/256/jpg-icon.png';
     }
 
-    console.log("getUrlFromStorageType", id, title, url);
+    console.log("getUrlFromStorageType", pictureId, pictureTitle, url);
 
-    return {id: id, title: title, url: url};
+    return {pictureId:pictureId, pictureTitle:pictureTitle, pictureUrl:url};
   }
 
 };

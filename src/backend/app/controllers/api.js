@@ -26,16 +26,17 @@ router.get('/users/:userId/pictures', function (req, res, next) {
         return;
       }
 
+      console.log("DB result: ", result);
+
       let url = null;
-      let resultWithoutUrl = result.pictures;
-      let resultWithUrl = resultWithoutUrl.map( (pic) => { return serverStorage.getUrlFromStorageType(pic) } );
+      let resultWithUrl = result.map( (pic) => { console.log('mapping ', pic); return serverStorage.getUrlFromStorageType(pic) } );
 
-      let withUrl = {user:result.user, pictures:resultWithUrl};
+      //let withUrl = {user:result.user, pictures:resultWithUrl};
 
-      console.log("resultWithUrl ", withUrl);
+      console.log("resultWithUrl ", resultWithUrl);
 
 
-      res.status(200).send(withUrl);
+      res.status(200).send(resultWithUrl);
     })
 
   // ).catch()
