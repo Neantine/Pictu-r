@@ -12,8 +12,11 @@ class PictureDbService {
    */
   addPicture(pictureInfo) {
     return new Promise((resolve, reject) => {
-      Picture.create({userId : pictureInfo.userId, pictureId:  pictureInfo.pictureId, pictureTitle:  pictureInfo.pictureTitle, pictureFileStore: pictureInfo.pictureFileStore}, (err) => {
-        console.log(err);
+      Picture.create({userId : pictureInfo.userId, 
+					 pictureId:  pictureInfo.pictureId, 
+					 pictureTitle:  pictureInfo.pictureTitle, 
+					 pictureFileStore: pictureInfo.pictureFileStore, 
+					 pictureUrl: pictureInfo.pictureUrl}, (err) => {
         if (err) {
           reject("Error during the adding of picture in database: ", err);
         }

@@ -17,7 +17,7 @@ module.exports = function (app) {
 router.get('/users/:userId/pictures', function (req, res, next) {
 
   let userId = req.params.userId;
-  console.log('API ROUTER GET /users/:userId/pictures');
+  //console.log('API ROUTER GET /users/:userId/pictures');
 
   pictureDbService.findUsersPictures(userId).then( (result)=>
     {
@@ -32,10 +32,7 @@ router.get('/users/:userId/pictures', function (req, res, next) {
       let resultWithUrl = resultWithoutUrl.map( (pic) => { return serverStorage.getUrlFromStorageType(pic) } );
 
       let withUrl = {user:result.user, pictures:resultWithUrl};
-
-      console.log("resultWithUrl ", withUrl);
-
-
+      //console.log("resultWithUrl ", withUrl);
       res.status(200).send(withUrl);
     })
 
@@ -53,9 +50,7 @@ router.get('/users/:userId/pictures', function (req, res, next) {
 
 
 router.post('/users/:userId/pictures/', function (req, res, next) {
-
-
-  console.log("API Router Post ")
+//  console.log("API Router Post ")
   let bodyReqTitle = req.body.title;
   let bodyReqPictureData = req.body.fileData;
 
@@ -71,7 +66,8 @@ router.post('/users/:userId/pictures/', function (req, res, next) {
           userId:userId,
           pictureId : fileInfo.id,
           pictureTitle: bodyReqTitle,
-          pictureFileStore: 'storage-type-server'
+          pictureFileStore: 'storage-type-server',
+		  pictureUrl : fileInfo.url
         });
 
       }).then((data) => {
