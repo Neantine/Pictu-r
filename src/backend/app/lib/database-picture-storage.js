@@ -5,25 +5,31 @@ class PictureDbService {
   constructor() {
   }
 
-  addPicture({id, title, fileStore}) {
+  /**
+   *
+   * @param pictureInfo {userId:userId,pictureId :generatedFileName, pictureTitle: bodyReqTitle, pictureFileStore: 'storage-type-server'}
+   * @returns {Promise}
+   */
+  addPicture(pictureInfo) {
     return new Promise((resolve, reject) => {
-      Picture.create({pictureId: id, pictureTitle: title, pictureFileStore: fileStore}, (err) => {
+      Picture.create({userId : pictureInfo.userId, pictureId:  pictureInfo.pictureId, pictureTitle:  pictureInfo.pictureTitle, pictureFileStore: pictureInfo.pictureFileStore}, (err) => {
         if (err) {
           reject("Error during the adding of picture in database: ", err);
         }
         else {
-          resolve({pictureId: id, pictureTitle: title, pictureFileStore: fileStore})
+          resolve({userId : pictureInfo.userId, pictureId:  pictureInfo.pictureId, pictureTitle:  pictureInfo.pictureTitle, pictureFileStore: pictureInfo.pictureFileStore})
         }
       })
     });
   };
 
-  /*
-   Retrieve all the picture from the database
+  /**
+   *
+   * @returns {Promise}
    */
-  findAllPicture() {
+  findUsersPictures(userId) {
     return new Promise((resolve, reject) => {
-      Picture.find({}, (err, pictures) => {
+      Picture.find({userId:userId}, (err, pictures) => {
         if (err) {
           reject("Error during the retrieving of all pictures from the database: ", err);
         }
@@ -37,7 +43,7 @@ class PictureDbService {
   /*
    Retrieve a specific picture by id
    */
-  findPictureById(id) {
+  findPictureById(id, cb) {
     return new Promise((resolve, reject) => {
       Picture.findOne({pictureId: id}, (err, pictures) => {
         if (err) {
