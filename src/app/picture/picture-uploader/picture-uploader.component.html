@@ -1,20 +1,31 @@
 <h1>Formulaire d'upload de fichier</h1>
-  <form >
-<div class="dropzone shad" (submit)="uploadPicture(pictureTmp)">
-  <input
-    id="uploadbutton"
-    class="uploadbutton"
-    type="file" (change)="drag($event)">
-</div>
-    <br>
-    <div >
-      <input style=" width: 350px;" type="text" name="title" placeholder="Picture title" [(ngModel)]="pictureTmp.title">
-    </div>
-<div>
+
+<a class="myUpload" href="../picture-gallery/picture-gallery.component.html">Gallerie</a>
+
+
+<form (submit)="uploadPicture(pictureTmp)">
+
+  <div class="dropzone shad">
+    <input
+      id="uploadbutton"
+      class="uploadbutton"
+      type="file"
+      (change)="drag($event)">
+  </div>
   <br>
+  <div>
+    <input
+      style=" width: 350px;"
+      type="text"
+      name="title"
+      placeholder="Picture title"
+      [(ngModel)]="pictureTmp.title">
+  </div>
+  <div>
+    <br>
     <!--<button class="myUpload" (click)="resetPicture()" type="submit">RESET</button>-->
     <button class="myUpload" type="submit">UPLOAD</button>
-</div>
+  </div>
 </form>
 
 

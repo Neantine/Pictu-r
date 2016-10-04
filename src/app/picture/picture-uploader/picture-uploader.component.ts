@@ -38,6 +38,7 @@ export class PictureUploaderComponent {
   }
 
 
+<<<<<<< HEAD
   uploadPicture(picture : Picture ){
 
     console.log(picture);
@@ -53,6 +54,21 @@ export class PictureUploaderComponent {
             this.errorMessage = <any>error
           });
     }
+=======
+  uploadPicture(picture : Picture){
+    // if (this._canIuploadThisPicture(picture)){return;}
+
+      this.pictureStore.uploadPicture(picture)
+        .then( picture  => {
+             console.log('tout marche bien navette : ' ,picture);
+          }
+         ).catch(error => {
+                this.errorMessage = <any>error
+            // TODO getsion display de l'error
+      });
+
+  }
+>>>>>>> picture-front-feature
 
 
   /*
