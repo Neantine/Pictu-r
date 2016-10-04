@@ -12,7 +12,7 @@ describe('ServerStorage', () => {
 
   describe('function savePicture (called when post api/v1/user/1/pictures/ is received)', function() {
 
-      xit('should save the file in the filesystem', function (done) {
+      it('should save the file in the filesystem', function (done) {
 
         //TMP: test with a base64 canvas encoded file get from body request
         let bodyReqPictureData = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0"
@@ -38,7 +38,7 @@ describe('ServerStorage', () => {
 
   describe('function getPicture (called when get api/v1/user/1/pictures/1 is received)', function() {
 
-    xit('should get the file from the filesystem', function (done) {
+    it('should get the file from the filesystem', function (done) {
 
       let serverStorage = new ServerStorage();
       serverStorage.getPicture('test-imageB1UnVakA').then( (data) => {
