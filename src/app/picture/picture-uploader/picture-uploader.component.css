@@ -1,3 +1,11 @@
+html{
+  background-image: url("http://hdwallpaperbackgrounds.net/wp-content/uploads/2016/08/Background-Pattern.jpg");
+}
+
+
+
+
+
 .shad{
   -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
   -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
