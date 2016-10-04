@@ -15,7 +15,10 @@ import { Component, ViewEncapsulation } from '@angular/core';
       <router-outlet></router-outlet>
       
     </main>
-  `
+  `,
+  styles: [
+    require('./app.component.scss')
+  ]
 })
 export class App {
 }

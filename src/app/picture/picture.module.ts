@@ -9,10 +9,12 @@ import {PictureGalleryComponent} from "./picture-gallery/picture-gallery.compone
 import {CommonModule} from "../common.module";
 import {PictureStore} from "./picture-store";
 import {PicturUrlSanitizerPipe} from "./picture-url-sanitizer";
+import {HomeComponent} from "./picture-home/picture-home";
 
 
 @NgModule({
   declarations: [
+    HomeComponent,
     PictureUploaderComponent,
     PictureGalleryComponent,
     PicturUrlSanitizerPipe

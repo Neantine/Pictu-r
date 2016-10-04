@@ -7,5 +7,5 @@ import {Component} from '@angular/core';
   styles  : [ require('./picture-home.css') ]
 })
 
-export class homecomp {}
+export class HomeComponent {}
 

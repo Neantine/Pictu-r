@@ -22,7 +22,6 @@ import { BrowserModule } from "@angular/platform-browser";
   ],
   imports: [
     BrowserModule,
-    MaterialModule,
     CommonModule.modules(),
     PictureModule,
     RouterModule.forRoot(ROUTES, { useHash: true })
