@@ -10,7 +10,6 @@ class ServerStorage {
     //console.log('picture path:', this.picturesPath);
   }
 
-
   savePicture(bodyReqTitle, bodyReqPictureData) {
 
     return new Promise( (resolve, reject) => {

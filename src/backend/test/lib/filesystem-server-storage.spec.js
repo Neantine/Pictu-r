@@ -38,10 +38,10 @@ describe('ServerStorage', () => {
 
   describe('function getPicture (called when get api/v1/user/1/pictures/1 is received)', function() {
 
-    xit('should get the file from the filesystem', function (done) {
+    it('should get the file from the filesystem', function (done) {
 
       let serverStorage = new ServerStorage();
-      serverStorage.getPicture('test-imagexxxxx').then( (data) => {
+      serverStorage.getPicture('test-imageB1UnVakA').then( (data) => {
 
         expect(data).toBeNonEmptyObject;
         return(done);
@@ -57,7 +57,6 @@ describe('ServerStorage', () => {
     });
 
    })
-
 
 
 });

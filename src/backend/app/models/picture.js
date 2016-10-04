@@ -4,7 +4,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-var PictureSchema = new Schema({
+let PictureSchema = new Schema({
+  userId : Number,
   pictureId: String,
   pictureTitle: String,
   pictureFileStore: String
