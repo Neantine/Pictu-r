@@ -6,7 +6,8 @@ import { HomeComponent }                   from  "./picture/picture-home/picture
 
 
 export const ROUTES: Routes = [
-  { path: '', component: PictureGalleryComponent },
-  { path: 'pictures', component: PictureUploaderComponent },
+  { path: '', component: PictureUploaderComponent },
   { path: 'index', component: HomeComponent },
+  { path: 'pictures', component: PictureUploaderComponent },
+  { path: 'gallery', component: PictureGalleryComponent },
 ];
