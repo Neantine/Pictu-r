@@ -1,7 +1,7 @@
 <md-toolbar class="Menubar">
 
   <img src='http://img4.hostingpics.net/pics/662002androidchrome192x192burned.png'>
-  <div style="color:lightgray">ictu'r Gallery</div>
+  <div style="color:black">ictu'r Gallery</div>
 
   <div class='TitlePos'>
     <a href="/#/index">
@@ -42,13 +42,20 @@
 </video>
 
 
+<div class="gallery-block">
+  <div class="gallery" *ngFor="let pictur of picturList">
+    <a href="" class="gallery__item">
+      <img class="gallery__item__image" [src]="pictur.url | picturUrlSanitizer" [alt]="pictur.title">
+      <div class="title">{{pictur.title}}</div>
+      <button md-raised-button color="warn" class="ButtonStyle">
+        DELETE
+      </button>
+      <button md-raised-button color="primary" class="ButtonStyle">
+        Change Title
+      </button>
+    </a>
 
+  </div>
 
-<div  class="pictur-gallery" *ngFor="let pictur of picturList" >
-
-           <img   class="gallery__item__pictur" [src]="pictur.url | picturUrlSanitizer" [alt]="pictur.title">
-           <div class="title">{{pictur.title}}</div>
-   </div>
-
-
+</div>
 
