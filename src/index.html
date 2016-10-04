@@ -5,6 +5,8 @@
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://unpkg.com/@angular2-material/core/style/core.css" rel="stylesheet">
+  <link href="https://unpkg.com/@angular/material/core/theming/prebuilt/indigo-pink.css" rel="stylesheet">
 
   <title><%= webpackConfig.metadata.title %></title>
 
@@ -23,14 +25,14 @@
 <body>
 
   <app>
-    Loading...
+    Pictu'r se charge...
   </app>
 
   <% webpackConfig.metadata.DEV %>
 
   <% if (webpackConfig.metadata.DEV !== 'production') { %>
   <script>
-    var scriptElement = document.createElement('script');
+    let scriptElement = document.createElement('script');
     scriptElement.setAttribute('src', 'http://' + document.domain + ':35729/livereload.js');
     document.head.appendChild(scriptElement);
   </script>
