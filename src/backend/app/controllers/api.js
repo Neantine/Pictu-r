@@ -14,23 +14,43 @@ module.exports = function (app) {
   app.use(bodyParser.json());
 };
 
-router.get('/users/:userId/pictures/', function (req, res, next) {
+router.get('/users/:userId/pictures', function (req, res, next) {
 
-  let bodyRes =  { user: 1, pictures:
-    [
-      {id : 1, title : 'image 1', url : 'http://m9.i.pbase.com/o6/53/623853/1/131283669.nHMCHWU8.smileyuplo_vector.jpg'},
-      {id : 2, title : 'image 2', url : '\\stored-pictures\test-imageH1-Z9ygA.jpg'},
-      {id : 3, title : 'image 3', url : '\src\backend\app\lib\stored-pictures\test-imagery0cWeeA.jpg'}
-    ]
-  }
+  let userId = req.params.userId;
+  console.log('API ROUTER GET /users/:userId/pictures');
 
-  res.status(200).send(bodyRes);
+  pictureDbService.findUsersPictures(userId).then( (result)=>
+    {
+      if (result == null)
+      {
+        res.status(500).send("DB error: can't get user pictures");
+        return;
+      }
+
+      let url = null;
+      let resultWithoutUrl = result.pictures;
+      let resultWithUrl = resultWithoutUrl.map( (pic) => { return serverStorage.getUrlFromStorageType(pic) } );
+
+      let withUrl = {user:result.user, pictures:resultWithUrl};
+
+      console.log("resultWithUrl ", withUrl);
+
+
+      res.status(200).send(withUrl);
+    })
+
+  // ).catch()
+  // {
+  //   res.status(500).send();
+  // }
+
 });
 
 // router.get('user/:userId/picture/:pictureId', function (req, res, next) {
 //   res.status(200).send('GET PICTURE NOT IMPLEMENTED YET!');
 //
 // });
+
 
 router.post('/users/:userId/pictures/', function (req, res, next) {
 
@@ -42,7 +62,7 @@ router.post('/users/:userId/pictures/', function (req, res, next) {
 
   let userId=1;
   serverStorage.savePicture(bodyReqTitle, bodyReqPictureData).then(
-      (generatedFileName, generatedFileURL) => {
+    (generatedFileName, generatedFileURL) => {
 
         url=generatedFileURL;
         return pictureDbService.addPicture({userId:userId,pictureId :generatedFileName, pictureTitle: bodyReqTitle, pictureFileStore: 'storage-type-server'});
@@ -57,5 +77,6 @@ router.post('/users/:userId/pictures/', function (req, res, next) {
           console.log("save picture error: ", err);
           res.status(400).send(response);  //TODO get error status from db service & server storage
           return err;
-      })
+      });
+
 })
