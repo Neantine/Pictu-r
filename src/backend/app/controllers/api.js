@@ -33,21 +33,19 @@ router.post('user/:userId/pictures/', function (req, res, next) {
   let response = null;
 
   serverStorage.savePicture(bodyReqTitle, bodyReqPictureData).then(
-    (generatedFileName, generatedFileURL) => {
-      console.log("Picture saved with generatedFileName: ", generatedFileName);
-      console.log("Picture saved with generatedFileName: ", generatedFileURL);
+      (generatedFileName, generatedFileURL) => {
 
-      response = {id: generatedFileName, url: generatedFileURL, title: bodyReqTitle};
+        response = {id: generatedFileName, url: generatedFileURL, title: bodyReqTitle};
 
-      PictureDbService.addPicture(generatedFileName, bodyReqTitle, 'storage-type-server').then(() => {
-        res.status(201).send(response);
-      });
+        return PictureDbService.addPicture(generatedFileName, bodyReqTitle, 'storage-type-server');
 
-
-    }).catch(err => {
-    console.log("save picture error: ", err);
-    res.status(400).send(response);  //TODO get error status from db service & server storage
-    return err;
-  })
+      }).then(() => {
+          res.status(201).send(response);
+        })
+        .catch(err => {
+          console.log("save picture error: ", err);
+          res.status(400).send(response);  //TODO get error status from db service & server storage
+          return err;
+      })
 
 })
