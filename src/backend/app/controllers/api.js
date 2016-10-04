@@ -16,7 +16,7 @@ router.get('/users/:userId/pictures', function (req, res, next) {
 
   let bodyRes =  { user: 1, pictures:
     [
-      {id : 1, title : 'image 1', url : '\\pictu-r\\src\\backend\\app\\lib\\stored-pictures\\test-imageB1z_R1lC.jpg'},
+      {id : 1, title : 'image 1', url : 'http://m9.i.pbase.com/o6/53/623853/1/131283669.nHMCHWU8.smileyuplo_vector.jpg'},
       {id : 2, title : 'image 2', url : '\\stored-pictures\test-imageH1-Z9ygA.jpg'},
       {id : 3, title : 'image 3', url : '\src\backend\app\lib\stored-pictures\test-imagery0cWeeA.jpg'}
     ]
