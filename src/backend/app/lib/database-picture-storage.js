@@ -17,13 +17,32 @@ class PictureDbService {
   /*
    Retrieve all the picture from the database
    */
-  findAllPicture(cb) {
-    Picture.find({}, function (err, pictures) {
-      if (err) return cb(err, null);
-      cb(null, pictures);
-    });
+  findAllPicture(userId) {
+    return new Promise( (resolve, reject) => {
 
-  };
+      let listPic =
+
+      { user: 1, pictures:
+        [
+          {id : 1, title : 'image 1', storagetype : 'server'}, //url : 'http://m9.i.pbase.com/o6/53/623853/1/131283669.nHMCHWU8.smileyuplo_vector.jpg'},
+          {id : 2, title : 'image 2', storagetype: 'remote'} //url : 'http://megaicons.net/static/img/icons_sizes/404/1405/256/jpg-icon.png'}
+        ]
+      };
+
+
+      //console.log("findAllPictures ", listPic);
+
+      resolve(listPic);
+
+
+    // }
+    // Picture.find({}, function (err, pictures) {
+    //   if (err) return cb(err, null);
+    //   cb(null, pictures);
+    // });
+
+  })
+  }
 
   /*
    Retrieve a specific picture by id

@@ -57,6 +57,26 @@ class ServerStorage {
     })
   }
 
+  getUrlFromStorageType({id:id, title:title, storagetype:storagetype})
+  {
+    let url = '';
+
+    if (storagetype === 'server')
+    {
+      url = 'http://m9.i.pbase.com/o6/53/623853/1/131283669.nHMCHWU8.smileyuplo_vector.jpg';
+
+    }
+
+    else if (storagetype === 'remote')
+    {
+      url = 'http://megaicons.net/static/img/icons_sizes/404/1405/256/jpg-icon.png';
+    }
+
+    console.log("getUrlFromStorageType", id, title, url);
+
+    return {id: id, title: title, url: url};
+  }
+
 };
 
 
