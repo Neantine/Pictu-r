@@ -26,41 +26,55 @@ describe('App picture ', () => {
   });
 
   xit('should return a list of picture', (done) => {
+
+    const responseFS =  {
+      user: 1,
+      pictures:
+        [
+          {id : 1, title : 'image 1', url : 'test1.jpg'},
+          {id : 2, title : 'image 2', url : 'test2.jpg'},
+          {id : 3, title : 'image 3', url : 'test3.jpg'}
+        ]
+    }
+
+    ServerStorage.prototype.findUserPictures = jasmine.createSpy().andReturn(Promise.resolve(responseFS));
+
+
       request(app)
-        .get('/users/1/pictures')
+        .get('/api/v1/users/1/pictures')
         .expect('Content-Type', /json/)
         .expect(200)
         .end(function (err, response) {
-          if (err) {throw err}
+          expect(err).toBeNull();
 
+          // TODO to complete
         });
 
     });
 
   it('should save a picture in database', (done) => {
 
-    console.log("debut test api get");
-
     const pictureToSend={title:'test', fileData:'data:image/jpg;base64,IMAGE_DATA'};
-    const responseFS = {id : 1, url : 'http://m9.i.pbase.com/o6/53/623853/1/131283669.nHMCHWU8.smileyuplo_vector.jpg'};
+    const responseFS = {id : '1', url : 'http://m9.i.pbase.com/o6/53/623853/1/131283669.nHMCHWU8.smileyuplo_vector.jpg'};
 
+    ServerStorage.prototype.savePicture = jasmine.createSpy().andReturn(Promise.resolve(responseFS));
 
     request(app)
-      .post('api/v1/users/1/pictures')
-      .set('Content-Type', 'application/json/')
+      .post('/api/v1/users/1/pictures')
       .send(pictureToSend)
       .expect(201) //201 =>created
       .end(function (err, response) {
-        if (err)
-        { return done(err) ; }
-        ServerStorage.prototype.savePicture = jasmine.createSpy().andReturn(Promise.resolve(responseFS));
 
-        console.log(response);
+        expect(err).toBeNull();
 
-        // TODO check status response = 201 and body = {id : 1, url : 'http://m9.i.pbase.com/o6/53/623853/1/131283669.nHMCHWU8.smileyuplo_vector.jpg'}
-       return done(err, response);
+        expect(response.body.id).toEqual('1');
+        expect(response.body.url).toEqual('http://m9.i.pbase.com/o6/53/623853/1/131283669.nHMCHWU8.smileyuplo_vector.jpg');
+        expect(response.body.title).toEqual('test');
+
+        return done();
+
       });
 
-      });
+  });
 
 });

@@ -54,28 +54,35 @@ router.get('/users/:userId/pictures', function (req, res, next) {
 
 router.post('/users/:userId/pictures/', function (req, res, next) {
 
+
+  console.log("API Router Post ")
   let bodyReqTitle = req.body.title;
   let bodyReqPictureData = req.body.fileData;
-  console.log(req.body)
+
   let url;
   let response = null;
 
   let userId=1;
   serverStorage.savePicture(bodyReqTitle, bodyReqPictureData).then(
-    (generatedFileName, generatedFileURL) => {
+    (fileInfo) => {
 
-        url=generatedFileURL;
-        return pictureDbService.addPicture({userId:userId,pictureId :generatedFileName, pictureTitle: bodyReqTitle, pictureFileStore: 'storage-type-server'});
+        url = fileInfo.url;
+        return pictureDbService.addPicture({
+          userId:userId,
+          pictureId : fileInfo.id,
+          pictureTitle: bodyReqTitle,
+          pictureFileStore: 'storage-type-server'
+        });
 
       }).then((data) => {
 
           response = {id: data.pictureId, url: url, title: data.pictureTitle};
-          console.log(res);
+         // console.log(res);
           res.status(201).send(response);
         })
         .catch(err => {
           console.log("save picture error: ", err);
-          res.status(400).send(response);  //TODO get error status from db service & server storage
+          res.status(500);  //TODO get error status from db service & server storage
           return err;
       });
 

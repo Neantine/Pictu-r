@@ -31,7 +31,12 @@ class ServerStorage {
         else
         {
           let localpath = path.join(process.cwd(), this.picturesPath);
-          resolve(generatedFileName, localpath+"/"+generatedFileName);
+
+          resolve({
+            id: generatedFileName,
+            url: `${localpath}/${generatedFileName}`
+          });
+
         }
 
       })
