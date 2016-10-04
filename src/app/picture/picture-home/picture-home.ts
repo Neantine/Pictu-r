@@ -6,5 +6,5 @@ import {Component} from '@angular/core';
   templateUrl: 'picture-home.html'
 })
 
-export class AppComponent {}
+export class homecomp {}
 
