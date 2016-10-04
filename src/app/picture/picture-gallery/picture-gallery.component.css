@@ -41,13 +41,14 @@
 .gallery {
   display: flex;
   flex-wrap: wrap;
+  background-color: rgba(0, 0, 0, 0.001);
   /*overflow: hidden;*/
 }
 .gallery__item {
   display:block;
   margin: 15px;
-  background-color: white;
-  border:20px solid white;
+  background-color: rgba(0, 0, 0, 0.001);
+  border:1px solid black;
   color: #222;
   text-decoration:none;
   -webkit-box-shadow: 4px 3px 1px  rgba(0,0,25,0.35);
@@ -66,11 +67,14 @@
 
 .gallery__item__image {
   display:block;
+
   width:200px;
   height: 200px;
 }
 
 .title {
+  border: solid black 1px;
+  background-color: white;
   font-family: 'Open Sans', 'Arial', sans-serif;
   font-weight: bold;
   text-align: center;
