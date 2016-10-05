@@ -11,7 +11,7 @@ const serverStorage = new ServerStorage();
 
 module.exports = function (app) {
   app.use('/api/v1', router);
-  app.use(bodyParser.json());
+  app.use(bodyParser.json({limit:'10000kb'}));
 };
 
 router.get('/users/:userId/pictures', function (req, res, next) {
