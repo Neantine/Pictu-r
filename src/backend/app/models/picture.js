@@ -8,8 +8,7 @@ let PictureSchema = new Schema({
   userId : String,
   pictureId: String,
   pictureTitle: String,
-  pictureFileStore: String,
-  pictureUrl: String
+  pictureFileStore: String
 });
 
 const Picture = mongoose.model('Picture', PictureSchema);

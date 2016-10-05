@@ -66,8 +66,7 @@ router.post('/users/:userId/pictures/', function (req, res, next) {
           userId:userId,
           pictureId : fileInfo.id,
           pictureTitle: bodyReqTitle,
-          pictureFileStore: 'storage-type-server',
-		  pictureUrl : fileInfo.url
+          pictureFileStore: 'storage-type-server'
         });
 
       }).then((data) => {
