@@ -1,6 +1,6 @@
 .Menubar {
   padding-top:20px;
-  padding-bottom: 13px;
+  padding-bottom: 40px;
   background-color: rgba(0, 0, 0, 0.001);
   flex: 1 1 auto;
   border-bottom: groove white 1px;
@@ -44,4 +44,15 @@
   width: auto;
   height: auto;
   z-index: -100;
+}
+
+.welcome {
+  font-family: Gungsuh;
+  font-size: 20px;
+  color: whitesmoke;
+  width : auto;
+  height: 500px;
+  margin: auto;
+  border-radius: 3px;
+  background-color: rgba(0, 0, 0, 0.40);
 }
