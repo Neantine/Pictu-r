@@ -48,7 +48,7 @@ describe('PictureGalleryComponent', () => {
 
           fixture.detectChanges();
 
-         let images = element.querySelectorAll('img');
+         let images = element.querySelectorAll('.gallery__item__image');
 
          expect(pictureGalleryComponent.picturList.length).toEqual(pictures.length);
          expect(images.length).toEqual(pictures.length);
