@@ -13,7 +13,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
   template: `
     <main>
       <router-outlet></router-outlet>
-      
+    
     </main>
   `,
   styles: [
