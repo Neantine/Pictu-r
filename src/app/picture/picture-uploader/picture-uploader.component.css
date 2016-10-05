@@ -1,13 +1,13 @@
 .Menubar {
   padding-top:20px;
-  padding-bottom: 13px;
+  padding-bottom: 30px;
   background-color: rgba(0, 0, 0, 0.001);
   flex: 1 1 auto;
   border-bottom: groove white 1px;
 }
 .titlew{
   font-family: "High Tower Text";
-  color : lightblue;
+  color : black;
   font-size: 20px;
   padding-right: 85px;
 }
@@ -31,7 +31,8 @@
 }
 
 .ButtonStyle:hover{
-  border-bottom: solid white 2px;
+  border-bottom: solid white 1px;
+  background-color: rgba(0, 0, 0, 0.001);
 }
 
 .VideoStyle {
@@ -46,7 +47,6 @@
 }
 
 
-
 .shad{
   -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
   -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
@@ -55,6 +55,7 @@
 
 
 .dropzone {
+
   margin: 0 auto;
   border-radius: 3px;
   background-color: rgba(0, 0, 0, 0.001);
@@ -63,10 +64,10 @@
   width:1050px;
 }
 .uploadbutton {
+
   margin: 0 auto;
   border-radius: 3px;
   background-color: rgba(0, 0, 0, 0.001);
-
   height:300px;
   width:1050px;
 }

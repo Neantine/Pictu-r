@@ -1,6 +1,6 @@
 .Menubar {
   padding-top:20px;
-  padding-bottom: 13px;
+  padding-bottom: 40px;
   background-color: rgba(0, 0, 0, 0.001);
   flex: 1 1 auto;
   border-bottom: groove white 1px;
@@ -31,7 +31,9 @@
 }
 
 .ButtonStyle:hover{
-  border-bottom: solid white 2px;
+
+  border-bottom: solid white 1px;
+  background-color: rgba(0, 0, 0, 0.001);
 }
 
 .VideoStyle {
@@ -46,11 +48,10 @@
 }
 
 
-
 .box {
   margin: 0 auto;
   border-radius: 3px;
-
+  padding:0;
   height: 250px;
   width: 250px;
 
@@ -58,20 +59,21 @@
 
 .login{
   padding-bottom: 5px;
-  margin: 0 auto;
+  border-radius: 10px;
   width: 50px;
   height: 50px;
-  border-radius: 3px;
   background-color: rgba(0, 0, 0, 0.40);
 }
 
 .password {
-  margin: 0 auto;
+
   width: 50px;
   height: 50px;
-  border-radius: 3px;
+  border-radius: 10px;
   background-color: rgba(0, 0, 0, 0.40);
 }
 .pos {
 
+  border-radius: 3px;
+  flex: 1 1 auto;
 }

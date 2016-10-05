@@ -31,7 +31,8 @@
 }
 
 .ButtonStyle:hover{
-  border-bottom: groove white 1px;
+  animation: fadein 2.5s;
+  border-bottom: solid white 1px;
   background-color: rgba(0, 0, 0, 0.001);
 }
 
@@ -49,9 +50,9 @@
 .welcome {
   font-family: Gungsuh;
   font-size: 20px;
+  height: 260px;
   color: whitesmoke;
   width : auto;
-  height: 260px;
   margin: auto;
   border-radius: 3px;
   background-color: rgba(0, 0, 0, 0.40);

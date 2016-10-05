@@ -1,6 +1,6 @@
 .Menubar {
   padding-top:20px;
-  padding-bottom: 13px;
+  padding-bottom: 40px;
   background-color: rgba(0, 0, 0, 0.001);
   flex: 1 1 auto;
   border-bottom: groove white 1px;
@@ -31,7 +31,8 @@
 }
 
 .ButtonStyle:hover{
-  border-bottom: solid white 2px;
+  border-bottom: solid white 1px;
+  background-color: rgba(0, 0, 0, 0.001);
 }
 
 .VideoStyle {
