@@ -3,7 +3,7 @@ import {Component} from '@angular/core';
 
 @Component({
   selector: 'home-app',
-  templateUrl: require('./picture-home.html'),
+  templateUrl: './picture-home.html',
   styles  : [ require('./picture-home.css') ]
 })
 
