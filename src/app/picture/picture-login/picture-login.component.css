@@ -1,0 +1,80 @@
+.Menubar {
+  padding-top:20px;
+  padding-bottom: 20px;
+  background-color: rgba(0, 0, 0, 0.001);
+  flex: 1 1 auto;
+  border-bottom: groove white 1px;
+}
+.titlew{
+  font-family: "High Tower Text";
+  color : whitesmoke;
+  font-size: 20px;
+  padding-right: 85px;
+}
+
+.TitlePos {
+  padding: 15px;
+  flex: 1 1 auto;
+
+}
+
+.ButtonPos {
+  padding: 15px;
+  flex: 1 1 auto;
+}
+
+.ButtonStyle {
+  background-color: rgba(0, 0, 0, 0.001);
+  font-size: 23px;
+  font-family: "High Tower Text";
+  color: whitesmoke;
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+.ButtonStyle:hover{
+
+  border-bottom: solid white 1px;
+  background-color: rgba(0, 0, 0, 0.001);
+}
+
+.VideoStyle {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -100;
+}
+
+
+.box {
+  margin: 0 auto;
+  border-radius: 3px;
+  padding:0;
+  height: 250px;
+  width: 250px;
+
+}
+
+.login{
+  padding-bottom: 5px;
+  border-radius: 10px;
+  width: 50px;
+  height: 50px;
+  background-color: rgba(0, 0, 0, 0.40);
+}
+
+.password {
+
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.40);
+}
+.pos {
+  color: whitesmoke;
+  border-radius: 3px;
+  flex: 1 1 auto;
+}

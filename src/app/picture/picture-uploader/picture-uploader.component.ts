@@ -6,7 +6,7 @@ import { PictureStore } from '../picture-store';
 @Component({
   selector: 'pr-picture-uploader',
   styles  : [ require('./picture-uploader.component.css') ],
-  template: require('./picture-uploader.component.html')
+  template : require('./picture-uploader.component.html')
 })
 
 
@@ -38,21 +38,21 @@ export class PictureUploaderComponent {
   }
 
 
-  uploadPicture(picture : Picture ){
 
-    console.log(picture);
-
-    // if(this._canIuploadThisPicture(picture)){return;}
+  uploadPicture(picture : Picture){
+    // if (this._canIuploadThisPicture(picture)){return;}
 
       this.pictureStore.uploadPicture(picture)
-        .then(
-          picture => {
-             console.log(picture);
-            },
-          error => {
-            this.errorMessage = <any>error
-          });
-    }
+        .then( picture  => {
+             console.log('tout marche bien navette : ' ,picture);
+          }
+         ).catch(error => {
+                this.errorMessage = <any>error
+            // TODO getsion display de l'error
+      });
+
+  }
+
 
 
   /*

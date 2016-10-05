@@ -1,0 +1,99 @@
+.Menubar {
+  padding-top:20px;
+  padding-bottom: 20px;
+  background-color: rgba(0, 0, 0, 0.001);
+  flex: 1 1 auto;
+  border-bottom: groove white 1px;
+}
+.titlew{
+  font-family: "High Tower Text";
+  color : whitesmoke;
+  font-size: 20px;
+  padding-right: 85px;
+}
+
+.TitlePos {
+  padding: 15px;
+  flex: 1 1 auto;
+
+}
+
+.ButtonPos {
+  padding: 15px;
+  flex: 1 1 auto;
+}
+
+.ButtonStyle {
+  background-color: rgba(0, 0, 0, 0.001);
+  font-size: 23px;
+  font-family: "High Tower Text";
+  color: whitesmoke;
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+.ButtonStyle:hover{
+
+  border-bottom: solid white 1px;
+  background-color: rgba(0, 0, 0, 0.001);
+}
+
+.VideoStyle {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -100;
+}
+
+.welcome {
+  font-family: Gungsuh;
+  font-size: 20px;
+  height: 260px;
+  color: whitesmoke;
+  width : auto;
+  margin: auto;
+  border-radius: 3px;
+  background-color: rgba(0, 0, 0, 0.40);
+}
+
+.pictur{
+  animation: fadein 20s;
+  -moz-animation: fadein 20s; /* Firefox */
+  -webkit-animation: fadein 20s; /* Safari et Chrome */
+  -o-animation: fadein 20s; /* Opera */
+}
+@keyframes fadein {
+  from {
+    opacity:0;
+  }
+  to {
+    opacity:1;
+  }
+}
+@-moz-keyframes fadein { /* sur Firefox */
+  from {
+    opacity:0;
+  }
+  to {
+    opacity:1;
+  }
+}
+@-webkit-keyframes fadein { /* sur Safari et Chrome */
+  from {
+    opacity:0;
+  }
+  to {
+    opacity:1;
+  }
+}
+@-o-keyframes fadein { /* sur Opera */
+  from {
+    opacity:0;
+  }
+  to {
+    opacity: 1;
+  }
+}

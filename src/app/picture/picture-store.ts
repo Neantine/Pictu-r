@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
+
 import { Picture } from '../picture/picture';
+
+import {PictureDisplay} from "../picture/picture-display";
+
 import { Headers, RequestOptions } from '@angular/http';
 
 @Injectable()
@@ -27,23 +31,54 @@ export class PictureStore {
 
     return this.http.post(this.picturesUrl, body, options)
       .toPromise()
+      .then(this._checkStatus)
       .then(this._extractData)
       .catch(this._handleError);
   }
 
-  pictureList(): Promise<Picture[]> {
+  pictureList(): Promise<{user:number, picturesListe:[PictureDisplay]}> {
     return this.http.get(this.picturesUrl)
       .toPromise()
-      .then(this._extractData)
+      .then(this._checkStatus)
+      .then(this._extractPictures)
       .catch(this._handleError);
   }
 
+  private _checkStatus(response: Response) {
+    if (response.status < 200 || response.status >= 300) {
+      throw new Error('TODO');
+    }
+    return response;
+  }
 
   private _extractData(res: Response) {
-
     let body = res.json();
     let pictureReceived =  {id: body.id, title: body.title, url: body.url};
     return pictureReceived || {};
+  }
+
+  private _extractPictures(res: Response) {
+
+    let body = res.json();
+
+    let _pictureDisplayArray = [];
+
+    for(let i=0; i<body.pictures.length;i++){
+      let pic = new PictureDisplay(
+        {
+          id : body.pictures[i].id,
+          title : body.pictures[i].title,
+          url : body.pictures[i].url
+        }
+      )
+
+      _pictureDisplayArray.push(
+        pic
+      )
+    }
+    let picturesToDisplay =  {  user : body.user,  picturesListe :_pictureDisplayArray  };
+    return picturesToDisplay || {};
+
   }
 
   /**
