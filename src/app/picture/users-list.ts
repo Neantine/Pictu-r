@@ -25,7 +25,7 @@ export class UsersList {
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
 
-    return this.http.get('/api/v1/users/', body, options)
+    return this.http.post('/api/v1/users/', body, options)
       .toPromise()
       .then(this._checkStatus)
       .then(this._extractData)
@@ -41,9 +41,17 @@ export class UsersList {
 
   private _extractData(res: Response) {
     let body = res.json();
-    let pictureReceived = {id: body.id, title: body.title, url: body.url};
-    return pictureReceived || {};
+    let userToCheck = {userId: body.userId, userPwd: body.userPwd};
+    return userToCheck || {};
   }
 
+  private _handleError(error: any) {
+    // In a real world app, we might use a remote logging infrastructure
+    // We'd also dig deeper into the error to get a better message
+    let errMsg = (error.message) ? error.message :
+      error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+    console.error(errMsg); // log to console instead
+    return Promise.reject(errMsg);
+  }
 
 }

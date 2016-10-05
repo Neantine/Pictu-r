@@ -11,18 +11,22 @@ import { UsersList } from '../users-list';
 
 export class LoginComponent {
 
+  static PROVIDERS = [UsersList];
   userTmp: User = new User({});
+  errorMessage: string;
 
-  constructor()
+  constructor(private usersList:UsersList)
   {
-
   }
 
+  ngOnInit() {
+    console.log('ngOnInit login component');
+  }
   connectUser(userTmp:User)
   {
     this.usersList.checkUser(userTmp)
-      .then( picture  => {
-          console.log('tout marche bien navette : ' ,picture);
+      .then( userToCheck  => {
+          console.log('user to check : ' ,userTmp);
         }
       ).catch(error => {
       this.errorMessage = <any>error
