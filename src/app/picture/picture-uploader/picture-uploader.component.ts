@@ -6,7 +6,7 @@ import { PictureStore } from '../picture-store';
 @Component({
   selector: 'pr-picture-uploader',
   styles  : [ require('./picture-uploader.component.css') ],
-  template: require('./picture-uploader.component.html')
+  templateUrl:'./picture-uploader.component.html'
 })
 
 

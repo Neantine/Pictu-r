@@ -5,8 +5,8 @@ import { PictureGalleryComponent } from "./picture-gallery/picture-gallery.compo
 import { CommonModule } from "../common.module";
 import { PictureStore } from "./picture-store";
 import { PicturUrlSanitizerPipe } from "./picture-url-sanitizer";
-import { HomeComponent } from "./picture-home/picture-home.compenent";
-import { LoginComponent } from "./picture-login/picture-login.compenent";
+import { HomeComponent } from "./picture-home/picture-home.component";
+import { LoginComponent } from "./picture-login/picture-login.component";
 
 
 @NgModule({
