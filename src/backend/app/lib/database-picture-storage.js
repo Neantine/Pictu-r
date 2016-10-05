@@ -7,7 +7,7 @@ class PictureDbService {
 
   /**
    *
-   * @param pictureInfo {userId:userId,pictureId :generatedFileName, pictureTitle: bodyReqTitle, pictureFileStore: 'storage-type-server'}
+   * @param pictureInfo {userId:userId,pictureId :generatedFileName, pictureTitle: bodyReqTitle, pictureFileStore: 'storageTypeServer'}
    * @returns {Promise}
    */
   addPicture(pictureInfo) {
@@ -29,11 +29,15 @@ class PictureDbService {
    */
   findUsersPictures(userId) {
     return new Promise((resolve, reject) => {
+
+      console.log(userId);
+
       Picture.find({userId:userId}, (err, pictures) => {
         if (err) {
           reject("Error during the retrieving of all pictures from the database: ", err);
         }
         else {
+          console.log("findUsersPictures:", pictures);
           resolve(pictures);
         }
       });

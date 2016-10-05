@@ -27,13 +27,17 @@ router.get('/users/:userId/pictures', function (req, res, next) {
         return;
       }
 
-      let url = null;
-      let resultWithoutUrl = result.pictures;
-      let resultWithUrl = resultWithoutUrl.map( (pic) => { return serverStorage.getUrlFromStorageType(pic) } );
+      console.log("DB result: ", result);
 
-      let withUrl = {user:result.user, pictures:resultWithUrl};
-      //console.log("resultWithUrl ", withUrl);
-      res.status(200).send(withUrl);
+      let url = null;
+      let resultWithUrl = result.map( (pic) => { console.log('mapping ', pic); return serverStorage.getUrlFromStorageType(pic) } );
+
+      //let withUrl = {user:result.user, pictures:resultWithUrl};
+
+      console.log("resultWithUrl ", resultWithUrl);
+
+      res.status(200).send(resultWithUrl);
+
     })
 
   // ).catch()
@@ -53,12 +57,12 @@ router.post('/users/:userId/pictures/', function (req, res, next) {
 //  console.log("API Router Post ")
   let bodyReqTitle = req.body.title;
   let bodyReqPictureData = req.body.fileData;
-
+  let userId = req.params.userId;
   let url;
   let response = null;
 
-  let userId=1;
   serverStorage.savePicture(bodyReqTitle, bodyReqPictureData).then(
+
     (fileInfo) => {
 
         url = fileInfo.url;
