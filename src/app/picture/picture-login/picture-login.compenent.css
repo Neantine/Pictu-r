@@ -1,6 +1,6 @@
 .Menubar {
   padding-top:20px;
-  padding-bottom: 40px;
+  padding-bottom: 20px;
   background-color: rgba(0, 0, 0, 0.001);
   flex: 1 1 auto;
   border-bottom: groove white 1px;
@@ -73,7 +73,7 @@
   background-color: rgba(0, 0, 0, 0.40);
 }
 .pos {
-
+  color: whitesmoke;
   border-radius: 3px;
   flex: 1 1 auto;
 }

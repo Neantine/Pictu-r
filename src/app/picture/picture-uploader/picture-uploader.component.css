@@ -1,6 +1,6 @@
 .Menubar {
   padding-top:20px;
-  padding-bottom: 30px;
+  padding-bottom: 20px;
   background-color: rgba(0, 0, 0, 0.001);
   flex: 1 1 auto;
   border-bottom: groove white 1px;
