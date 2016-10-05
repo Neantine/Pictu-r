@@ -1,4 +1,3 @@
-
 <md-toolbar class="Menubar">
 
   <img src='http://img4.hostingpics.net/pics/662002androidchrome192x192burned.png'>
@@ -6,7 +5,7 @@
 
   <div class='TitlePos'>
     <a href="/#/index">
-      <button md-button  class="ButtonStyle">
+      <button md-button class="ButtonStyle">
         Home
       </button>
     </a>
@@ -38,40 +37,32 @@
 
 </md-toolbar>
 
-<form  class='form' (submit)="uploadPicture(pictureTmp)">
+<video autoplay loop id="video-background" muted class="VideoStyle">
+  <source src="https://vimeo-hp-videos.global.ssl.fastly.net/4/4.mp4" type="video/mp4">
+</video>
 
-  <div class="dropzone shad">
-    <input
-      id="uploadbutton"
-      class="uploadbutton"
-      type="file"
-      accept="image/jpeg"
-      (change)="drag($event)">
-  </div>
-  <br>
-  <div>
-    <input class="inputitle"
+<div class='box'>
+
+  <input class="login"
+    style=" width: 350px;"
+    type="text"
+    name="title"
+    placeholder="Login"
+    >
+
+    <input class="password"
       style=" width: 350px;"
       type="text"
       name="title"
-      placeholder="Picture title"
-      [(ngModel)]="pictureTmp.title">
-  </div>
-  <div>
-    <br>
-    <!--<button class="myUpload" (click)="resetPicture()" type="submit">RESET</button>-->
-    <button md-raised-button class="myUpload ButtonStyle" type="submit">UPLOAD</button>
-  </div>
-</form>
+      placeholder="password"
+      >
+
+  <button md-raised-button  class="pos ButtonStyle">
+    Login
+  </button>
+  <button md-raised-button  class="pos ButtonStyle">
+    Create
+  </button>
 
 
-
-
-
-<video autoplay loop id="video-background" muted class="VideoStyle">
-  <source src="https://vimeo-hp-videos.global.ssl.fastly.net/2/2.mp4" type="video/mp4">
-</video>
-
-
-
-
+</div>

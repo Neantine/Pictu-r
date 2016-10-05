@@ -6,7 +6,7 @@ import { PictureStore } from '../picture-store';
 @Component({
   selector: 'pr-picture-uploader',
   styles  : [ require('./picture-uploader.component.css') ],
-  template: require('./picture-uploader.component.html')
+  templateUrl : 'picture-uploader.component.html'
 })
 
 
@@ -34,24 +34,20 @@ export class PictureUploaderComponent {
       }
       this.pictureTmp.fileData = (file64);
       // TODO display preview picture before upload
-    }).catch(error => {
-        this.errorMessage = <any>error;
-      // TODO getsion display de l'error
-      })
+    });
   }
 
 
 
   uploadPicture(picture : Picture){
-
-      if (!this._canIuploadThisPicture(picture)){return;}
+    // if (this._canIuploadThisPicture(picture)){return;}
 
       this.pictureStore.uploadPicture(picture)
         .then( picture  => {
              console.log('tout marche bien navette : ' ,picture);
           }
          ).catch(error => {
-                this.errorMessage = <any>error;
+                this.errorMessage = <any>error
             // TODO getsion display de l'error
       });
 
@@ -75,20 +71,21 @@ export class PictureUploaderComponent {
 
 
 
-    private _canIuploadThisPicture(picture ){
-    console.log(picture.fileData);
-    if(picture.fileData==null){
+  /*  private _canIuploadThisPicture(picture ){
+    console.log(picture.fileToUpload);
+    if(picture.fileToUpload==null){
       //no picture files to upload
       console.log("there is no file picture to upload")
       return false;
     }
-    // console.log(picture.fileData.type);
-    // //TODO add all verification for type, size, name etc
-    // if (! picture.fileData.type.match('image/jpg')) {
-    //   console.log("this is not a jpeg picture")
-    //   return false;
-    // }
+    console.log(picture.fileToUpload.type);
+    //TODO add all verification for type, size, name etc
+    if (! picture.fileToUpload.type.match('image/jpeg')) {
+      console.log("this is not a jpeg picture")
+      return false;
+    }
   return true;
   }
+  */
 
 }

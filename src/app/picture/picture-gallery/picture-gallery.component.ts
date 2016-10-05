@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 
 import { PictureStore } from '../picture-store';
-import {PictureDisplay} from "../picture-display";
+import { PictureDisplay } from '../picture-display';
 
 
 @Component({
     selector: 'pr-picture-gallery',
     styles: [ require('./picture-gallery.component.css') ],
-    template: require('./picture-gallery.component.html')
+  templateUrl: 'picture-gallery.component.html'
 })
 
 

@@ -1,0 +1,97 @@
+.Menubar {
+  padding-top:20px;
+  padding-bottom: 20px;
+  background-color: rgba(0, 0, 0, 0.001);
+  flex: 1 1 auto;
+  border-bottom: groove white 1px;
+}
+.titlew{
+  font-family: "High Tower Text";
+  color : whitesmoke;
+  font-size: 20px;
+  padding-right: 85px;
+}
+
+.TitlePos {
+  padding: 15px;
+  flex: 1 1 auto;
+
+}
+
+.ButtonPos {
+  padding: 15px;
+  flex: 1 1 auto;
+}
+
+.ButtonStyle {
+  background-color: rgba(0, 0, 0, 0.001);
+  font-size: 23px;
+  font-family: "High Tower Text";
+  color: whitesmoke;
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+.ButtonStyle:hover{
+  border-bottom: solid white 1px;
+  background-color: rgba(0, 0, 0, 0.001);
+}
+
+.VideoStyle {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -100;
+}
+
+
+
+.gallery {
+  padding-top: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  background-color: rgba(0, 0, 0, 0.001);
+  /*overflow: hidden;*/
+}
+.gallery__item {
+  display:block;
+  margin: 15px;
+  background-color: rgba(0, 0, 0, 0.001);
+  border:1px solid black;
+  color: #222;
+  text-decoration:none;
+  -webkit-box-shadow: 4px 3px 1px  rgba(0,0,25,0.35);
+  -moz-box-shadow: 8px 3px 5px  rgba(0,0,25,0.75);
+  box-shadow: 5px 5px 3px  rgba(0,0,25,0.75);
+  transition: .5s all;
+
+}
+
+.gallery__item:hover {
+  -webkit-box-shadow: 4px 3px 1px  rgba(0,0,25,0.35);
+  -moz-box-shadow: 8px 3px 5px  rgba(0,0,25,0.75);
+  box-shadow: 5px 5px 3px  rgba(0,0,25,0.75);
+  transform: scale(1.05);
+}
+
+.gallery__item__image {
+  display:block;
+
+  width:200px;
+  height: 200px;
+}
+
+.title {
+  border: solid black 1px;
+  background-color: white;
+  font-family: 'Open Sans', 'Arial', sans-serif;
+  font-weight: bold;
+  text-align: center;
+  color:#333;
+}
+.title:first-letter {
+  text-transform: uppercase;
+}
