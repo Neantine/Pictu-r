@@ -31,7 +31,8 @@
 }
 
 .ButtonStyle:hover{
-  border-bottom: solid white 2px;
+  border-bottom: groove white 1px;
+  background-color: rgba(0, 0, 0, 0.001);
 }
 
 .VideoStyle {
