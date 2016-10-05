@@ -3,11 +3,13 @@ let shortid = require('shortid');
 const path = require("path");
 const url = require('url');
 
+
 class ServerStorage {
 
   constructor() {
-    this.picturesPath = "./src/backend/app/lib/stored-pictures";
-    //console.log('picture path:', this.picturesPath);
+    this.picturesPath = '../../../../dist/stored-pictures';
+    this.serverType = 'local';
+    //this.picturesPath = 'src\\backend\\app\\lib\\stored-pictures';
   }
 
   savePicture(bodyReqTitle, bodyReqPictureData) {
@@ -21,7 +23,12 @@ class ServerStorage {
       let uniqueID = shortid.generate();
       let generatedFileName = bodyReqTitle+''+uniqueID+".jpg";
 
-      fs.writeFile(this.picturesPath + '/' + generatedFileName, decodedPicData, 'base64', (err) => {
+      let fileName= this.picturesPath+'\\'+generatedFileName;
+      let filePath = path.join(__dirname, fileName);
+
+      console.log("write file: ", filePath);
+
+      fs.writeFile(filePath, decodedPicData, 'base64', (err) => {
 
         if (err) {
           generatedFileName = null;
@@ -30,17 +37,13 @@ class ServerStorage {
         }
         else
         {
-          let localpath = path.join(process.cwd(), this.picturesPath);
-
           resolve({
-            id: generatedFileName,
-            url: `${localpath}/${generatedFileName}`
+            id: generatedFileName
           });
-
         }
-
       })
     })
+
   }
 
 
@@ -61,24 +64,11 @@ class ServerStorage {
     })
   }
 
-  getUrlFromStorageType({_id:_id, userId:userId, pictureId:pictureId, pictureTitle:pictureTitle, pictureFileStore:pictureFileStore, __v:__v})
+  getUrl(fileName)
   {
-    let url = '';
+    return '/stored-pictures/' + path.join(fileName);
 
-    if (pictureFileStore === 'storageTypeServer')
-    {
-      url = 'http://m9.i.pbase.com/o6/53/623853/1/131283669.nHMCHWU8.smileyuplo_vector.jpg';
-
-    }
-
-    else if (pictureFileStore === 'storageTypeCloud')
-    {
-      url = 'http://megaicons.net/static/img/icons_sizes/404/1405/256/jpg-icon.png';
-    }
-
-    console.log("getUrlFromStorageType", pictureId, pictureTitle, url);
-
-    return {pictureId:pictureId, pictureTitle:pictureTitle, pictureUrl:url};
+    //return `${this.picturesPath}/${fileName}`;
   }
 
 };

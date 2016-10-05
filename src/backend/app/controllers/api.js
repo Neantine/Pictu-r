@@ -27,16 +27,13 @@ router.get('/users/:userId/pictures', function (req, res, next) {
         return;
       }
 
-      console.log("DB result: ", result);
+      let resultWithUrl = result.map( (pic) => { console.log('mapping ', pic); return {url:serverStorage.getUrl(pic.pictureId), id:pic.pictureId, title:pic.pictureTitle} });
 
-      let url = null;
-      let resultWithUrl = result.map( (pic) => { console.log('mapping ', pic); return serverStorage.getUrlFromStorageType(pic) } );
+      let resultWithUserAndUrl = {user:userId, pictures:resultWithUrl};
 
-      //let withUrl = {user:result.user, pictures:resultWithUrl};
+      console.log("resultWithUserAndUrl ", resultWithUserAndUrl);
 
-      console.log("resultWithUrl ", resultWithUrl);
-
-      res.status(200).send(resultWithUrl);
+      res.status(200).send(resultWithUserAndUrl);
 
     })
 
@@ -58,14 +55,12 @@ router.post('/users/:userId/pictures/', function (req, res, next) {
   let bodyReqTitle = req.body.title;
   let bodyReqPictureData = req.body.fileData;
   let userId = req.params.userId;
-  let url;
   let response = null;
 
   serverStorage.savePicture(bodyReqTitle, bodyReqPictureData).then(
 
     (fileInfo) => {
 
-        url = fileInfo.url;
         return pictureDbService.addPicture({
           userId:userId,
           pictureId : fileInfo.id,
@@ -75,7 +70,7 @@ router.post('/users/:userId/pictures/', function (req, res, next) {
 
       }).then((data) => {
 
-          response = {id: data.pictureId, url: url, title: data.pictureTitle};
+          response = {id: data.pictureId, url: serverStorage.getUrl(data.pictureId), title: data.pictureTitle};
          // console.log(res);
           res.status(201).send(response);
         })

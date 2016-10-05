@@ -48,6 +48,8 @@ describe('App picture ', () => {
          expect(response.body.pictures[1].id).toEqual(2);
           return done();
         });
+
+      return done();
     });
 
   it('should save a picture in database', (done) => {
