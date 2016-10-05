@@ -41,6 +41,35 @@
   <source src="https://vimeo-hp-videos.global.ssl.fastly.net/4/4.mp4" type="video/mp4">
 </video>
 
+
+
+<form  class='form' (submit)="connectUser(userTmp)">
+
+
+  <br>
+  <div>
+    <input class="inputitle"
+           style=" width: 350px;"
+           type="text"
+           name="userId"
+           placeholder="Login"
+           [(ngModel)]="userTmp.userId">
+  </div>
+  <div>
+    <div>
+      <input class="inputitle"
+             style=" width: 350px;"
+             type="text"
+             name="userPwd"
+             placeholder="Password"
+             [(ngModel)]="userTmp.userPwd">
+    </div>
+    <br>
+   <button md-raised-button class="myUpload ButtonStyle" type="submit">CONNECT</button>
+  </div>
+</form>
+
+
 <div class='box'>
 
   <input class="login"
