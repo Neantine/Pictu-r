@@ -2,8 +2,8 @@ import { Routes } from '@angular/router';
 
 import { PictureUploaderComponent }   from  "./picture/picture-uploader/picture-uploader.component";
 import { PictureGalleryComponent }    from  "./picture/picture-gallery/picture-gallery.component";
-import { HomeComponent }  from  "./picture/picture-home/picture-home";
-import { LoginComponent } from  "./picture/picture-login/picture-login";
+import { HomeComponent }  from  "./picture/picture-home/picture-home.compenent";
+import { LoginComponent } from  "./picture/picture-login/picture-login.compenent";
 
 
 export const ROUTES: Routes = [
