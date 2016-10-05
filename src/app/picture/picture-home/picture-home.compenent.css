@@ -31,7 +31,7 @@
 }
 
 .ButtonStyle:hover{
-  animation: fadein 2.5s;
+
   border-bottom: solid white 1px;
   background-color: rgba(0, 0, 0, 0.001);
 }
