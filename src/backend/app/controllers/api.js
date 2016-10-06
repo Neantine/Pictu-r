@@ -14,10 +14,39 @@ module.exports = function (app) {
   app.use(bodyParser.json({limit:'10000kb'}));
 };
 
+
+//User creation
+router.post('/users/', function (req, res, next) {
+
+  let userId = req.params.userId;
+  let userPwd = req.params.userPwd;
+
+})
+
+//User login
+router.get('/users/', function (req, res, next) {
+
+  let userId = req.headers.userid;
+  let userPwd = req.headers.userpwd;
+
+  console.log("User trying to connect : ", userId, userPwd);
+
+  //TODO : find user in dabatbase
+  //pictureDbService.findUser(userId).then( (result)=>
+
+  serverStorage.findUser({userId,userPwd}).then( (result) => {
+    if (result == null) {
+      res.status(500).send('find user result ', err);
+    }
+    else {
+      res.status(230).send('find user result ', result);
+    }})
+})
+
+
 router.get('/users/:userId/pictures', function (req, res, next) {
 
   let userId = req.params.userId;
-  //console.log('API ROUTER GET /users/:userId/pictures');
 
   pictureDbService.findUsersPictures(userId).then( (result)=>
     {

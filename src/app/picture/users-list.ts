@@ -22,11 +22,13 @@ export class UsersList {
   checkUser(user: User): Promise<User> {
     console.log('Sending user infos : ', user);
 
-    let body = JSON.stringify(user);
     let headers = new Headers({'Content-Type': 'application/json'});
+    headers.append("userId", user.userId);
+    headers.append("userPwd", user.userPwd);
+
     let options = new RequestOptions({headers: headers});
 
-    return this.http.post('/api/v1/users/', body, options)
+    return this.http.get('/api/v1/users/', options)
       .toPromise()
       .then(this._checkStatus)
       .then(this._extractData)
@@ -47,8 +49,6 @@ export class UsersList {
   }
 
   private _handleError(error: any) {
-    // In a real world app, we might use a remote logging infrastructure
-    // We'd also dig deeper into the error to get a better message
     let errMsg = (error.message) ? error.message :
       error.status ? `${error.status} - ${error.statusText}` : 'Server error';
     console.error(errMsg); // log to console instead
