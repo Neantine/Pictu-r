@@ -15,10 +15,10 @@ describe('AuthentificatorUserService', (done) => {
 
    authenticatorUserService.authentificateUser({userLogin:'user1',userPassword:'admin'}).then(
      response=>{
-       console.log(response);
-     expect(response.userLogin).toEqual('user1');
-     expect(response.userPassword).toEqual('admin');
-       done();
+      console.log(response);
+      expect(response.userLogin).toEqual('user1');
+      expect(response.userPassword).toEqual('admin');
+      done();
    })
 
     done();
