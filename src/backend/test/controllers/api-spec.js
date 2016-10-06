@@ -69,7 +69,7 @@ describe('App ', () => {
       });
   });
 
-  it('should authentificate the user {userLogin:"user1",userPassword:"admin"}and respond with a status 230 and {userId:"user1",userToken:"xxx"}', (done) => {
+  xit('should authentificate the user {userLogin:"user1",userPassword:"admin"}and respond with a status 230 and {userId:"user1",userToken:"xxx"}', (done) => {
     request(app)
       .get('/api/v1/users')
       // TODO set headers
