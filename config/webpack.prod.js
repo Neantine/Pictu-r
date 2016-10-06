@@ -238,7 +238,6 @@ module.exports = function(env) {
     node: {
       global: 'window',
       crypto: 'empty',
-      fs: 'empty',
       process: false,
       module: false,
       clearImmediate: false,
