@@ -15,7 +15,8 @@ class AuthenticatorUserService {
     return new Promise((resolve, reject) => {
       let userFoundInDatabase = this.authorizedUsers.find(user => {
 
-         return (user.userLogin === userInfoAccount.userLogin) && (user.userPassword === userInfoAccount.userPassword)
+         return (user.userLogin === userInfoAccount.userLogin)
+           && (user.userPassword === userInfoAccount.userPassword)
 
       });
 

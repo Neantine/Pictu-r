@@ -4,33 +4,44 @@ class AuthorizationUserService {
     this.authorizeUser = [];
   }
 
-  authorizeUser(userInfoSession) {
+  isAuthorizeUser(userInfoSession) {
+    return this.authorizedUsers.find(user => {
 
-    return new Promise((resolve, reject) => {
+      return (user.userLogin === userInfoAccount.userLogin)
+        && (user.userToken === userInfoAccount.userToken)
 
-    resolve(userInfoSession);
-
-    })
+    });
   }
+
 
   /**
    * Search if this userInfoSession.userId is already Authorize
    * @param userInfoSession
    * @private
    */
-  _isAlreadyAuthorize(userInfoSession){
+  _isAlreadyAuthorize(userInfoSession) {
+    return this.authorizedUsers.find(user => {
+
+      return (user.userLogin === userInfoAccount.userLogin)
+        && (user.userToken === userInfoAccount.userToken)
+
+    });
+  }
+
+  // TODO method that remove right of an user after a certain amount of time
+  removeAuthorizationForThisUser(userInfoSession) {
 
   }
 
-  removeAuthorizationForThisUser(userInfoSession){
 
+  addAuthorizationForThisUser(userInfoSession) {
+    if (this._isAlreadyAuthorize(userInfoSession)) {
+      return null;
+    }
+    this.authorizeUser.push(userInfoSession);
+    return userInfoSession;
   }
 
-
-  addAuthorizationForThisUser(userInfoSession){
-    this.authorizeUser.push(userInfoSession)
-  }
-
-};
+}
 
 module.exports = AuthorizationUserService;

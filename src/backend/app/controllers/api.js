@@ -5,9 +5,9 @@ let bodyParser = require('body-parser');
 
 const ServerStorage = require('../lib/filesystem-server-storage');
 const PDbService = require('../lib/database-picture-storage');
-const UserInfoSession = require( '../../app/models/user.info-session' );
+//const UserInfoSession = require( '../../app/models/user.info-session' );
 const UserService = require( '../../app/lib/user-service' );
-const AuthentificationUserService = require( '../../app/lib/authentificator.user-service' );
+// const AuthentificationUserService = require( '../../app/lib/authentificator.user-service' );
 const UserInfoAccount = require( '../../app/models/user.info-account' );
 
 
@@ -15,7 +15,7 @@ const UserInfoAccount = require( '../../app/models/user.info-account' );
 const pictureDbService = new PDbService();
 const serverStorage = new ServerStorage();
 const userService = new UserService();
-const authentificationUserService = new AuthentificationUserService();
+// const authentificationUserService = new AuthentificationUserService();
 
 
 module.exports = function (app) {
@@ -74,17 +74,9 @@ router.get('/users/:userId/pictures', function (req, res, next) {
 
     })
 
-  // ).catch()
-  // {
-  //   res.status(500).send();
-  // }
-
 });
 
-// router.get('user/:userId/picture/:pictureId', function (req, res, next) {
-//   res.status(200).send('GET PICTURE NOT IMPLEMENTED YET!');
-//
-// });
+
 
 
 router.post('/users/:userId/pictures/', function (req, res, next) {
