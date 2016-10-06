@@ -3,14 +3,38 @@ let shortid = require('shortid');
 const path = require("path");
 const url = require('url');
 
+function createDir(filePath) {
+
+  filePath = path.dirname(filePath);
+  console.log('create dir ',filePath );
+
+  if (checkExist(filePath)) {
+    return true;
+  }
+  checkExist(filePath);
+  fs.mkdirSync(filePath);
+}
+
+function checkExist(path) {
+  console.log('checkExist ',path );
+
+  try {
+    return fs.statSync(path).isDirectory();
+  }
+  catch (err) {
+    return false;
+  }
+}
 
 class ServerStorage {
 
   constructor() {
     this.picturesPath = '../../../../dist/stored-pictures';
+
     this.serverType = 'local';
-    //this.picturesPath = 'src\\backend\\app\\lib\\stored-pictures';
   }
+
+
 
   savePicture(bodyReqTitle, bodyReqPictureData) {
 
@@ -27,6 +51,9 @@ class ServerStorage {
       let filePath = path.join(__dirname, fileName);
 
       console.log("write file: ", filePath);
+
+      createDir(filePath);
+      //this.picturesPath = storePath;
 
       fs.writeFile(filePath, decodedPicData, 'base64', (err) => {
 
