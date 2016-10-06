@@ -7,6 +7,12 @@
     "webpack",
     "typescript"
   ],
+  "browser" : {
+    "canvas" : false,
+    "fs":      false,
+    "jsdom":   false,
+    "xmldom":  false
+  },
   "author": "Patrick Stapleton <patrick@angularclass.com>",
   "homepage": "https://github.com/angularclass/angular2-webpack-starter",
   "license": "MIT",
