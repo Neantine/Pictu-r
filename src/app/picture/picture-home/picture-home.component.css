@@ -1,5 +1,5 @@
 .Menubar {
-  padding-top:20px;
+  padding-top:21px;
   padding-bottom: 20px;
   background-color: rgba(0, 0, 0, 0.001);
   flex: 1 1 auto;
@@ -14,6 +14,13 @@
   color : whitesmoke;
   font-size: 20px;
   padding-right: 85px;
+}
+.titlew:hover{
+  font-family: "High Tower Text";
+  color : lightblue;
+  font-size: 20px;
+  padding-right: 85px;
+  transform: scale(1.03);
 }
 
 .TitlePos {
