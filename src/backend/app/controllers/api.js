@@ -5,13 +5,22 @@ let bodyParser = require('body-parser');
 
 const ServerStorage = require('../lib/filesystem-server-storage');
 const PDbService = require('../lib/database-picture-storage');
+const UserInfoSession = require( '../../app/models/user.info-session' );
+const UserService = require( '../../app/lib/user-service' );
+const AuthentificationUserService = require( '../../app/lib/authentificator.user-service' );
+const UserInfoAccount = require( '../../app/models/user.info-account' );
+
+
 
 const pictureDbService = new PDbService();
 const serverStorage = new ServerStorage();
+const userService = new UserService();
+const authentificationUserService = new AuthentificationUserService();
+
 
 module.exports = function (app) {
   app.use('/api/v1', router);
-  app.use(bodyParser.json({limit:'10000kb'}));
+  app.use(bodyParser.json());
 };
 
 
@@ -24,24 +33,53 @@ router.post('/users/', function (req, res, next) {
 })
 
 //User login
-router.get('/users/', function (req, res, next) {
+// router.get('/users/', function (req, res, next) {
+//
+//   let userId = req.headers.userid;
+//   let userPwd = req.headers.userpwd;
+//
+//   console.log("User trying to connect : ", userId, userPwd);
+//
+//   //TODO : find user in dabatbase
+//   //pictureDbService.findUser(userId).then( (result)=>
+//
+//   serverStorage.findUser({userId,userPwd}).then( (result) => {
+//     if (result == null) {
+//       res.status(500).send('find user result ', err);
+//     }
+//     else {
+//       res.status(230).send('find user result ', result);
+//     }})
+// })
 
-  let userId = req.headers.userid;
-  let userPwd = req.headers.userpwd;
 
-  console.log("User trying to connect : ", userId, userPwd);
 
-  //TODO : find user in dabatbase
-  //pictureDbService.findUser(userId).then( (result)=>
+router.get('/users', function (req, res, next) {
 
-  serverStorage.findUser({userId,userPwd}).then( (result) => {
-    if (result == null) {
-      res.status(500).send('find user result ', err);
+  let userInfoAccount = new UserInfoAccount({
+    userLogin: req.headers.userlogin,
+    userPassword: req.headers.userpassword
+  });
+
+
+  authentificationUserService.authentificateUser(userInfoAccount).then(
+    ( userAuthentified ) => {
+
+     let userInfoSession = userService.generateToken(userAuthentified.userLogin);
+
+      //TODO store userInfoSession in AuthorizeUserService
+      res.status(230).send(userInfoSession);
+    })
+
+  .catch(
+    ( err ) => {
+
+      res.status(430);  //TODO get error login or password incorrect
+
     }
-    else {
-      res.status(230).send('find user result ', result);
-    }})
+  )
 })
+
 
 
 router.get('/users/:userId/pictures', function (req, res, next) {
@@ -60,7 +98,7 @@ router.get('/users/:userId/pictures', function (req, res, next) {
 
       let resultWithUserAndUrl = {user:userId, pictures:resultWithUrl};
 
-      console.log("resultWithUserAndUrl ", resultWithUserAndUrl);
+      // console.log("resultWithUserAndUrl ", resultWithUserAndUrl);
 
       res.status(200).send(resultWithUserAndUrl);
 
@@ -104,9 +142,11 @@ router.post('/users/:userId/pictures/', function (req, res, next) {
           res.status(201).send(response);
         })
         .catch(err => {
-          console.log("save picture error: ", err);
+         // console.log("save picture error: ", err);
           res.status(500);  //TODO get error status from db service & server storage
           return err;
       });
+
+
 
 })

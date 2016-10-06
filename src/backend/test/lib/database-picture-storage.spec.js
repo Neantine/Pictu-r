@@ -16,7 +16,7 @@ describe("Database Picture", function () {
   afterEach(() => {
   });
 
-  it("can be saved a picture", function (done) {
+  xit("can be saved a picture", function (done) {
     pictureDbService.addPicture({
       pictureId: '123',
       pictureTitle: "My nice pic",
@@ -27,7 +27,7 @@ describe("Database Picture", function () {
     });
   });
 
-  it("can be saved another picture", function (done) {
+  xit("can be saved another picture", function (done) {
     pictureDbService.addPicture({
       pictureId: '456',
       pictureTitle: "My other nice pic",
