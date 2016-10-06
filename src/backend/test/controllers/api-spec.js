@@ -4,7 +4,7 @@ const ServerStorage = require('../../app/lib/filesystem-server-storage');
 const PictureDbService = require('../../app/lib/database-picture-storage');
 const request = require('supertest');
 
-describe('App picture ', () => {
+describe('App ', () => {
   let ServerStorageSavePictureBackup;
   let PictureDbServicefindUsersPicturesBackup;
 
@@ -25,14 +25,14 @@ describe('App picture ', () => {
 
   });
 
-  it('should return a list of picture', (done) => {
+  xit('should return a list of picture', (done) => {
     const responseFS =  {
       user: 1,
       pictures:
         [
-          {id : 1, title : 'image 1', url : 'test1.jpg'},
-          {id : 2, title : 'image 2', url : 'test2.jpg'},
-          {id : 3, title : 'image 3', url : 'test3.jpg'}
+          {id : '1', title : 'image 1', url : 'test1.jpg'},
+          {id : '2', title : 'image 2', url : 'test2.jpg'},
+          {id : '3', title : 'image 3', url : 'test3.jpg'}
         ]
     }
 
@@ -52,7 +52,7 @@ describe('App picture ', () => {
       return done();
     });
 
-  it('should save a picture in database', (done) => {
+  xit('should save a picture in database', (done) => {
     const pictureToSend={title:'test', fileData:'data:image/jpg;base64,IMAGE_DATA'};
     const responseFS = {id : '1', url : 'http://m9.i.pbase.com/o6/53/623853/1/131283669.nHMCHWU8.smileyuplo_vector.jpg'};
     ServerStorage.prototype.savePicture = jasmine.createSpy().andReturn(Promise.resolve(responseFS));
@@ -68,4 +68,35 @@ describe('App picture ', () => {
         return done();
       });
   });
+
+  it('should authentificate the user {userLogin:"user1",userPassword:"admin"}and respond with a status 230 and {userId:"user1",userToken:"xxx"}', (done) => {
+    request(app)
+      .get('/api/v1/users')
+      // TODO set headers
+      .set({userLogin:'user1'})
+      .set({userPassword:'admin'})
+      .send()
+      .expect(230) //201 =>created
+      .end(function (err, response) {
+
+
+        expect(response.body.userId).toEqual('user1');
+        expect(response.body.userToken).not.toBeNull();
+
+        return done();
+      });
+  });
+
+  it('should respond a 430 because user {userLogin:"tribilik",userPassword:"mdp"} is not authorize', (done) => {
+    request(app)
+      .get('/api/v1/users')
+      // TODO set headers
+      .set({userLogin:'tribilik'})
+      .set({userPassword:'mdp'})
+      .send()
+      .expect(430) //430 =>login or password incorrect
+      .end(function (err, response) {})
+    done();
+  });
+
 });

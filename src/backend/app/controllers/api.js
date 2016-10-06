@@ -5,14 +5,51 @@ let bodyParser = require('body-parser');
 
 const ServerStorage = require('../lib/filesystem-server-storage');
 const PDbService = require('../lib/database-picture-storage');
+const UserInfoSession = require( '../../app/models/user.info-session' );
+const UserService = require( '../../app/lib/user-service' );
+const AuthentificationUserService = require( '../../app/lib/authentificator.user-service' );
+const UserInfoAccount = require( '../../app/models/user.info-account' );
+
+
 
 const pictureDbService = new PDbService();
 const serverStorage = new ServerStorage();
+const userService = new UserService();
+const authentificationUserService = new AuthentificationUserService();
+
 
 module.exports = function (app) {
   app.use('/api/v1', router);
-  app.use(bodyParser.json({limit:'10000kb'}));
+  app.use(bodyParser.json());
 };
+
+router.get('/users', function (req, res, next) {
+
+  let userInfoAccount = new UserInfoAccount({
+    userLogin: req.headers.userlogin,
+    userPassword: req.headers.userpassword
+  });
+
+
+  authentificationUserService.authentificateUser(userInfoAccount).then(
+    ( userAuthentified ) => {
+
+     let userInfoSession = userService.generateToken(userAuthentified.userLogin);
+
+      //TODO store userInfoSession in AuthorizeUserService
+      res.status(230).send(userInfoSession);
+    })
+
+  .catch(
+    ( err ) => {
+
+      res.status(430);  //TODO get error login or password incorrect
+
+    }
+  )
+})
+
+
 
 router.get('/users/:userId/pictures', function (req, res, next) {
 
@@ -31,7 +68,7 @@ router.get('/users/:userId/pictures', function (req, res, next) {
 
       let resultWithUserAndUrl = {user:userId, pictures:resultWithUrl};
 
-      console.log("resultWithUserAndUrl ", resultWithUserAndUrl);
+      // console.log("resultWithUserAndUrl ", resultWithUserAndUrl);
 
       res.status(200).send(resultWithUserAndUrl);
 
@@ -75,9 +112,11 @@ router.post('/users/:userId/pictures/', function (req, res, next) {
           res.status(201).send(response);
         })
         .catch(err => {
-          console.log("save picture error: ", err);
+         // console.log("save picture error: ", err);
           res.status(500);  //TODO get error status from db service & server storage
           return err;
       });
+
+
 
 })
