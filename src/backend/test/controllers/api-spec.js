@@ -79,7 +79,6 @@ describe('App ', () => {
       .expect(230) //201 =>created
       .end(function (err, response) {
 
-
         expect(response.body.userId).toEqual('user1');
         expect(response.body.userToken).not.toBeNull();
 
