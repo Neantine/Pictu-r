@@ -96,16 +96,16 @@ class ServerStorage {
   }
 
 
-
   findUser(user) {
     console.log("find user ", user);
 
     return new Promise((resolve, reject) => {
 
-      if (usersList.includes({userId:userId, userPwd:userPwd})) {
+      console.log(usersList);
+      if (usersList.includes({userId:user.userId, userPwd:user.userPwd})) {
         let generatedToken = shortid.generate();
         console.log('user found ', user, generatedToken );
-        resolve({user, generatedToken});
+        resolve({userId:user.userId, userToken:generatedToken});
       }
 
       else {

@@ -19,7 +19,7 @@ export class UsersList {
 
   }
 
-  checkUser(user: User): Promise<User> {
+  checkUser(user: User): Promise<{userId:string, userToken:string}> {
     console.log('Sending user infos : ', user);
 
     let headers = new Headers({'Content-Type': 'application/json'});
@@ -35,20 +35,23 @@ export class UsersList {
       .catch(this._handleError);
   }
 
-  private _checkStatus(response: Response) {
-    if (response.status < 200 || response.status >= 300) {
+  private _checkStatus(res: Response) {
+    console.log("_checkStatus ", res);
+    if (res.status < 200 || res.status >= 300) {
       throw new Error('TODO');
     }
-    return response;
+    return res;
   }
 
   private _extractData(res: Response) {
+    console.log("_extractData ", res);
     let body = res.json();
-    let userToCheck = {userId: body.userId, userPwd: body.userPwd};
-    return userToCheck || {};
+    let userChecked = {userId: body.userId, userToken: body.userToken};
+    return userChecked || {};
   }
 
   private _handleError(error: any) {
+    console.log("_handleError ", error);
     let errMsg = (error.message) ? error.message :
       error.status ? `${error.status} - ${error.statusText}` : 'Server error';
     console.error(errMsg); // log to console instead

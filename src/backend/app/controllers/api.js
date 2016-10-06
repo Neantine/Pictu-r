@@ -33,52 +33,52 @@ router.post('/users/', function (req, res, next) {
 })
 
 //User login
-// router.get('/users/', function (req, res, next) {
-//
-//   let userId = req.headers.userid;
-//   let userPwd = req.headers.userpwd;
-//
-//   console.log("User trying to connect : ", userId, userPwd);
-//
-//   //TODO : find user in dabatbase
-//   //pictureDbService.findUser(userId).then( (result)=>
-//
-//   serverStorage.findUser({userId,userPwd}).then( (result) => {
-//     if (result == null) {
-//       res.status(500).send('find user result ', err);
-//     }
-//     else {
-//       res.status(230).send('find user result ', result);
-//     }})
-// })
+router.get('/users/', function (req, res, next) {
 
+  let userId = req.headers.userid;
+  let userPwd = req.headers.userpwd;
 
+  console.log("User trying to connect : ", userId, userPwd);
 
-router.get('/users', function (req, res, next) {
+  //TODO : find user in dabatbase
+  //pictureDbService.findUser(userId).then( (result)=>
 
-  let userInfoAccount = new UserInfoAccount({
-    userLogin: req.headers.userlogin,
-    userPassword: req.headers.userpassword
-  });
-
-
-  authentificationUserService.authentificateUser(userInfoAccount).then(
-    ( userAuthentified ) => {
-
-     let userInfoSession = userService.generateToken(userAuthentified.userLogin);
-
-      //TODO store userInfoSession in AuthorizeUserService
-      res.status(230).send(userInfoSession);
-    })
-
-  .catch(
-    ( err ) => {
-
-      res.status(430);  //TODO get error login or password incorrect
-
+  serverStorage.findUser({userId,userPwd}).then( (result) => {
+    if (result == null) {
+      res.status(500).send('find user result ', err);
     }
-  )
+    else {
+      res.status(230).send('find user result ', result);
+    }})
 })
+
+
+//
+// router.get('/users', function (req, res, next) {
+//
+//   let userInfoAccount = new UserInfoAccount({
+//     userLogin: req.headers.userlogin,
+//     userPassword: req.headers.userpassword
+//   });
+//
+//
+//   authentificationUserService.authentificateUser(userInfoAccount).then(
+//     ( userAuthentified ) => {
+//
+//      let userInfoSession = userService.generateToken(userAuthentified.userLogin);
+//
+//       //TODO store userInfoSession in AuthorizeUserService
+//       res.status(230).send(userInfoSession);
+//     })
+//
+//   .catch(
+//     ( err ) => {
+//
+//       res.status(430);  //TODO get error login or password incorrect
+//
+//     }
+//   )
+// })
 
 
 
