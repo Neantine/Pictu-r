@@ -4,6 +4,10 @@
   background-color: rgba(0, 0, 0, 0.001);
   flex: 1 1 auto;
   border-bottom: groove white 1px;
+  -webkit-box-shadow: 4px 3px 1px  rgba(0,0,25,0.35);
+  -moz-box-shadow: 8px 3px 5px  rgba(0,0,25,0.75);
+  box-shadow: 5px 5px 3px  rgba(0,0,25,0.75);
+
 }
 .titlew{
   font-family: "High Tower Text";
@@ -27,13 +31,20 @@
   font-size: 23px;
   font-family: "High Tower Text";
   color: whitesmoke;
-  background-color: rgba(0, 0, 0, 0.20);
+  background-color: rgba(0, 0, 0, 0.15);
+  -webkit-box-shadow: 4px 3px 1px  rgba(0,0,25,0.35);
+  -moz-box-shadow: 8px 3px 5px  rgba(0,0,25,0.75);
+  box-shadow: 5px 5px 3px  rgba(0,0,25,0.75);
 }
 
 .ButtonStyle:hover{
   border-bottom: solid white 1px;
   background-color: rgba(0, 0, 0, 0.001);
+  -webkit-box-shadow: 8px 8px 5px  rgba(0,0,25,0.35);
+  -moz-box-shadow: 8px 8px 5px  rgba(0,0,25,0.75);
+  box-shadow: 8px 8px 5px  rgba(0,0,25,0.75);
 }
+
 
 .VideoStyle {
   position: fixed;
