@@ -22,6 +22,7 @@ class AuthorizationUserService {
         && (user.userToken === userInfoSession.userToken)
 
     });
+    // TODO implement timer on token in authorizedUser
   }
 
   // TODO method that remove right of an user after a certain amount of time

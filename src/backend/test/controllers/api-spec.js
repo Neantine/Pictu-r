@@ -2,6 +2,9 @@ const app = require('../../app');
 const Picture = require('../../app/models/picture');
 const ServerStorage = require('../../app/lib/filesystem-server-storage');
 const PictureDbService = require('../../app/lib/database-picture-storage');
+const UserInfoSession = require('../../app/models/user.info-session');
+const AuthorizationUserService = require( '../../app/lib/authorization.user-service' );
+
 const request = require('supertest');
 
 describe('App ', () => {
@@ -25,9 +28,20 @@ describe('App ', () => {
 
   });
 
-  xit('should return a list of picture', (done) => {
+  it('should return a list of 3 pictures for user1 because he\'s already authentified', (done) => {
+
+  let authorizationUserService = new AuthorizationUserService();
+
+    //on ajoute l'authorization a cet user
+    let userInfoSession = new UserInfoSession({
+      userlogin:'user1',
+      usertoken: 'abcd'
+    });
+
+    authorizationUserService.addAuthorizationForThisUser(userInfoSession);
+
     const responseFS =  {
-      user: 1,
+      user: 'user1',
       pictures:
         [
           {id : '1', title : 'image 1', url : 'test1.jpg'},
@@ -38,7 +52,9 @@ describe('App ', () => {
 
     PictureDbService.prototype.findUsersPictures = jasmine.createSpy().andReturn(Promise.resolve(responseFS));
       request(app)
-        .get('/api/v1/users/1/pictures')
+        .get('/api/v1/users/user1/pictures')
+        .set({userlogin:'user1'})
+        .set({usertoken:'abcd'})
         .expect('Content-Type', 'application/json')
         .expect(200)
         .end(function (err, response) {
@@ -51,6 +67,84 @@ describe('App ', () => {
 
       return done();
     });
+
+  it('should return a 403 because userLogin {userLogin :" user3"}in request headers on /api/v1/users/user1/pictures different of user in url', (done) => {
+
+    let authorizationUserService = new AuthorizationUserService();
+
+
+    const responseFS =  {
+      user: 'user1',
+      pictures:
+        [
+          {id : '1', title : 'image 1', url : 'test1.jpg'},
+          {id : '2', title : 'image 2', url : 'test2.jpg'},
+          {id : '3', title : 'image 3', url : 'test3.jpg'}
+        ]
+    }
+
+    //on ajoute l'authorization a cet user
+    const userInfoSession = new UserInfoSession({
+      userlogin:'user3',
+      usertoken: 'abcd'
+    });
+
+  authorizationUserService.addAuthorizationForThisUser(userInfoSession);
+
+
+    PictureDbService.prototype.findUsersPictures = jasmine.createSpy().andReturn(Promise.resolve(responseFS));
+    request(app)
+      .get('/api/v1/users/user1/pictures')
+      .set({userLogin:'user3'})
+      .set({userPassword:'admin'})
+      .expect('Content-Type', 'application/json')
+      .expect(403)
+      .end(function (err, response) {
+
+        return done();
+      });
+
+    return done();
+  });
+
+it('should return a 403 because userToken {userToken :"bcda"} in request headers isn\'t authorize', (done) => {
+
+  let authorizationUserService = new AuthorizationUserService();
+  const responseFS =  {
+    user: 'user1',
+    pictures:
+      [
+        {id : '1', title : 'image 1', url : 'test1.jpg'},
+        {id : '2', title : 'image 2', url : 'test2.jpg'},
+        {id : '3', title : 'image 3', url : 'test3.jpg'}
+      ]
+  }
+
+  //on ajoute l'authorization a cet user
+  const userInfoSession = new UserInfoSession({
+    userLogin:'user1',
+    userToken: 'abcd'
+  });
+
+  authorizationUserService.addAuthorizationForThisUser(userInfoSession);
+
+
+  PictureDbService.prototype.findUsersPictures = jasmine.createSpy().andReturn(Promise.resolve(responseFS));
+  request(app)
+    .get('/api/v1/users/user1/pictures')
+    .set({userLogin:'user1'})
+    .set({userToken:'bcda'})
+    .expect('Content-Type', 'application/json')
+    .expect(403)
+    .end(function (err, response) {
+
+      return done();
+    });
+
+  return done();
+});
+
+
 
   xit('should save a picture in database', (done) => {
     const pictureToSend={title:'test', fileData:'data:image/jpg;base64,IMAGE_DATA'};
@@ -69,7 +163,7 @@ describe('App ', () => {
       });
   });
 
-  xit('should authentificate the user {userLogin:"user1",userPassword:"admin"}and respond with a status 230 and {userId:"user1",userToken:"xxx"}', (done) => {
+  it('should authentificate the user {userLogin:"user1",userPassword:"admin"}and respond with a status 230 and {userId:"user1",userToken:"xxx"}', (done) => {
     request(app)
       .get('/api/v1/users')
       // TODO set headers
@@ -78,7 +172,7 @@ describe('App ', () => {
       .send()
       .expect(230) //201 =>created
       .end(function (err, response) {
-
+        console.log('h',response.body);
         expect(response.body.userId).toEqual('user1');
         expect(response.body.userToken).not.toBeNull();
 
@@ -86,7 +180,7 @@ describe('App ', () => {
       });
   });
 
-  xit('should respond a 430 because user {userLogin:"tribilik",userPassword:"mdp"} is not authorize', (done) => {
+  it('should respond a 430 because user {userLogin:"tribilik",userPassword:"mdp"} is not authorize', (done) => {
     request(app)
       .get('/api/v1/users')
       // TODO set headers
@@ -94,7 +188,7 @@ describe('App ', () => {
       .set({userPassword:'mdp'})
       .send()
       .expect(430) //430 =>login or password incorrect
-      .end(function (err, response) {})
+      .end(function (err, response) { done()})
     done();
   });
 

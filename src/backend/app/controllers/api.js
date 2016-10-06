@@ -7,6 +7,7 @@ const ServerStorage = require('../lib/filesystem-server-storage');
 const PDbService = require('../lib/database-picture-storage');
 
 const UserService = require( '../../app/lib/user-service' );
+const UserInfoSession = require( '../../app/models/user.info-session' );
 const AuthentificationUserService = require( '../../app/lib/authentificator.user-service' );
 const AuthorizationUserService = require( '../../app/lib/authorization.user-service' );
 const UserInfoAccount = require( '../../app/models/user.info-account' );
@@ -34,19 +35,23 @@ router.get('/users', function (req, res, next) {
 
   authentificationUserService.authentificateUser(userInfoAccount).then(
     ( userAuthentified ) => {
-    console.log('userAuthentified : ',userAuthentified);
+  //  console.log('userAuthentified : ',userAuthentified);
      let userInfoSession = userService.generateToken(userAuthentified.userLogin);
       console.log('userInfoSession : ',userInfoSession);
 
-    //  if(! authentificationUserService.agit )
-      //TODO store userInfoSession in AuthorizeUserService
+      if(! authorizationUserService.addAuthorizationForThisUser(userInfoSession) )
+      {
+        res.status(430);  // error login or password incorrect
+        return;
+      }
+
       res.status(230).send(userInfoSession);
     })
 
   .catch(
     ( err ) => {
 
-      res.status(430);  //TODO get error login or password incorrect
+      res.status(430);  //  error login or password incorrect
 
     }
   )
@@ -58,6 +63,18 @@ router.get('/users/:userId/pictures', function (req, res, next) {
 
   let userId = req.params.userId;
   //console.log('API ROUTER GET /users/:userId/pictures');
+
+  let userInfoSession = new UserInfoSession({
+    userLogin: req.headers.userlogin,
+    userToken: req.headers.usertoken
+  });
+
+
+  if(!authorizationUserService.isAuthorizeUser(userInfoSession) ){
+    res.status(403);
+    return;
+  }
+
 
   pictureDbService.findUsersPictures(userId).then( (result)=>
     {
@@ -88,6 +105,13 @@ router.post('/users/:userId/pictures/', function (req, res, next) {
   let bodyReqPictureData = req.body.fileData;
   let userId = req.params.userId;
   let response = null;
+
+  let userInfoAccount = new UserInfoAccount({
+    userLogin: req.headers.userlogin,
+    userPassword: req.headers.userpassword
+  });
+
+
 
   serverStorage.savePicture(bodyReqTitle, bodyReqPictureData).then(
 
