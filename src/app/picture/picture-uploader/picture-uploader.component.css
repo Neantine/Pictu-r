@@ -15,11 +15,16 @@
   padding-right: 85px;
 }
 
+.titlew:hover {
+  transform: scale(1.02);
+}
+
 .TitlePos {
   padding: 15px;
   flex: 1 1 auto;
-
 }
+
+
 
 .ButtonPos {
   padding: 15px;
@@ -134,7 +139,7 @@
 }
 
 .inputitle {
-  flex: 1 1 auto;
+  height: 31px;
   border: groove black 1px;
   margin: 0 auto;
   border-radius: 3px;
