@@ -10,6 +10,7 @@ import { App } from './app.component';
 import { CommonModule } from "./common.module";
 import { PictureModule } from "./picture/picture.module";
 import { BrowserModule } from "@angular/platform-browser";
+import { LoginModule } from "./picture/login.module";
 
 /**
  * `AppModule` is the main entry point into Angular2's bootstraping process
@@ -24,6 +25,7 @@ import { BrowserModule } from "@angular/platform-browser";
     BrowserModule,
     CommonModule.modules(),
     PictureModule,
+    LoginModule,
     RouterModule.forRoot(ROUTES, { useHash: true })
   ],
   providers: [

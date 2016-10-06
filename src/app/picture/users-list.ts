@@ -1,12 +1,13 @@
 /**
  * Created by Lilith on 05/10/2016.
  */
+import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Headers, RequestOptions } from '@angular/http';
 
 import { User } from '../picture/user';
 
-
+@Injectable()
 export class UsersList {
 
   static PROVIDERS = [
