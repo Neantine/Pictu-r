@@ -1,29 +1,25 @@
 class AuthorizationUserService {
 
+
   constructor() {
-    this.authorizeUser = [];
+
+    this.authorizedUser = [];
   }
 
-  isAuthorizeUser(userInfoSession) {
-    return this.authorizedUsers.find(user => {
-
-      return (user.userLogin === userInfoAccount.userLogin)
-        && (user.userToken === userInfoAccount.userToken)
-
-    });
+  getAuthorizedUsers(){
+    return this.authorizedUser;
   }
-
 
   /**
    * Search if this userInfoSession.userId is already Authorize
    * @param userInfoSession
    * @private
    */
-  _isAlreadyAuthorize(userInfoSession) {
-    return this.authorizedUsers.find(user => {
+  isAuthorizeUser(userInfoSession) {
+    return this.authorizedUser.find(user => {
 
-      return (user.userLogin === userInfoAccount.userLogin)
-        && (user.userToken === userInfoAccount.userToken)
+      return (user.userLogin === userInfoSession.userLogin)
+        && (user.userToken === userInfoSession.userToken)
 
     });
   }
@@ -35,10 +31,13 @@ class AuthorizationUserService {
 
 
   addAuthorizationForThisUser(userInfoSession) {
-    if (this._isAlreadyAuthorize(userInfoSession)) {
+
+    if (this.isAuthorizeUser(userInfoSession)) {
       return null;
     }
-    this.authorizeUser.push(userInfoSession);
+
+    this.authorizedUser.push(userInfoSession);
+
     return userInfoSession;
   }
 

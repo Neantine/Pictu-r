@@ -86,7 +86,7 @@ describe('App ', () => {
       });
   });
 
-  it('should respond a 430 because user {userLogin:"tribilik",userPassword:"mdp"} is not authorize', (done) => {
+  xit('should respond a 430 because user {userLogin:"tribilik",userPassword:"mdp"} is not authorize', (done) => {
     request(app)
       .get('/api/v1/users')
       // TODO set headers

@@ -5,9 +5,10 @@ let bodyParser = require('body-parser');
 
 const ServerStorage = require('../lib/filesystem-server-storage');
 const PDbService = require('../lib/database-picture-storage');
-//const UserInfoSession = require( '../../app/models/user.info-session' );
+
 const UserService = require( '../../app/lib/user-service' );
-// const AuthentificationUserService = require( '../../app/lib/authentificator.user-service' );
+const AuthentificationUserService = require( '../../app/lib/authentificator.user-service' );
+const AuthorizationUserService = require( '../../app/lib/authorization.user-service' );
 const UserInfoAccount = require( '../../app/models/user.info-account' );
 
 
@@ -15,8 +16,8 @@ const UserInfoAccount = require( '../../app/models/user.info-account' );
 const pictureDbService = new PDbService();
 const serverStorage = new ServerStorage();
 const userService = new UserService();
-// const authentificationUserService = new AuthentificationUserService();
-
+const authentificationUserService = new AuthentificationUserService();
+const authorizationUserService = new AuthorizationUserService();
 
 module.exports = function (app) {
   app.use('/api/v1', router);
@@ -33,9 +34,11 @@ router.get('/users', function (req, res, next) {
 
   authentificationUserService.authentificateUser(userInfoAccount).then(
     ( userAuthentified ) => {
-
+    console.log('userAuthentified : ',userAuthentified);
      let userInfoSession = userService.generateToken(userAuthentified.userLogin);
+      console.log('userInfoSession : ',userInfoSession);
 
+    //  if(! authentificationUserService.agit )
       //TODO store userInfoSession in AuthorizeUserService
       res.status(230).send(userInfoSession);
     })
