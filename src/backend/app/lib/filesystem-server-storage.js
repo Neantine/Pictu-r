@@ -101,8 +101,9 @@ class ServerStorage {
 
     return new Promise((resolve, reject) => {
 
-      console.log(usersList);
-      if (usersList.includes({userId:user.userId, userPwd:user.userPwd})) {
+
+      if (usersList.filter(function(u) {console.log("FILTER ", user, usersList); u.userId === user.userId && u.userPwd === user.userPwd; }).length == 1)
+      {
         let generatedToken = shortid.generate();
         console.log('user found ', user, generatedToken );
         resolve({userId:user.userId, userToken:generatedToken});
