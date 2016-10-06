@@ -3,10 +3,14 @@ import {
     inject,
     TestBed, tick, fakeAsync
 } from '@angular/core/testing';
-import {PictureGalleryComponent} from "../../../app/picture/picture-gallery/picture-gallery.component";
-import {PictureModule} from "../../../app/picture/picture.module";
-import {PictureStore} from "../../../app/picture/picture-store";
-import {PictureDisplay} from "../../../app/picture/picture-display";
+import { PictureGalleryComponent }
+  from '../../../app/picture/picture-gallery/picture-gallery.component';
+import { PictureModule }
+    from '../../../app/picture/picture.module';
+import { PictureStore }
+  from '../../../app/picture/picture-store';
+import { PictureDisplay }
+  from '../../../app/picture/picture-display';
 
 
 describe('PictureGalleryComponent', () => {
@@ -22,9 +26,7 @@ describe('PictureGalleryComponent', () => {
 
 
     it('should display 3 images after a call at method pictureList()',  fakeAsync(inject(
-        [PictureStore],
-        (pictureStore) => {
-
+        [PictureStore], (pictureStore) => {
           let pictures = [
             new PictureDisplay ({id:1, title: 'image 1', url: 'picture/img/test1.jpg'}),
             new PictureDisplay ( {id:2, title: 'image 2', url: 'picture/img/test2.jpg'}),
@@ -52,9 +54,7 @@ describe('PictureGalleryComponent', () => {
 
          expect(pictureGalleryComponent.picturList.length).toEqual(pictures.length);
          expect(images.length).toEqual(pictures.length);
-
-        // TODO test url and title of picture
-    })));
-
-
-})
+          // TODO test url and title of picture
+        })
+    ));
+});

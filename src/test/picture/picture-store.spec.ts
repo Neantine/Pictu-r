@@ -1,9 +1,9 @@
-import {Picture} from "../../app/picture/picture";
-import {PictureStore} from "../../app/picture/picture-store";
-import {PictureModule} from "../../app/picture/picture.module";
-import {TestBed, async, inject, fakeAsync, tick} from "@angular/core/testing";
-import {BaseRequestOptions, Http, RequestMethod, ResponseOptions, Response} from "@angular/http";
-import {MockBackend} from "@angular/http/testing";
+import { Picture } from '../../app/picture/picture';
+import { PictureStore } from '../../app/picture/picture-store';
+import { PictureModule } from '../../app/picture/picture.module';
+import { TestBed, async, inject, fakeAsync, tick } from '@angular/core/testing';
+import { BaseRequestOptions, Http, RequestMethod, ResponseOptions, Response } from '@angular/http';
+import { MockBackend } from '@angular/http/testing';
 
 describe('PictureStore', () => {
 
@@ -34,8 +34,8 @@ describe('PictureStore', () => {
   });
 
   it('should upload a picture{title:test, fileData:{data encoded in base 64}',
-    fakeAsync(inject([MockBackend,PictureStore],
-      (backend,pictureStore) => {
+    fakeAsync(inject([MockBackend, PictureStore],
+      (backend, pictureStore) => {
    let picture =  new Picture({
      title: 'toto',
      fileData: 'data:image/jpg;base64,IMAGE_DATA'
@@ -54,7 +54,7 @@ describe('PictureStore', () => {
         fileData: 'data:image/jpg;base64,IMAGE_DATA'
       });
       connection.mockRespond(new Response(new ResponseOptions({
-        status:201,
+        status: 201,
       body: {
         id: 'IMAGE_ID',
         title: 'toto',
@@ -69,8 +69,8 @@ describe('PictureStore', () => {
 
 
   it('should manage a handle error',
-    fakeAsync(inject([MockBackend,PictureStore],
-      (backend,pictureStore) => {
+    fakeAsync(inject([MockBackend, PictureStore],
+      (backend, pictureStore) => {
     let error;
     let picture =  new Picture({
       title: 'toto',
@@ -100,7 +100,7 @@ describe('PictureStore', () => {
 
     expect(connectionCountSpy.calls.count()).toEqual(1);
 
-    //TODO change to pass the code
+    // TODO change to pass the code
     expect(error).toBeTruthy();
 
   })));
@@ -114,7 +114,7 @@ describe('PictureStore', () => {
   }));
 
   it('should receive a pictureList of 3 pictures',
-    fakeAsync(inject([MockBackend,PictureStore], (backend,pictureStore) => {
+    fakeAsync(inject([MockBackend, PictureStore], (backend, pictureStore) => {
 
 
     let connectionCountSpy;
@@ -126,7 +126,7 @@ describe('PictureStore', () => {
       expect(connection.request.method).toEqual(RequestMethod.Get);
       expect(connection.request.url).toEqual('/api/v1/users/1/pictures');
       connection.mockRespond(new Response(new ResponseOptions({
-        status:200,
+        status: 200,
         body: {
           user: 1,
           pictures:
@@ -145,7 +145,7 @@ describe('PictureStore', () => {
     })));
 
   it('should handle an empty list of pictures when pictureList()',
-    fakeAsync(inject([MockBackend,PictureStore], (backend,pictureStore) => {
+    fakeAsync(inject([MockBackend, PictureStore], (backend, pictureStore) => {
       let error;
       let connectionCountSpy;
 
@@ -156,7 +156,7 @@ describe('PictureStore', () => {
         expect(connection.request.method).toEqual(RequestMethod.Get);
         expect(connection.request.url).toEqual('/api/v1/users/1/pictures');
         connection.mockRespond(new Response(new ResponseOptions({
-          status:500,
+          status: 500,
           body: {
             user: 1,
             pictures: [{}]
@@ -170,9 +170,9 @@ describe('PictureStore', () => {
 
       expect(connectionCountSpy.calls.count()).toEqual(1);
 
-      //TODO change to pass the code
+      // TODO change to pass the code
       expect(error).toBeTruthy();
     })));
 
 
-})
+  });
