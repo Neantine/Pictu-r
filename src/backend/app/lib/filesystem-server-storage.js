@@ -3,7 +3,12 @@ let shortid = require('shortid');
 const path = require("path");
 const url = require('url');
 
-let usersList = [{userId:'bb', userPwd:'ffff'}, {userId:'bbrr', userPwd:'bg012'}, {userId:'marion', userPwd:'70roBert'}];
+u1 = {"userId":'bb', "userPwd":'ffff'};
+u2 = {userId:'bbrr', userPwd:'bg012'};
+u3 = {userId:'marion', userPwd:'70roBert'};
+
+let usersList = [u1, u2 , u3];
+console.log(usersList);
 
 function createDir(filePath) {
 
@@ -97,13 +102,19 @@ class ServerStorage {
 
 
   findUser(user) {
-    console.log("find user ", user);
+
+    user = {"userId":user.userId, "userPwd":user.userPwd};
+
 
     return new Promise((resolve, reject) => {
 
 
-      if (usersList.filter(function(u) {console.log("FILTER ", user, usersList); u.userId === user.userId && u.userPwd === user.userPwd; }).length == 1)
+      let u = undefined;
+
+      if (usersList.find( function(u) { return (user.userId === u.userId && user.userPwd === u.userPwd)}))
       {
+
+
         let generatedToken = shortid.generate();
         console.log('user found ', user, generatedToken );
         resolve({userId:user.userId, userToken:generatedToken});

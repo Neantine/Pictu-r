@@ -62,7 +62,7 @@ router.get('/users/', function (req, res, next) {
       res.status(500).send('find user result ', err);
     }
     else {
-      res.status(230).send('find user result ', result);
+      res.status(230).send(result);
     }})
 })
 
