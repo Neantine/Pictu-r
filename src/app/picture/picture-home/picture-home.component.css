@@ -37,7 +37,7 @@
 .ButtonStyle {
   font-size: 23px;
   font-family: "High Tower Text";
-  color: whitesmoke;
+  color: white;
   background-color: rgba(0, 0, 0, 0.15);
   -webkit-box-shadow: 4px 3px 1px  rgba(0,0,25,0.35);
   -moz-box-shadow: 8px 3px 5px  rgba(0,0,25,0.75);
@@ -47,9 +47,11 @@
 .ButtonStyle:hover{
   border-bottom: solid white 1px;
   background-color: rgba(0, 0, 0, 0.001);
-  -webkit-box-shadow: 8px 8px 5px  rgba(0,0,25,0.35);
-  -moz-box-shadow: 8px 8px 5px  rgba(0,0,25,0.75);
-  box-shadow: 8px 8px 5px  rgba(0,0,25,0.75);
+  animation: shawd 2s;
+  -moz-animation: shawd 2s; /* Firefox */
+  -webkit-animation: shawd 2s; /* Safari et Chrome */
+  -o-animation: shawd 2s; /* Opera */
+
 }
 
 
@@ -81,6 +83,23 @@
   -webkit-animation: fadein 20s; /* Safari et Chrome */
   -o-animation: fadein 20s; /* Opera */
 }
+
+@keyframes shawd {
+  from {
+    transform: scale(1.00);
+    -webkit-box-shadow: 4px 3px 1px  rgba(0,0,25,0.35);
+    -moz-box-shadow: 8px 3px 5px  rgba(0,0,25,0.75);
+    box-shadow: 5px 5px 3px  rgba(0,0,25,0.75);
+
+  }
+  to {
+    transform: scale(1.04);
+    -webkit-box-shadow: 8px 8px 5px  rgba(0,0,25,0.35);
+    -moz-box-shadow: 8px 8px 5px  rgba(0,0,25,0.75);
+    box-shadow: 8px 8px 5px  rgba(0,0,25,0.75);
+  }
+}
+
 @keyframes fadein {
   from {
     opacity:0;
