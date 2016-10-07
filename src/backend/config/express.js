@@ -31,8 +31,9 @@ module.exports = function(app, config) {
   }));
   app.use(cookieParser());
   app.use(compress());
-  app.use(express.static(path.join(config.root, '../../dist')));
   app.use(methodOverride());
+  app.use(express.static(path.join(config.root, '../../dist')));
+
 
   var controllers = glob.sync(config.root + '/app/controllers/*.js');
   controllers.forEach(function (controller) {

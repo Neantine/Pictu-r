@@ -49,7 +49,7 @@ class ServerStorage {
       let uniqueID = shortid.generate();
       let generatedFileName = bodyReqTitle + '' + uniqueID + ".jpg";
 
-      let fileName = this.picturesPath + '\\' + generatedFileName;
+      let fileName = this.picturesPath + '/' + generatedFileName;
       let filePath = path.join(__dirname, fileName);
 
       console.log("write file: ", filePath);
