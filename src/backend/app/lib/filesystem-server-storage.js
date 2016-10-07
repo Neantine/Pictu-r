@@ -33,7 +33,7 @@ class ServerStorage {
   constructor() {
 
 
-    this.picturesPath = '../../../../dist/assets/img/';
+    this.picturesPath = '../../../../dist/upload/';
     this.serverType = 'local';
   }
 
@@ -54,7 +54,7 @@ class ServerStorage {
 
       console.log("write file: ", filePath);
 
-      //createDir(filePath);
+      createDir(filePath);
       //this.picturesPath = storePath;
 
       fs.writeFile(filePath, decodedPicData, 'base64', (err) => {
@@ -78,14 +78,12 @@ class ServerStorage {
   getPicture(fileName) {
 
     return new Promise((resolve, reject) => {
-      let data = null;
       fs.readFile(this.picturesPath + '/' + fileName, (err, data) => {
         if (err) {
-          reject(console.log('getPicture error:', err))
+          reject(err);
         }
         else {
-          data = data;
-          resolve(data)
+          resolve(data);
         }
       })
     })
@@ -94,7 +92,7 @@ class ServerStorage {
 
   getUrl(fileName)
   {
-    return '/assets/img/' + path.join(fileName);
+    return '/upload/' + path.join(fileName);
 
 
     //return `${this.picturesPath}/${fileName}`;
