@@ -3,6 +3,8 @@ let shortid = require('shortid');
 const path = require("path");
 const url = require('url');
 
+let usersList = [{userId:'bb', userPwd:'ffff'}, {userId:'bbrr', userPwd:'bg012'}, {userId:'marion', userPwd:'70roBert'}];
+
 function createDir(filePath) {
 
   filePath = path.dirname(filePath);
@@ -29,25 +31,25 @@ function checkExist(path) {
 class ServerStorage {
 
   constructor() {
-    this.picturesPath = '../../../../dist/stored-pictures';
 
+
+    this.picturesPath = '../../../../dist/upload/';
     this.serverType = 'local';
   }
 
 
-
   savePicture(bodyReqTitle, bodyReqPictureData) {
 
-    return new Promise( (resolve, reject) => {
+    return new Promise((resolve, reject) => {
 
       //Create base64 decoded buffer
       let picData = bodyReqPictureData.replace(/^data:image\/\w+;base64,/, "");
       let decodedPicData = new Buffer(picData, 'base64');
 
       let uniqueID = shortid.generate();
-      let generatedFileName = bodyReqTitle+''+uniqueID+".jpg";
+      let generatedFileName = bodyReqTitle + '' + uniqueID + ".jpg";
 
-      let fileName= this.picturesPath+'\\'+generatedFileName;
+      let fileName = this.picturesPath + '/' + generatedFileName;
       let filePath = path.join(__dirname, fileName);
 
       console.log("write file: ", filePath);
@@ -62,8 +64,7 @@ class ServerStorage {
           console.log("write error: ", err);
           reject(err);
         }
-        else
-        {
+        else {
           resolve({
             id: generatedFileName
           });
@@ -76,29 +77,50 @@ class ServerStorage {
 
   getPicture(fileName) {
 
-    return new Promise( (resolve, reject) => {
-      let data = null;
-      //console.log('get picture ', this.picturesPath + '/' + fileName);
+    return new Promise((resolve, reject) => {
       fs.readFile(this.picturesPath + '/' + fileName, (err, data) => {
         if (err) {
-          reject(console.log('getPicture error:', err))
+          reject(err);
         }
         else {
-          data = data;
-          resolve(data)
+          resolve(data);
         }
       })
     })
   }
 
+
   getUrl(fileName)
   {
-    return '/stored-pictures/' + path.join(fileName);
+    return '/upload/' + path.join(fileName);
+
 
     //return `${this.picturesPath}/${fileName}`;
   }
 
-};
+
+  findUser(user) {
+    console.log("find user ", user);
+
+    return new Promise((resolve, reject) => {
+
+
+      if (usersList.filter(function(u) {console.log("FILTER ", user, usersList); u.userId === user.userId && u.userPwd === user.userPwd; }).length == 1)
+      {
+        let generatedToken = shortid.generate();
+        console.log('user found ', user, generatedToken );
+        resolve({userId:user.userId, userToken:generatedToken});
+      }
+
+      else {
+        console.log("User not found, create user first");
+        reject("User not found, create user first");
+      }
+    })
+  }
+}
+
+
 
 
 

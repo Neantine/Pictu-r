@@ -1,12 +1,13 @@
 /**
  * Created by Lilith on 05/10/2016.
  */
+import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Headers, RequestOptions } from '@angular/http';
 
 import { User } from '../picture/user';
 
-
+@Injectable()
 export class UsersList {
 
   static PROVIDERS = [
@@ -18,36 +19,39 @@ export class UsersList {
 
   }
 
-  checkUser(user: User): Promise<User> {
+  checkUser(user: User): Promise<{userId:string, userToken:string}> {
     console.log('Sending user infos : ', user);
 
-    let body = JSON.stringify(user);
     let headers = new Headers({'Content-Type': 'application/json'});
+    headers.append("userId", user.userId);
+    headers.append("userPwd", user.userPwd);
+
     let options = new RequestOptions({headers: headers});
 
-    return this.http.post('/api/v1/users/', body, options)
+    return this.http.get('/api/v1/users/', options)
       .toPromise()
       .then(this._checkStatus)
       .then(this._extractData)
       .catch(this._handleError);
   }
 
-  private _checkStatus(response: Response) {
-    if (response.status < 200 || response.status >= 300) {
+  private _checkStatus(res: Response) {
+    console.log("_checkStatus ", res);
+    if (res.status < 200 || res.status >= 300) {
       throw new Error('TODO');
     }
-    return response;
+    return res;
   }
 
   private _extractData(res: Response) {
+    console.log("_extractData ", res);
     let body = res.json();
-    let userToCheck = {userId: body.userId, userPwd: body.userPwd};
-    return userToCheck || {};
+    let userChecked = {userId: body.userId, userToken: body.userToken};
+    return userChecked || {};
   }
 
   private _handleError(error: any) {
-    // In a real world app, we might use a remote logging infrastructure
-    // We'd also dig deeper into the error to get a better message
+    console.log("_handleError ", error);
     let errMsg = (error.message) ? error.message :
       error.status ? `${error.status} - ${error.statusText}` : 'Server error';
     console.error(errMsg); // log to console instead

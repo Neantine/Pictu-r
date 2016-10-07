@@ -21,43 +21,84 @@ const authorizationUserService = new AuthorizationUserService();
 
 module.exports = function (app) {
   app.use('/api/v1', router);
-  app.use(bodyParser.json());
+
 };
 
-router.get('/users', function (req, res, next) {
 
-  let userInfoAccount = new UserInfoAccount({
-    userLogin: req.headers.userlogin,
-    userPassword: req.headers.userpassword
-  });
+//User creation
+router.post('/users/', function (req, res, next) {
+
+  let userId = req.params.userId;
+  let userPwd = req.params.userPwd;
 
 
-  authentificationUserService.authentificateUser(userInfoAccount).then(
-    ( userAuthentified ) => {
-    console.log('userAuthentified : ',userAuthentified);
-     let userInfoSession = userService.generateToken(userAuthentified.userLogin);
-      console.log('userInfoSession : ',userInfoSession);
+  // authentificationUserService.authentificateUser(userInfoAccount).then(
+  //   ( userAuthentified ) => {
+  //   console.log('userAuthentified : ',userAuthentified);
+  //    let userInfoSession = userService.generateToken(userAuthentified.userLogin);
+  //     console.log('userInfoSession : ',userInfoSession);
+  //
+  //   //  if(! authentificationUserService.agit )
+  //     //TODO store userInfoSession in AuthorizeUserService
+  //     res.status(230).send(userInfoSession);
+  //   })
 
-    //  if(! authentificationUserService.agit )
-      //TODO store userInfoSession in AuthorizeUserService
-      res.status(230).send(userInfoSession);
-    })
-
-  .catch(
-    ( err ) => {
-
-      res.status(430).send(err);  //TODO get error login or password incorrect
-
-    }
-  )
 })
+
+//User login
+router.get('/users/', function (req, res, next) {
+
+
+  let userId = req.headers.userid;
+  let userPwd = req.headers.userpwd;
+
+  console.log("User trying to connect : ", userId, userPwd);
+
+  //TODO : find user in dabatbase
+  //pictureDbService.findUser(userId).then( (result)=>
+
+  serverStorage.findUser({userId,userPwd}).then( (result) => {
+    if (result == null) {
+      res.status(430).send('find user result ', err);
+    }
+    else {
+      res.status(230).send('find user result ', result);
+    }})
+})
+
+
+//
+// router.get('/users', function (req, res, next) {
+//
+//   let userInfoAccount = new UserInfoAccount({
+//     userLogin: req.headers.userlogin,
+//     userPassword: req.headers.userpassword
+//   });
+//
+//
+//   authentificationUserService.authentificateUser(userInfoAccount).then(
+//     ( userAuthentified ) => {
+//
+//      let userInfoSession = userService.generateToken(userAuthentified.userLogin);
+//
+//       //TODO store userInfoSession in AuthorizeUserService
+//       res.status(230).send(userInfoSession);
+//     })
+//
+//   .catch(
+//     ( err ) => {
+//
+//       res.status(430);  //TODO get error login or password incorrect
+//
+//     }
+//   )
+// })
 
 
 
 router.get('/users/:userId/pictures', function (req, res, next) {
 
   let userId = req.params.userId;
-  //console.log('API ROUTER GET /users/:userId/pictures');
 
   pictureDbService.findUsersPictures(userId).then( (result)=>
     {
