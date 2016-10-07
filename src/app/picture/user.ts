@@ -5,16 +5,15 @@
 export class User {
   username: string;
   password: string;
+/*
   firstName: string;
   lastName: string;
-
+*/
 
   constructor(
     {
       username = '',
-      password = '',
-      firstName = '',
-      lastName = ''
+      password = ''
 
     }:  { username ? : string, password ? : string })
   {
