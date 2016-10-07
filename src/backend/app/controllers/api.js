@@ -46,7 +46,7 @@ router.get('/users', function (req, res, next) {
   .catch(
     ( err ) => {
 
-      res.status(430);  //TODO get error login or password incorrect
+      res.status(430).send(err);  //TODO get error login or password incorrect
 
     }
   )
