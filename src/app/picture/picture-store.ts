@@ -16,28 +16,35 @@ export class PictureStore {
 
   // URL to web API
 
-  private picturesUrl = '/api/v1/users/1/pictures';
+  private picturesUrl = '/api/v1/users/';
 
   constructor(private http: Http) {
-    console.log('hello `PictureStore` class');
+
   }
 
-  uploadPicture(picture: Picture): Promise<Picture> {
-    console.log('Upload : ', picture);
+  uploadPicture(userId: string, picture: Picture): Promise<Picture> {
 
     let body = JSON.stringify(picture);
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
 
-    return this.http.post(this.picturesUrl, body, options)
+
+    let picturesUrl = this.picturesUrl + userId + "/pictures";
+    console.log('picturesUrl',picturesUrl );
+    return this.http.post(picturesUrl, body, options)
       .toPromise()
       .then(this._checkStatus)
       .then(this._extractData)
       .catch(this._handleError);
   }
 
-  pictureList(): Promise<{user:number, picturesListe:[PictureDisplay]}> {
-    return this.http.get(this.picturesUrl)
+  pictureList(userId:string): Promise<{user:string, picturesListe:[PictureDisplay]}> {
+    let picturesUrl = this.picturesUrl+userId+"/pictures";
+
+    console.log("pictureList ", picturesUrl);
+
+
+    return this.http.get(picturesUrl)
       .toPromise()
       .then(this._checkStatus)
       .then(this._extractPictures)
@@ -45,6 +52,8 @@ export class PictureStore {
   }
 
   private _checkStatus(response: Response) {
+    console.log("_checkStatus ", response);
+
     if (response.status < 200 || response.status >= 300) {
       throw new Error('TODO');
     }
@@ -52,13 +61,16 @@ export class PictureStore {
   }
 
   private _extractData(res: Response) {
+    console.log("_extractData ", res);
+
     let body = res.json();
     let pictureReceived =  {id: body.id, title: body.title, url: body.url};
+
     return pictureReceived || {};
   }
 
   private _extractPictures(res: Response) {
-
+    console.log("_extractPictures ", res);
     let body = res.json();
 
     let _pictureDisplayArray = [];
@@ -77,6 +89,8 @@ export class PictureStore {
       )
     }
     let picturesToDisplay =  {  user : body.user,  picturesListe :_pictureDisplayArray  };
+    console.log("_extractData ", picturesToDisplay);
+
     return picturesToDisplay || {};
 
   }

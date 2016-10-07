@@ -7,5 +7,12 @@ import {Component} from '@angular/core';
   template: require('./picture-home.component.html')
 })
 export class HomeComponent {
+
+  ngOnInit() {
+    console.log('hello `HomeComponent` component');
+  }
+  ngOnDestroy() {
+    console.log('byebye `HomeComponent` component');
+  }
 }
 

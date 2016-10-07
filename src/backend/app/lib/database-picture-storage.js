@@ -28,13 +28,16 @@ class PictureDbService {
    * @returns {Promise}
    */
   findUsersPictures(userId) {
+
+    console.log("findUsersPictures ", userId);
+
     return new Promise((resolve, reject) => {
 
      // console.log(userId);
 
       Picture.find({userId:userId}, (err, pictures) => {
         if (err) {
-          reject("Error during the retrieving of all pictures from the database: ", err);
+          reject( err);
         }
         else {
           //console.log("findUsersPictures:", pictures);

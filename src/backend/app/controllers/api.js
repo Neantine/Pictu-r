@@ -21,12 +21,11 @@ const authorizationUserService = new AuthorizationUserService();
 
 module.exports = function (app) {
   app.use('/api/v1', router);
-  app.use(bodyParser.json());
 };
 
 
 //User creation
-router.post('/users/', function (req, res, next) {
+/*router.post('/users/', function (req, res, next) {
 
   let userId = req.params.userId;
   let userPwd = req.params.userPwd;
@@ -43,10 +42,11 @@ router.post('/users/', function (req, res, next) {
   //     res.status(230).send(userInfoSession);
   //   })
 
-})
+})*/
 
 //User login
-router.get('/users/', function (req, res, next) {
+/*
+router.get('/users', function (req, res, next) {
 
   let userId = req.headers.userid;
   let userPwd = req.headers.userpwd;
@@ -65,6 +65,7 @@ router.get('/users/', function (req, res, next) {
       res.status(230).send(result);
     }})
 })
+*/
 
 
 //
@@ -98,7 +99,10 @@ router.get('/users/', function (req, res, next) {
 
 router.get('/users/:userId/pictures', function (req, res, next) {
 
+  console.log("router get ", req);
+
   let userId = req.params.userId;
+
 
   pictureDbService.findUsersPictures(userId).then( (result)=>
     {
@@ -112,7 +116,7 @@ router.get('/users/:userId/pictures', function (req, res, next) {
 
       let resultWithUserAndUrl = {user:userId, pictures:resultWithUrl};
 
-      // console.log("resultWithUserAndUrl ", resultWithUserAndUrl);
+      console.log("resultWithUserAndUrl ", resultWithUserAndUrl);
 
       res.status(200).send(resultWithUserAndUrl);
 
@@ -152,7 +156,6 @@ router.post('/users/:userId/pictures/', function (req, res, next) {
           res.status(500);  //TODO get error status from db service & server storage
           return err;
       });
-
 
 
 })

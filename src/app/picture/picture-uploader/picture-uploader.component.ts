@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 import { Picture } from '../picture';
 import { PictureStore } from '../picture-store';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'pr-picture-uploader',
@@ -16,12 +17,18 @@ export class PictureUploaderComponent {
   static PROVIDERS = [PictureStore];
   pictureTmp: Picture = new Picture({});
   errorMessage: string;
+  userId: string;
 
   // TypeScript public modifiers
-  constructor(private pictureStore: PictureStore) {  }
+  constructor(private pictureStore: PictureStore, private router:Router, private route: ActivatedRoute) {
+  }
 
   ngOnInit() {
     console.log('hello `PictureUploaderComponent` component');
+    this.route.params.forEach((params: Params) => {
+    this.userId = params['userId'];
+      });
+    console.log("ngOnInit param: ", this.userId);
   }
 
   drag(event) {
@@ -42,7 +49,8 @@ export class PictureUploaderComponent {
   uploadPicture(picture: Picture) {
     // if (this._canIuploadThisPicture(picture)){return;}
 
-      this.pictureStore.uploadPicture(picture)
+
+      this.pictureStore.uploadPicture(this.userId, picture)
         .then( picture  => {
              console.log('tout marche bien navette : ' ,picture);
           }
@@ -51,6 +59,10 @@ export class PictureUploaderComponent {
             // TODO getsion display de l'error
       });
 
+  }
+
+  ngOnDestroy() {
+    console.log('byebye uploader component');
   }
 
 
@@ -88,4 +100,5 @@ export class PictureUploaderComponent {
   }
   */
 
-}
+
+  }

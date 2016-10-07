@@ -3,6 +3,8 @@ import {Component} from '@angular/core';
 import { User } from '../user';
 import { UsersList } from '../users-list';
 
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'login-app',
   styles  : [ require('./picture-login.component.css') ] ,
@@ -15,7 +17,7 @@ export class LoginComponent {
   userTmp: User = new User({});
   errorMessage: string;
 
-  constructor(private usersList:UsersList)
+  constructor(private usersList:UsersList, private router:Router)
   {
   }
 
@@ -24,14 +26,22 @@ export class LoginComponent {
   }
   connectUser(userTmp:User)
   {
+
     this.usersList.checkUser(userTmp)
       .then( userChecked  => {
-
+        console.log("check user ",userChecked.userId);
+        this.router.navigate(
+          ['gallery', userChecked.userId]
+        );
         }
       ).catch(error => {
       this.errorMessage = <any>error
       // TODO getsion display de l'error
     });
+  }
+
+  ngOnDestroy() {
+    console.log('byebye login component');
   }
 }
 
