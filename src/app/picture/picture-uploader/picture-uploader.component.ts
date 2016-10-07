@@ -46,7 +46,7 @@ export class PictureUploaderComponent {
 
 
 
-  uploadPicture(picture: Picture) {
+  uploadPicture(picture : Picture){
     // if (this._canIuploadThisPicture(picture)){return;}
 
 

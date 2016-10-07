@@ -1,18 +1,30 @@
-import {Component} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
+import { User } from '../user';
+import { UserStore } from '../user-store';
 
 @Component({
   selector: 'home-app',
   styles  : [ require('./picture-home.component.css') ],
   template: require('./picture-home.component.html')
 })
-export class HomeComponent {
+
+export class HomeComponent implements OnInit {
+  users: User[] = [];
+
+  constructor(private userStore: UserStore) { }
 
   ngOnInit() {
-    console.log('hello `HomeComponent` component');
+    // // get users from secure api end point
+    // this.userStore.getUsers()
+    //   .then(users => {
+    //     this.users = users;
+    //   });
   }
+
+
   ngOnDestroy() {
     console.log('byebye `HomeComponent` component');
   }
-}
 
+}

@@ -3,12 +3,6 @@ let shortid = require('shortid');
 const path = require("path");
 const url = require('url');
 
-u1 = {"userId":'bb', "userPwd":'ffff'};
-u2 = {userId:'bbrr', userPwd:'bg012'};
-u3 = {userId:'marion', userPwd:'70roBert'};
-
-let usersList = [u1, u2 , u3];
-console.log(usersList);
 
 function createDir(filePath) {
 
@@ -36,7 +30,9 @@ function checkExist(path) {
 class ServerStorage {
 
   constructor() {
-    this.picturesPath = '../../../../dist/stored-pictures';
+
+
+    this.picturesPath = '../../../../dist/upload/';
     this.serverType = 'local';
   }
 
@@ -52,7 +48,7 @@ class ServerStorage {
       let uniqueID = shortid.generate();
       let generatedFileName = bodyReqTitle + '' + uniqueID + ".jpg";
 
-      let fileName = this.picturesPath + '\\' + generatedFileName;
+      let fileName = this.picturesPath + '/' + generatedFileName;
       let filePath = path.join(__dirname, fileName);
 
       console.log("write file: ", filePath);
@@ -81,21 +77,22 @@ class ServerStorage {
   getPicture(fileName) {
 
     return new Promise((resolve, reject) => {
-      let data = null;
       fs.readFile(this.picturesPath + '/' + fileName, (err, data) => {
         if (err) {
-          reject(console.log('getPicture error:', err))
+          reject(err);
         }
         else {
-          data = data;
-          resolve(data)
+          resolve(data);
         }
       })
     })
   }
 
-  getUrl(fileName) {
-    return '/stored-pictures/' + path.join(fileName);
+
+  getUrl(fileName)
+  {
+    return '/upload/' + path.join(fileName);
+
 
     //return `${this.picturesPath}/${fileName}`;
   }

@@ -1,19 +1,24 @@
 /**
- * Created by Lilith on 05/10/2016.
+ * Object Model of a User
  */
+
 export class User {
-  userId: string;
-  userPwd: string;
+  username: string;
+  password: string;
+/*
+  firstName: string;
+  lastName: string;
+*/
 
   constructor(
     {
-      userId = '',
-      userPwd = ''
-    }:
-      { userId ? : string, userPwd ? : string })
+      username = '',
+      password = ''
+
+    }:  { username ? : string, password ? : string })
   {
-    this.userId = userId;
-    this.userPwd = userPwd;
+    this.username = username;
+    this.password = password;
   }
 
 }
