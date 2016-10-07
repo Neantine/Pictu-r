@@ -29,7 +29,8 @@ function checkExist(path) {
 class ServerStorage {
 
   constructor() {
-    this.picturesPath = '../../../../dist/stored-pictures';
+
+    this.picturesPath = '../../../../dist/assets/img/';
 
     this.serverType = 'local';
   }
@@ -93,7 +94,7 @@ class ServerStorage {
 
   getUrl(fileName)
   {
-    return '/stored-pictures/' + path.join(fileName);
+    return '/assets/img/' + path.join(fileName);
 
     //return `${this.picturesPath}/${fileName}`;
   }
