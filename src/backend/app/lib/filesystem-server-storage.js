@@ -54,7 +54,7 @@ class ServerStorage {
 
       console.log("write file: ", filePath);
 
-      createDir(filePath);
+      createDir(this.filePath);
       //this.picturesPath = storePath;
 
       fs.writeFile(filePath, decodedPicData, 'base64', (err) => {
