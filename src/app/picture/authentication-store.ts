@@ -18,7 +18,7 @@ export class AuthenticationStore {
     this.token = currentUserId && currentUserToken;
   }
 
-  login(username, password): Promise<boolean> {
+  login(username, password): Promise<any> {
     let body = JSON.stringify({username: username, password: password });
     let headers = new Headers({'Content-Type': 'application/json'});
 
@@ -57,11 +57,11 @@ export class AuthenticationStore {
       localStorage.setItem('currentUserId', JSON.stringify({ username: body.userId}));
       localStorage.setItem('currentUserToken', JSON.stringify({usertoken: token }));
       // return true to indicate successful login
-      return true;
+      return ({username: body.userId});
     } else {
       // return false to indicate failed login
       console.log("return false to indicate failed login");
-      return false;
+      throw new Error('TODO');
     }
   }
   private _handleError(error: any) {

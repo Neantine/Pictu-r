@@ -15,11 +15,16 @@ export class HomeComponent implements OnInit {
   constructor(private userStore: UserStore) { }
 
   ngOnInit() {
-    // get users from secure api end point
-    this.userStore.getUsers()
-      .then(users => {
-        this.users = users;
-      });
+    // // get users from secure api end point
+    // this.userStore.getUsers()
+    //   .then(users => {
+    //     this.users = users;
+    //   });
+  }
+
+
+  ngOnDestroy() {
+    console.log('byebye `HomeComponent` component');
   }
 
 }

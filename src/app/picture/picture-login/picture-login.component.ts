@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationStore } from '../authentication-store';
 
+
 @Component({
   selector: 'login-app',
   styles  : [ require('./picture-login.component.css') ] ,
@@ -12,6 +13,7 @@ export class LoginComponent implements OnInit {
   loading = false;
   error = '';
 
+
   constructor(
     private router: Router,
     private authenticationStore: AuthenticationStore) { }
@@ -20,19 +22,24 @@ export class LoginComponent implements OnInit {
     // reset login status
     this.authenticationStore.logout();
   }
+
   login() {
     this.loading = true;
     this.authenticationStore.login(this.model.username, this.model.password)
       .then(result => {
-        if (result === true) {
+        if (result) {
           // login successful
           console.log("Login")
-          this.router.navigate(['/pictures']);
+          this.router.navigate(['/pictures', result.username]);
         }
       }).catch(err =>{
       // login failed
       this.error = 'Username or password is incorrect';
       this.loading = false;
     });
+  }
+
+  ngOnDestroy() {
+    console.log('byebye login component');
   }
 }
