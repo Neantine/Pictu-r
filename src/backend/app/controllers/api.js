@@ -79,9 +79,6 @@ router.get('/users/:userId/pictures', function (req, res, next) {
 
 });
 
-
-
-
 router.post('/users/:userId/pictures/', function (req, res, next) {
 //  console.log("API Router Post ")
   let bodyReqTitle = req.body.title;
@@ -111,7 +108,5 @@ router.post('/users/:userId/pictures/', function (req, res, next) {
       res.status(500);  //TODO get error status from db service & server storage
       return err;
     });
-
-
 
 })
