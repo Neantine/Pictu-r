@@ -21,7 +21,7 @@ const authorizationUserService = new AuthorizationUserService();
 
 module.exports = function (app) {
   app.use('/api/v1', router);
-  app.use(bodyParser.json());
+
 };
 
 
