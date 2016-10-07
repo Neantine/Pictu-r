@@ -25,8 +25,8 @@ export class LoginComponent {
   connectUser(userTmp:User)
   {
     this.usersList.checkUser(userTmp)
-      .then( userToCheck  => {
-          console.log('user to check : ' ,userTmp);
+      .then( userChecked  => {
+
         }
       ).catch(error => {
       this.errorMessage = <any>error

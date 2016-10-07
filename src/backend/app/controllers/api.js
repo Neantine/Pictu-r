@@ -59,7 +59,7 @@ router.get('/users/', function (req, res, next) {
 
   serverStorage.findUser({userId,userPwd}).then( (result) => {
     if (result == null) {
-      res.status(500).send('find user result ', err);
+      res.status(430).send('find user result ', err);
     }
     else {
       res.status(230).send(result);
