@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 
 import { Picture } from '../picture';
 import { PictureStore } from '../picture-store';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'pr-picture-uploader',
   styles  : [ require('./picture-uploader.component.css') ],
-  template: require('./picture-uploader.component.html')
+  template : require('./picture-uploader.component.html')
 })
 
 
@@ -16,12 +17,18 @@ export class PictureUploaderComponent {
   static PROVIDERS = [PictureStore];
   pictureTmp: Picture = new Picture({});
   errorMessage: string;
+  userId: string;
 
   // TypeScript public modifiers
-  constructor(private pictureStore: PictureStore) {  }
+  constructor(private pictureStore: PictureStore, private router:Router, private route: ActivatedRoute) {
+  }
 
   ngOnInit() {
     console.log('hello `PictureUploaderComponent` component');
+    this.route.params.forEach((params: Params) => {
+    this.userId = params['userId'];
+      });
+    console.log("ngOnInit param: ", this.userId);
   }
 
   drag(event) {
@@ -38,21 +45,26 @@ export class PictureUploaderComponent {
   }
 
 
-  uploadPicture(picture : Picture ){
 
-    console.log(picture);
+  uploadPicture(picture : Picture){
+    // if (this._canIuploadThisPicture(picture)){return;}
 
-    // if(this._canIuploadThisPicture(picture)){return;}
 
-      this.pictureStore.uploadPicture(picture)
-        .then(
-          picture => {
-             console.log(picture);
-            },
-          error => {
-            this.errorMessage = <any>error
-          });
-    }
+      this.pictureStore.uploadPicture(this.userId, picture)
+        .then( picture  => {
+             console.log('tout marche bien navette : ' ,picture);
+          }
+         ).catch(error => {
+                this.errorMessage = <any>error
+            // TODO getsion display de l'error
+      });
+
+  }
+
+  ngOnDestroy() {
+    console.log('byebye uploader component');
+  }
+
 
 
   /*
@@ -88,4 +100,5 @@ export class PictureUploaderComponent {
   }
   */
 
-}
+
+  }

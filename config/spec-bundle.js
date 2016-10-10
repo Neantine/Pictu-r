@@ -4,7 +4,7 @@
 
 /*
  * When testing with webpack and ES6, we have to do some extra
- * things to get testing to work right. Because we are gonna write tests
+ * things to get testing to work right. Because we are gonna write test
  * in ES6 too, we have to compile those as well. That's handled in
  * karma.conf.js with the karma-webpack plugin. This is the entry
  * file for webpack test. Just like webpack will create a bundle.js
