@@ -4,11 +4,11 @@
 
 export class PictureDisplay {
 
-  id: number;
+  id: string;
   title: string;
   url : string;
 
-  constructor( { title = '', url = '', id=-1 } :  {id: number ,title? : string, url : string } ) {
+  constructor( { title = '', url = '', id='' } :  {id: string ,title? : string, url : string } ) {
     this.title = title;
     this.id = id;
     this.url = url;

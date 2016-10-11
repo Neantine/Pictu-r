@@ -9,14 +9,36 @@ import {
   inject,
   TestBed, tick, fakeAsync
 } from '@angular/core/testing';
+import { Router, ActivatedRoute } from '@angular/router';
+
+
+import { PictureModule }
+  from '../../../app/picture/picture.module';
+
 import { PictureAccountComponent }
   from '../../../app/picture/picture-account/picture-account.component';
 
 
 
+
 describe('PictureAccountComponent', () => {
 
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        PictureModule
+      ],
+      providers: [
+        {
+          provide: Router,
+          useValue: {
+            navigate: jasmine.createSpy('navigate')
+          }
+        }
+      ]
+    }).compileComponents();
 
+  }));
 
   xit('should display 5 input text(login, password, name, lastname,mail) and a button to submitton to submit',  fakeAsync(inject(
     [], () => {

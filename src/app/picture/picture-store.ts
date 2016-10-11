@@ -22,15 +22,22 @@ export class PictureStore {
 
   }
 
-  uploadPicture(userId: string, picture: Picture): Promise<Picture> {
+  /**
+   *  {userId : this.userId,  picture: picture}
+   * @param pictureInfo
+   * @return {Promise<TResult|{id: string, title: string, url: string}|{}>}
+   */
+  uploadPicture(pictureInfo): Promise<Picture> {
 
-    let body = JSON.stringify(picture);
+    let body = JSON.stringify(pictureInfo.picture);
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
 
 
-    let picturesUrl = this.picturesUrl + userId + "/pictures";
+    let picturesUrl = this.picturesUrl + pictureInfo.userId + "/pictures";
+
     console.log('picturesUrl',picturesUrl );
+
     return this.http.post(picturesUrl, body, options)
       .toPromise()
       .then(this._checkStatus)
@@ -52,7 +59,7 @@ export class PictureStore {
   }
 
   private _checkStatus(response: Response) {
-    console.log("_checkStatus ", response);
+    // console.log("_checkStatus ", response);
 
     if (response.status < 200 || response.status >= 300) {
       throw new Error('TODO');
@@ -70,12 +77,13 @@ export class PictureStore {
   }
 
   private _extractPictures(res: Response) {
-    console.log("_extractPictures ", res);
+    // console.log("_extractPictures ", res);
     let body = res.json();
 
     let _pictureDisplayArray = [];
 
     for(let i=0; i<body.pictures.length;i++){
+
       let pic = new PictureDisplay(
         {
           id : body.pictures[i].id,
@@ -84,12 +92,14 @@ export class PictureStore {
         }
       )
 
-      _pictureDisplayArray.push(
-        pic
-      )
+      _pictureDisplayArray.push( pic );
     }
-    let picturesToDisplay =  {  user : body.user,  picturesListe :_pictureDisplayArray  };
-    console.log("_extractData ", picturesToDisplay);
+
+    let picturesToDisplay =  {
+      user : body.user,
+      picturesListe :_pictureDisplayArray
+    };
+
 
     return picturesToDisplay || {};
 

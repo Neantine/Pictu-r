@@ -7,7 +7,8 @@ import {
   inject,
   TestBed, tick, fakeAsync
 } from '@angular/core/testing';
-
+import { Router,ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 
 import {
   PictureUploaderComponent
@@ -35,13 +36,27 @@ describe('PictureUploaderComponent', () => {
       imports: [
         PictureModule
       ]
+      ,
+      providers: [
+        {
+          provide: Router,
+          useValue: {
+            navigate: jasmine.createSpy('navigate')
+          }
+        },
+        {
+          provide: ActivatedRoute,
+          useValue: {}
+          }
+
+      ]
     }).compileComponents();
 
   }));
 
 
 
-  xit('should display an input of type file,' +
+  it('should display an input of type file,' +
     ' an input of type text and a button upload',
     inject([], () => {
       let fixture = TestBed.createComponent(PictureUploaderComponent);
@@ -92,26 +107,23 @@ describe('PictureUploaderComponent', () => {
     'change and verify argument on upload button click',
 
     fakeAsync(inject(
-      [PictureStore],
-      (pictureStore) => {
+      [PictureStore,Router, ActivatedRoute],
+      (pictureStore,router,activatedRoute) => {
 
         let event;
         let file = {
-          name: 'IMAGE_TITLE.jpg',
+          name: '',
           size: 1234,
           type: 'image/jpg'
         };
 
+        activatedRoute.params = Observable.from([{
+          userId: '1'
+        }]);
+
         let fixture = TestBed.createComponent(PictureUploaderComponent);
         let pictureUploaderComponent = fixture.componentInstance;
-        /*
-         let element = fixture.debugElement.nativeElement;
 
-         let inputFile = element.querySelector('input[type="file"]');
-         let formElement = element.querySelector('form');
-
-         let pictureToUpload = pictureUploaderComponent.pictureTmp;
-         */
 
         /* Mock PictureStore. */
         spyOn(pictureStore, 'handleFileSelect')
@@ -132,8 +144,7 @@ describe('PictureUploaderComponent', () => {
         /* Mock PictureStore. */
         spyOn(pictureStore, 'uploadPicture')
         .and
-          .returnValue(Promise.resolve({id: '1', title: 'test', url: '/my_pic'}));
-
+          .returnValue(Promise.resolve({id: '1', title: '', url: '/my_pic'}));
 
 
         pictureUploaderComponent
@@ -143,14 +154,18 @@ describe('PictureUploaderComponent', () => {
         tick();
 
         expect((<jasmine.Spy>pictureStore.uploadPicture).calls.count()).toEqual(1);
+
+
+        // TODO work on activate route on init to change this ugly undefined in 'user1'
         expect((<jasmine.Spy>pictureStore.uploadPicture).calls.argsFor(0)).toEqual(
           [
-            new Picture(
+            {userId : undefined,
+           picture: new Picture(
               {
                 title: '',
                 fileData: 'data:image/jpg;base64,IMAGE_DATA'
               }
-            )
+            )}
           ]);
 
       })
