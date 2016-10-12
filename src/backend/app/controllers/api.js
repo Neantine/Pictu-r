@@ -30,18 +30,6 @@ router.post('/users/', function (req, res, next) {
   let userId = req.params.userId;
   let userPwd = req.params.userPwd;
 
-
-  // authentificationUserService.authentificateUser(userInfoAccount).then(
-  //   ( userAuthentified ) => {
-  //   console.log('userAuthentified : ',userAuthentified);
-  //    let userInfoSession = userService.generateToken(userAuthentified.userLogin);
-  //     console.log('userInfoSession : ',userInfoSession);
-  //
-  //   //  if(! authentificationUserService.agit )
-  //     //TODO store userInfoSession in AuthorizeUserService
-  //     res.status(230).send(userInfoSession);
-  //   })
-
 })
 
 //User login
@@ -57,12 +45,16 @@ router.get('/users', function (req, res, next) {
 
   authentificationUserService.authentificateUser(userInfoAccount).then(
     ( userAuthentified ) => {
-      console.log('userAuthentified : ',userAuthentified);
-      let userInfoSession = userService.generateToken(userAuthentified.userLogin);
-      console.log('userInfoSession : ',userInfoSession);
+
+     // console.log('userAuthentified : ',userAuthentified);
+
+      let userInfoSession =
+        userService.generateToken(userAuthentified.userLogin);
+
+      // console.log('userInfoSession : ',userInfoSession);
 
       //  if(! authentificationUserService.agit )
-      //TODO store userInfoSession in AuthorizeUserService
+      // TODO store userInfoSession in AuthorizeUserService
       res.status(230).send(userInfoSession);
     })
 
@@ -80,11 +72,10 @@ router.get('/users', function (req, res, next) {
 
 router.get('/users/:userId/pictures', function (req, res, next) {
 
-  console.log("router get ", req);
+  // console.log("router get ", req);
 
   let userId = req.params.userId;
   //console.log('API ROUTER GET /users/:userId/pictures');
-
 
   pictureDbService.findUsersPictures(userId).then( (result)=>
   {
@@ -94,11 +85,27 @@ router.get('/users/:userId/pictures', function (req, res, next) {
       return;
     }
 
-    let resultWithUrl = result.map( (pic) => { console.log('mapping ', pic); return {url:serverStorage.getUrl(pic.pictureId), id:pic.pictureId, title:pic.pictureTitle} });
+    let resultWithUrl = result.map( (pic) => {
+     // console.log('mapping ', pic);
+      return {
+        url : serverStorage.getUrl(pic.pictureId),
+        id : pic.pictureId,
+        title : pic.pictureTitle}
+    });
 
-    let resultWithUserAndUrl = {user:userId, pictures:resultWithUrl};
+    let resultWithUserAndUrl =
+    {
+      user : userId,
+      pictures : resultWithUrl
+    };
 
     res.status(200).send(resultWithUserAndUrl);
+
+  }).catch(
+    ( err ) => {
+
+    res.status(500).send(err);
+    //TODO error handler
 
   })
 

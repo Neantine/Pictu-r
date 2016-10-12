@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
-import { AuthenticationStore } from "./authentication-store";
-import { UserStore } from "./user-store";
+import { AuthenticationStore } from "../user/authentication-store";
+import { UserStore } from "../user/user-store";
 import { PicturUrlSanitizerPipe } from "./picture-url-sanitizer";
 import { HomeComponent } from "./picture-home/picture-home.component";
 import { LoginComponent } from "./picture-login/picture-login.component";

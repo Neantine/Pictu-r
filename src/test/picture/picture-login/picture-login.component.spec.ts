@@ -17,7 +17,7 @@ import {
 import {
   AuthenticationStore
 }
-  from '../../../app/picture/authentication-store';
+  from '../../../app/user/authentication-store';
 
 describe('LoginComponent', () => {
 
