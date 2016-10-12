@@ -88,7 +88,7 @@ describe('PictureUploaderComponent', () => {
     pictureToUpload.title = inputText.value;
 
 
-    console.log('picture', pictureToUpload);
+    // console.log('picture', pictureToUpload);
 
     expect(pictureToUpload.title).toEqual('my pic');
   }));

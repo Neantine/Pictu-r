@@ -13,7 +13,7 @@ import { User } from '../../user/user';
 
 
 export class LoginComponent implements OnInit {
-  model: any = {};
+  model: User = new User({});
   loading = false;
   error = '';
 
@@ -33,14 +33,13 @@ export class LoginComponent implements OnInit {
       {username: this.model.username,
       password : this.model.password}))
       .then(result => {
-        if (result) {
           // login successful
           console.log("Login")
           this.router.navigate(['/pictures', result.username]);
-        }
-      }).catch(err =>{
+      }).catch(
+        err =>{
       // login failed
-      this.error = 'Username or password is incorrect';
+      this.error = err;
       this.loading = false;
     });
   }
