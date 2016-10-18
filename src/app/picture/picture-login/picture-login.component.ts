@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationStore } from '../authentication-store';
+import { AuthenticationStore } from '../../user/authentication-store';
+import { User } from '../../user/user';
+
 
 
 @Component({
@@ -8,8 +10,10 @@ import { AuthenticationStore } from '../authentication-store';
   styles  : [ require('./picture-login.component.css') ] ,
   template: require('./picture-login.component.html')
 })
+
+
 export class LoginComponent implements OnInit {
-  model: any = {};
+  model: User = new User({});
   loading = false;
   error = '';
 
@@ -25,16 +29,17 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.loading = true;
-    this.authenticationStore.login(this.model.username, this.model.password)
+    this.authenticationStore.login(new User(
+      {username: this.model.username,
+      password : this.model.password}))
       .then(result => {
-        if (result) {
           // login successful
           console.log("Login")
           this.router.navigate(['/pictures', result.username]);
-        }
-      }).catch(err =>{
+      }).catch(
+        err =>{
       // login failed
-      this.error = 'Username or password is incorrect';
+      this.error = err;
       this.loading = false;
     });
   }

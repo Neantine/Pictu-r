@@ -23,35 +23,37 @@ export class PictureGalleryComponent {
 
     // TypeScript public modifiers
    constructor(private pictureStore: PictureStore, private router:Router, private route: ActivatedRoute) {
-
-
-   // constructor(private pictureStore: PictureStore, private route: ActivatedRoute) {
-
-      /*this.route.params.subscribe(params => {
-        this.pictureList();
-        //  this.pictureList(params['userId']);
-      });*/
+     this.pictureStore.pictureList(this.userId)
+       .then(
+         (pictures) => {
+           // console.log("pictures: ", pictures);
+           this.picturList = pictures.picturesListe;
+         },
+       ).catch(error => {
+       // console.log("ici ", error);
+       this.errorMessage = <any>error
+       // TODO getsion display de l'error
+     });
     }
 
     ngOnInit() {
-        console.log('hello `PictureGalleryComponent` component');
-        this.route.params.forEach((params: Params) => {
-        this.userId = params['userId'];
-        console.log("ngOnInit param: ", this.userId);
+      console.log('hello `PictureGalleryComponent` component');
 
-          this.pictureStore.pictureList(this.userId)
-            .then(
-              (pictures)  => {
-                console.log("pictures: ",pictures);
-                this.picturList = pictures.picturesListe;
-              },
-            ).catch(error => {
-            console.log("ici ",error);
-            this.errorMessage = <any>error
-            // TODO getsion display de l'error
-          });
 
+      this.route.params.subscribe(params => {
+          this.userId = params['userId'];
+       //   console.log("ngOnInit param: ", this.userId);
+
+        },
+        err => {
+          if (err.status == '401') { //unauthorized
+            //redirection
+            this.router.navigate(['login']);
+          }
         });
+
+
+
     }
 
   ngOnDestroy() {

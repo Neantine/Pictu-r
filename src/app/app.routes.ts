@@ -7,11 +7,9 @@ import { LoginComponent } from  "./picture/picture-login/picture-login.component
 
 
 export const ROUTES: Routes = [
-  { path: '', component: PictureUploaderComponent },
+  { path: '', component: HomeComponent },
   { path: 'index', component: HomeComponent },
   { path: 'pictures/:userId', component: PictureUploaderComponent },
-  { path: 'pictures', component: PictureUploaderComponent },
   { path: 'gallery/:userId', component: PictureGalleryComponent },
-  { path: 'gallery', component: PictureGalleryComponent },
   { path: 'login', component: LoginComponent },
 ];

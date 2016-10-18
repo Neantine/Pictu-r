@@ -25,10 +25,17 @@ export class PictureUploaderComponent {
 
   ngOnInit() {
     console.log('hello `PictureUploaderComponent` component');
-    this.route.params.forEach((params: Params) => {
-    this.userId = params['userId'];
+    this.route.params.subscribe(params => {
+        this.userId = params['userId'];
+        console.log("ngOnInit param: ", this.userId);
+
+      },
+      err => {
+        if (err.status == '401') { //unauthorized
+          //redirection
+          this.router.navigate(['login']);
+        }
       });
-    console.log("ngOnInit param: ", this.userId);
   }
 
   drag(event) {
@@ -49,8 +56,10 @@ export class PictureUploaderComponent {
   uploadPicture(picture : Picture){
     // if (this._canIuploadThisPicture(picture)){return;}
 
-
-      this.pictureStore.uploadPicture(this.userId, picture)
+      this.pictureStore.uploadPicture(
+        {userId : this.userId,
+          picture: picture}
+          )
         .then( picture  => {
              console.log('tout marche bien navette : ' ,picture);
           }

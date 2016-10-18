@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response , RequestOptions} from '@angular/http';
 
+
+import { User } from './user';
+
 @Injectable()
 export class AuthenticationStore {
   public token : string;
@@ -18,13 +21,12 @@ export class AuthenticationStore {
     this.token = currentUserId && currentUserToken;
   }
 
-  login(username, password): Promise<any> {
-    let body = JSON.stringify({username: username, password: password });
-    let headers = new Headers({'Content-Type': 'application/json'});
+  login(user : User): Promise<any> {
+   let headers = new Headers({'Content-Type': 'application/json'});
 
     let options = new RequestOptions({headers: headers});
-    headers.append("userLogin" , username);
-    headers.append("userPassword", password );
+    headers.append("userLogin" , user.username);
+    headers.append("userPassword", user.password );
 
     return this.http.get(this.usersUrl, options)
       .toPromise()
@@ -32,7 +34,6 @@ export class AuthenticationStore {
       .then(this._extractToken)
       .catch(this._handleError);
 
-    // response = {json:{status : 230, body : {userId:userId, userToken : userToken}}};
   };
 
 
@@ -57,6 +58,7 @@ export class AuthenticationStore {
       localStorage.setItem('currentUserId', JSON.stringify({ username: body.userId}));
       localStorage.setItem('currentUserToken', JSON.stringify({usertoken: token }));
       // return true to indicate successful login
+      // TODO return an user : User
       return ({username: body.userId});
     } else {
       // return false to indicate failed login
@@ -64,6 +66,8 @@ export class AuthenticationStore {
       throw new Error('TODO');
     }
   }
+
+
   private _handleError(error: any) {
     // In a real world app, we might use a remote logging infrastructure
     // We'd also dig deeper into the error to get a better message
