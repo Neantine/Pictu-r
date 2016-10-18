@@ -70,12 +70,11 @@ router.get('/users', function (req, res, next) {
 
 
 
-router.get('/users/:userId/pictures', function (req, res, next) {
+router.get('/users/:userId/gallery', function (req, res, next) {
 
-  // console.log("router get ", req);
 
   let userId = req.params.userId;
-  //console.log('API ROUTER GET /users/:userId/pictures');
+  console.log('API ROUTER GET /users/:userId/gallery ', userId);
 
   pictureDbService.findUsersPictures(userId).then( (result)=>
   {
@@ -111,7 +110,7 @@ router.get('/users/:userId/pictures', function (req, res, next) {
 
 });
 
-router.post('/users/:userId/pictures/', function (req, res, next) {
+router.post('/users/:userId/gallery/', function (req, res, next) {
 //  console.log("API Router Post ")
   let bodyReqTitle = req.body.title;
   let bodyReqPictureData = req.body.fileData;

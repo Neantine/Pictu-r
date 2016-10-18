@@ -1,5 +1,5 @@
 
-[ ![Codeship Status for Tribilik/Pictu-r](https://codeship.com/projects/c118b890-65f8-0134-7915-52bb14378e27/status?branch=master)](https://codeship.com/projects/175746)
+[ ![Codeship Status for Neantine/Pictu-r](https://codeship.com/projects/c118b890-65f8-0134-7915-52bb14378e27/status?branch=master)](https://codeship.com/projects/175746)
 
 __PICTUR GALLERY__
 http://pictu-r.herokuapp.com/#/index

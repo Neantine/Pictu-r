@@ -16,7 +16,7 @@ export class PictureStore {
 
   // URL to web API
 
-  private picturesUrl = '/api/v1/users/';
+  private uploadUrl = '/api/v1/users/';
 
   constructor(private http: Http) {
 
@@ -34,19 +34,23 @@ export class PictureStore {
     let options = new RequestOptions({headers: headers});
 
 
-    let picturesUrl = this.picturesUrl + pictureInfo.userId + "/pictures";
+    let uploadUrl = this.uploadUrl + pictureInfo.userId + "/upload";
 
-    console.log('picturesUrl',picturesUrl );
+    console.log('uploadUrl', uploadUrl );
 
-    return this.http.post(picturesUrl, body, options)
+    return this.http.post(uploadUrl, body, options)
       .toPromise()
       .then(this._checkStatus)
       .then(this._extractData)
       .catch(this._handleError);
   }
 
+
+
+
   pictureList(userId:string): Promise<{user:string, picturesListe:[PictureDisplay]}> {
-    let picturesUrl = this.picturesUrl+userId+"/pictures";
+
+    let picturesUrl = this.uploadUrl+userId+"/gallery";
 
     console.log("pictureList ", picturesUrl);
 

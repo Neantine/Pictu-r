@@ -6,7 +6,8 @@ class AuthenticatorUserService {
     this.authorizedUsers = [
      {userLogin: 'user1', userPassword: 'admin'},
       {userLogin: 'user2', userPassword: 'test'},
-      {userLogin: 'foo', userPassword: 'bar'}
+      {userLogin: 'foo', userPassword: 'bar'},
+      {userLogin: '', userPassword: ''} //For tests
     ]
   }
 

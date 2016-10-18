@@ -34,8 +34,8 @@ export class LoginComponent implements OnInit {
       password : this.model.password}))
       .then(result => {
           // login successful
-          console.log("Login")
-          this.router.navigate(['/pictures', result.username]);
+          console.log("Login ", result.username)
+          this.router.navigate(['/gallery', result.username]);
       }).catch(
         err =>{
       // login failed

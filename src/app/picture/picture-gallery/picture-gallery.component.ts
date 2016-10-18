@@ -23,6 +23,9 @@ export class PictureGalleryComponent {
 
     // TypeScript public modifiers
    constructor(private pictureStore: PictureStore, private router:Router, private route: ActivatedRoute) {
+
+     console.log("PictureGalleryComponent constructor: ", this.userId);
+
      this.pictureStore.pictureList(this.userId)
        .then(
          (pictures) => {
