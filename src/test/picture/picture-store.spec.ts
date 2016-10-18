@@ -51,7 +51,7 @@ describe('PictureStore', () => {
     backend.connections.subscribe(connection => {
       connectionCountSpy();
       expect(connection.request.method).toEqual(RequestMethod.Post);
-      expect(connection.request.url).toEqual('/api/v1/users/1/pictures');
+      expect(connection.request.url).toEqual('/api/v1/users/1/upload');
       expect(connection.request.json()).toEqual({
         title: 'toto',
         fileData: 'data:image/jpg;base64,IMAGE_DATA'
@@ -91,7 +91,7 @@ describe('PictureStore', () => {
     backend.connections.subscribe(connection => {
       connectionCountSpy();
       expect(connection.request.method).toEqual(RequestMethod.Post);
-      expect(connection.request.url).toEqual('/api/v1/users/1/pictures');
+      expect(connection.request.url).toEqual('/api/v1/users/1/upload');
       expect(connection.request.json()).toEqual({
         title: 'toto',
         fileData: 'data:image/jpg;base64,IMAGE_DATA'
@@ -133,7 +133,7 @@ describe('PictureStore', () => {
     backend.connections.subscribe(connection => {
       connectionCountSpy();
       expect(connection.request.method).toEqual(RequestMethod.Get);
-      expect(connection.request.url).toEqual('/api/v1/users/1/pictures');
+      expect(connection.request.url).toEqual('/api/v1/users/1/gallery');
       connection.mockRespond(new Response(new ResponseOptions({
         status: 200,
         body: {
@@ -163,7 +163,7 @@ describe('PictureStore', () => {
       backend.connections.subscribe(connection => {
         connectionCountSpy();
         expect(connection.request.method).toEqual(RequestMethod.Get);
-        expect(connection.request.url).toEqual('/api/v1/users/1/pictures');
+        expect(connection.request.url).toEqual('/api/v1/users/1/gallery');
         connection.mockRespond(new Response(new ResponseOptions({
           status: 500,
           body: {
