@@ -62,6 +62,7 @@ describe('PictureGalleryComponent', () => {
           ));
 
         let fixture = TestBed.createComponent(PictureGalleryComponent);
+        fixture.componentInstance.ngOnInit();
 
         tick(); //wait that all promise finish
 
