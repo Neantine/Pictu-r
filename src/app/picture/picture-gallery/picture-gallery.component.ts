@@ -24,28 +24,17 @@ export class PictureGalleryComponent {
     // TypeScript public modifiers
    constructor(private pictureStore: PictureStore, private router:Router, private route: ActivatedRoute) {
 
-     console.log("PictureGalleryComponent constructor: ", this.userId);
 
-     this.pictureStore.pictureList(this.userId)
-       .then(
-         (pictures) => {
-           // console.log("pictures: ", pictures);
-           this.picturList = pictures.picturesListe;
-         },
-       ).catch(error => {
-       // console.log("ici ", error);
-       this.errorMessage = <any>error
-       // TODO getsion display de l'error
-     });
     }
 
     ngOnInit() {
-      console.log('hello `PictureGalleryComponent` component');
+      console.log('ngOnInt `PictureGalleryComponent` component');
 
+      this.userId = this.route.params['userId'];
 
       this.route.params.subscribe(params => {
           this.userId = params['userId'];
-       //   console.log("ngOnInit param: ", this.userId);
+          console.log("ngOnInit gallery component param: ", this.userId);
 
         },
         err => {
@@ -54,6 +43,20 @@ export class PictureGalleryComponent {
             this.router.navigate(['login']);
           }
         });
+
+
+
+      this.pictureStore.pictureList(this.userId)
+        .then(
+          (pictures) => {
+            // console.log("pictures: ", pictures);
+            this.picturList = pictures.picturesListe;
+          },
+        ).catch(error => {
+        // console.log("ici ", error);
+        this.errorMessage = <any>error
+        // TODO getsion display de l'error
+      });
 
 
 

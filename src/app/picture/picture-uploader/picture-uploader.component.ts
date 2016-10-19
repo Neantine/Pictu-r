@@ -21,13 +21,15 @@ export class PictureUploaderComponent {
 
   // TypeScript public modifiers
   constructor(private pictureStore: PictureStore, private router:Router, private route: ActivatedRoute) {
+
+    console.log('constructor PictureUploaderComponent');
   }
 
   ngOnInit() {
-    console.log('hello `PictureUploaderComponent` component');
+    console.log('ngOnInit `PictureUploaderComponent` component');
     this.route.params.subscribe(params => {
         this.userId = params['userId'];
-        console.log("ngOnInit param: ", this.userId);
+        console.log("ngOnInit PictureUploaderComponent param: ", this.userId);
 
       },
       err => {

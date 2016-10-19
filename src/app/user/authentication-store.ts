@@ -57,9 +57,7 @@ export class AuthenticationStore {
     if (token) {
       localStorage.setItem('currentUserId', JSON.stringify({ username: body.userId}));
       localStorage.setItem('currentUserToken', JSON.stringify({usertoken: token }));
-      // return true to indicate successful login
-      // TODO return an user : User
-      return ({username: body.userId});
+      return ({username: body.userId, usertoken: token});
     } else {
       // return false to indicate failed login
       console.log("return false to indicate failed login");
